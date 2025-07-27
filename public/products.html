@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sparko - Product Features</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        /* CSS Variables for Color Scheme - 與主頁一致 */
+        :root {
+            --primary-color: #F4A261;
+            --secondary-color: #E76F51;
+            --background-color: #FFF9F4;
+            --text-color: #2D2D2D;
+            --accent-color: #E9C46A;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --border-color: #E5E5E5;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 249, 244, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: var(--text-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 70px; /* Add padding to account for fixed navbar */
+            background: linear-gradient(135deg, var(--background-color) 0%, #FFF5E6 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23F4A261" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23E76F51" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-color) 0%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-color);
+            margin-bottom: 2.5rem;
+            opacity: 0.8;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
+
+        .btn-primary {
+            padding: 16px 32px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInCard 0.8s ease-out forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.3s; }
+        .feature-card:nth-child(3) { animation-delay: 0.5s; }
+
+        @keyframes fadeInCard {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            color: var(--text-color);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* What Makes Different Section */
+        .difference {
+            padding: 100px 0;
+            background: var(--background-color);
+        }
+
+        .difference-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .difference-item {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .difference-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .difference-item h3 {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .difference-item p {
+            color: var(--text-color);
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--primary-color);
+            transform: scale(1.05);
+            background: linear-gradient(135deg, var(--background-color) 0%, var(--white) 100%);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+        }
+
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .pricing-card .price span {
+            font-size: 1rem;
+            color: var(--text-color);
+            opacity: 0.6;
+            font-weight: 500;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 8px 0;
+            color: var(--text-color);
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 16px;
+            text-align: center;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .cta-section h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        .cta-section .btn-primary {
+            position: relative;
+            z-index: 1;
+            background: var(--white);
+            color: var(--text-color);
+        }
+
+        .cta-section .btn-primary:hover {
+            background: var(--accent-color);
+            color: var(--text-color);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-color);
+            color: var(--white);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand p {
+            opacity: 0.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .difference-content {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .cta-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .cta-section p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .features, .difference, .pricing, .cta-section {
+                padding: 60px 0;
+            }
+
+            .feature-card, .pricing-card {
+                padding: 2rem;
+            }
+
+            .difference-item {
+                padding: 1.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Additional animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar" style="display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background-color:#fff;">
+<div class="nav-left" style="font-weight:bold;font-size:1.5rem;color:#F4A261;">
+<a href="index.html" style="text-decoration:none;color:#F4A261;">Sparko</a>
+</div>
+<div class="nav-right" style="display:flex;align-items:center;gap:1rem;">
+<a class="nav-link" href="index.html">Home</a>
+<a class="nav-link" href="products.html">Products</a>
+<a class="nav-link" href="safety.html">Safety</a>
+<a class="nav-link" href="legal-templates.html">Legal</a>
+<a class="nav-link" href="about.html">About</a>
+<a class="nav-link" href="FAQ.html">FAQ</a>
+<a class="nav-link" href="contact.html">Contact</a>
+<a class="join-btn" href="#" style="background-color:#F4A261;color:#fff;padding:0.5rem 1rem;border-radius:20px;text-decoration:none;">Join Now</a>
+</div>
+</nav>
+
+<!-- Navigation -->
+
+<!-- Hero Section -->
+<section class="hero">
+<div class="hero-container">
+<h1 class="hero-title">Discover Sparko's Powerful Features</h1>
+<p class="hero-subtitle">The fastest way for entrepreneurs and investors to connect, match, and collaborate.</p>
+<div class="hero-buttons">
+<a class="btn-primary" href="#">Join Now</a>
+</div>
+</div>
+</section>
+<!-- Why Choose Sparko Section -->
+<section class="features">
+<div class="container">
+<h2 class="section-title">Why Choose Sparko?</h2>
+<p class="section-description">Sparko offers a unique set of features designed to streamline your search for the perfect co-founder or investor. Our platform is built to foster meaningful connections and accelerate your success.</p>
+<div class="features-grid">
+<div class="feature-card scroll-reveal">
+<div class="feature-icon"><i class="fas fa-search"></i></div>
+<h3>Advanced Matching Algorithm</h3>
+<p>Our intelligent algorithm connects you with ideal partners based on your skills, goals, and industry preferences.</p>
+</div>
+<div class="feature-card scroll-reveal">
+<div class="feature-icon"><i class="fas fa-handshake"></i></div>
+<h3>Intuitive Swipe Interface</h3>
+<p>Easily browse and connect with potential co-founders or investors through a familiar and engaging swipe-based experience.</p>
+</div>
+<div class="feature-card scroll-reveal">
+<div class="feature-icon"><i class="fas fa-comments"></i></div>
+<h3>Secure In-App Messaging</h3>
+<p>Communicate directly and securely with your matches to discuss ideas, collaborations, and next steps.</p>
+</div>
+<div class="feature-card scroll-reveal">
+<div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+<h3>Progress Tracking &amp; Analytics</h3>
+<p>Monitor your connection progress and gain insights into your networking activities with built-in analytics.</p>
+</div>
+<div class="feature-card scroll-reveal">
+<div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+<h3>Verified Profiles</h3>
+<p>Connect with confidence knowing that all profiles are verified to ensure authenticity and serious intent.</p>
+</div>
+<div class="feature-card scroll-reveal">
+<div class="feature-icon"><i class="fas fa-globe"></i></div>
+<h3>Global Network Access</h3>
+<p>Expand your reach and connect with entrepreneurs and investors from around the world.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- What Makes Different Section -->
+<section class="difference">
+<div class="container">
+<h2 class="section-title">What Makes Sparko Different?</h2>
+<p class="section-description">We go beyond simple networking to provide a platform that truly understands and facilitates the unique needs of entrepreneurs and investors.</p>
+<div class="difference-content">
+<div class="difference-item scroll-reveal">
+<h3>Focused Connections</h3>
+<p>Unlike general networking sites, Sparko is specifically designed for co-founder and investor matching, ensuring higher quality and more relevant connections.</p>
+</div>
+<div class="difference-item scroll-reveal">
+<h3>Efficiency &amp; Speed</h3>
+<p>Our swipe-based interface and smart algorithms drastically reduce the time it takes to find and connect with suitable partners.</p>
+</div>
+<div class="difference-item scroll-reveal">
+<h3>Privacy &amp; Security</h3>
+<p>Your data and interactions are protected with advanced security measures, giving you peace of mind as you build your network.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="pricing">
+<div class="container">
+<h2 class="section-title">Flexible Plans for Every Stage</h2>
+<p class="section-description">Choose the Sparko plan that best fits your needs, whether you're just starting out or looking to scale your connections.</p>
+<div class="pricing-cards">
+<div class="pricing-card scroll-reveal">
+<h3>Basic</h3>
+<div class="price">$0<span>/month</span></div>
+<ul class="pricing-features">
+<li>Limited Swipes</li>
+<li>Basic Matching</li>
+<li>Standard Messaging</li>
+<li>Email Support</li>
+</ul>
+<a class="btn-primary" href="#">Start Free</a>
+</div>
+<div class="pricing-card featured scroll-reveal">
+<h3>Pro</h3>
+<div class="price">$29<span>/month</span></div>
+<ul class="pricing-features">
+<li>Unlimited Swipes</li>
+<li>Advanced Matching</li>
+<li>Priority Messaging</li>
+<li>Dedicated Support</li>
+<li>Analytics Dashboard</li>
+</ul>
+<a class="btn-primary" href="#">Get Pro</a>
+</div>
+<div class="pricing-card scroll-reveal">
+<h3>Enterprise</h3>
+<div class="price">$99<span>/month</span></div>
+<ul class="pricing-features">
+<li>All Pro Features</li>
+<li>Team Collaboration</li>
+<li>Custom Integrations</li>
+<li>API Access</li>
+<li>Account Manager</li>
+</ul>
+<a class="btn-primary" href="#">Contact Sales</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Call to Action Section -->
+<section class="cta-section">
+<div class="container">
+<h2>Ready to Find Your Spark?</h2>
+<p>Join thousands of entrepreneurs and investors who are building powerful partnerships on Sparko.</p>
+<a class="btn-primary" href="#">Join Sparko Today</a>
+</div>
+</section>
+<!-- Footer -->
+
+<script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Hamburger menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Scroll reveal animation
+        const scrollElements = document.querySelectorAll('.scroll-reveal');
+
+        const elementInView = (el, dividend = 1) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <=
+                (window.innerHeight || document.documentElement.clientHeight) / dividend
+            );
+        };
+
+        const displayScrollElement = (element) => {
+            element.classList.add('revealed');
+        };
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 1.25)) {
+                    displayScrollElement(el);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', handleScrollAnimation);
+        // Initial check on load
+        handleScrollAnimation();
+    </script>
+
+<footer style="background-color:#2D2D2D;color:#fff;padding:2rem 2rem;font-size:0.9rem;">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+<div>
+<div style="font-weight:bold;font-size:1.2rem;color:#F4A261;">Sparko</div>
+<p>Connecting entrepreneurs and investors worldwide</p>
+</div>
+<div style="display:flex;gap:1rem;">
+<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">T</a>
+<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">L</a>
+<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">I</a>
+</div>
+</div>
+<div style="margin-top:1rem;text-align:center;">
+    © 2025 Sparko. All Rights Reserved. | 
+    <a href="privacy.html" style="color:#fff;text-decoration:none;">Privacy Policy</a> | 
+    <a href="terms.html" style="color:#fff;text-decoration:none;">Terms of Service</a>
+</div>
+</footer>
+</body>
+</html>

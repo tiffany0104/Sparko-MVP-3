@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact Sparko - Get in Touch</title>
+<style>
+/* CSS Variables for Color Scheme */
+:root {
+    --primary-color: #F4A261;
+    --secondary-color: #E76F51;
+    --background-color: #FFF9F4;
+    --text-color: #2D2D2D;
+    --accent-color: #E9C46A;
+    --white: #FFFFFF;
+    --light-gray: #F8F9FA;
+    --border-color: #E5E5E5;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navigation */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 249, 244, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.nav-logo h2 {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-cta {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-cta:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background: var(--text-color);
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    padding-top: 70px;
+    background: linear-gradient(135deg, var(--background-color) 0%, #FFF5E6 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23F4A261" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23E76F51" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(244, 162, 97, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(231, 111, 81, 0.1) 0%, transparent 50%);
+    animation: gradientShift 8s ease-in-out infinite;
+}
+
+/* Floating Elements */
+.floating-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.floating-element {
+    position: absolute;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-element:nth-child(1) {
+    width: 60px;
+    height: 60px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-element:nth-child(2) {
+    width: 40px;
+    height: 40px;
+    top: 60%;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.floating-element:nth-child(3) {
+    width: 80px;
+    height: 80px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+.floating-element:nth-child(4) {
+    width: 30px;
+    height: 30px;
+    top: 30%;
+    right: 30%;
+    animation-delay: 1s;
+}
+
+.floating-element:nth-child(5) {
+    width: 50px;
+    height: 50px;
+    bottom: 40%;
+    right: 10%;
+    animation-delay: 3s;
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content {
+    animation: slideInUp 1s ease-out;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--text-color) 0%, var(--primary-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-bottom: 2.5rem;
+    opacity: 0.8;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Contact Options Section */
+.contact-options {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: var(--text-color);
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.option-card {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.option-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(244, 162, 97, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.option-card:hover::before {
+    left: 100%;
+}
+
+.option-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+}
+
+.option-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: var(--white);
+    animation: iconPulse 2s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.option-card:hover .option-icon::before {
+    left: 100%;
+}
+
+.option-card:hover .option-icon {
+    animation: bounce 1s ease-in-out;
+}
+
+.option-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.option-card p {
+    color: var(--text-color);
+    opacity: 0.8;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.email-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.email-link:hover {
+    color: var(--secondary-color);
+}
+
+/* Contact Form Section */
+.contact-form-section {
+    padding: 80px 0;
+    background: var(--background-color);
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-hover);
+    position: relative;
+    overflow: hidden;
+}
+
+.form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+}
+
+.contact-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.form-input,
+.form-textarea {
+    padding: 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: var(--white);
+    position: relative;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1);
+    transform: translateY(-2px);
+    animation: glow 2s ease-in-out infinite;
+}
+
+.form-input:valid:not(:placeholder-shown),
+.form-textarea:valid:not(:placeholder-shown) {
+    border-color: #42c767;
+}
+
+.form-input:invalid:not(:placeholder-shown),
+.form-textarea:invalid:not(:placeholder-shown) {
+    border-color: var(--secondary-color);
+    animation: shake 0.5s ease-in-out;
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.required {
+    color: var(--secondary-color);
+}
+
+.form-submit {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    border: none;
+    padding: 16px 32px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.form-submit:hover::before {
+    left: 100%;
+}
+
+.form-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 80px 0;
+    background: var(--white);
+    text-align: center;
+}
+
+.cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.cta-description {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 16px 32px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Footer */
+.footer {
+    background: var(--text-color);
+    color: var(--white);
+    padding: 3rem 0 1rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.footer-brand h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-brand p {
+    opacity: 0.7;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.7;
+}
+
+/* Animations */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background: radial-gradient(circle at 20% 80%, rgba(244, 162, 97, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(231, 111, 81, 0.1) 0%, transparent 50%);
+    }
+    50% {
+        background: radial-gradient(circle at 80% 80%, rgba(244, 162, 97, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 20% 20%, rgba(231, 111, 81, 0.15) 0%, transparent 50%);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-20px) rotate(120deg);
+    }
+    66% {
+        transform: translateY(10px) rotate(240deg);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+        transform: translate3d(0, -10px, 0);
+    }
+    70% {
+        transform: translate3d(0, -5px, 0);
+    }
+    90% {
+        transform: translate3d(0, -2px, 0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-2px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(2px);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(244, 162, 97, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(244, 162, 97, 0.6), 0 0 30px rgba(244, 162, 97, 0.4);
+    }
+}
+
+/* Scroll Animations */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Notification System */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: var(--shadow-hover);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 10000;
+    animation: slideInRight 0.3s ease-out;
+    border-left: 4px solid var(--primary-color);
+    max-width: 400px;
+}
+
+.notification-success {
+    border-left-color: #42c767;
+}
+
+.notification-error {
+    border-left-color: var(--secondary-color);
+}
+
+.notification i {
+    font-size: 1.2rem;
+}
+
+.notification-success i {
+    color: #42c767;
+}
+
+.notification-error i {
+    color: var(--secondary-color);
+}
+
+.notification span {
+    flex: 1;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.notification-close:hover {
+    background: var(--light-gray);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Form States */
+.contact-form.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.contact-form.success {
+    animation: successPulse 0.5s ease-out;
+}
+
+@keyframes successPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.form-group.focused .form-label {
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.form-input.valid,
+.form-textarea.valid {
+    border-color: #42c767;
+}
+
+.form-input.invalid,
+.form-textarea.invalid {
+    border-color: var(--secondary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: var(--white);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: var(--shadow);
+        padding: 2rem 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .cta-title {
+        font-size: 2rem;
+    }
+
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .option-card {
+        padding: 2rem;
+    }
+
+    .form-container {
+        padding: 2rem;
+        margin: 0 20px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .cta-title {
+        font-size: 1.8rem;
+    }
+
+    .form-container {
+        padding: 1.5rem;
+    }
+
+    .option-card {
+        padding: 1.5rem;
+    }
+}
+    </style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar" style="display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background-color:#fff;">
+<div class="nav-left" style="font-weight:bold;font-size:1.5rem;color:#F4A261;">
+<a href="index.html" style="text-decoration:none;color:#F4A261;">Sparko</a>
+</div>
+<div class="nav-right" style="display:flex;align-items:center;gap:1rem;">
+<a class="nav-link" href="index.html">Home</a>
+<a class="nav-link" href="products.html">Products</a>
+<a class="nav-link" href="safety.html">Safety</a>
+<a class="nav-link" href="legal-templates.html">Legal</a>
+<a class="nav-link" href="about.html">About</a>
+<a class="nav-link" href="FAQ.html">FAQ</a>
+<a class="nav-link" href="contact.html">Contact</a>
+<a class="join-btn" href="#" style="background-color:#F4A261;color:#fff;padding:0.5rem 1rem;border-radius:20px;text-decoration:none;">Join Now</a>
+</div>
+</nav>
+
+<!-- Navigation -->
+
+<!-- Hero Section -->
+<section class="hero">
+<div class="floating-elements">
+<div class="floating-element"></div>
+<div class="floating-element"></div>
+<div class="floating-element"></div>
+<div class="floating-element"></div>
+<div class="floating-element"></div>
+</div>
+<div class="hero-container">
+<div class="hero-content">
+<h1 class="hero-title">Get in Touch with Sparko</h1>
+<p class="hero-subtitle">We're here to help you with any questions, feedback, or partnership inquiries.</p>
+</div>
+</div>
+</section>
+<!-- Contact Options Section -->
+<section class="contact-options">
+<div class="container">
+<h2 class="section-title fade-in-up">How Can We Help You?</h2>
+<div class="options-grid">
+<div class="option-card fade-in-up">
+<div class="option-icon">
+<i class="fas fa-envelope"></i>
+</div>
+<h3>General Inquiries</h3>
+<p>Have questions about Sparko? We're here to help with any general inquiries you might have.</p>
+<a class="email-link" href="mailto:support@sparko.com">support@sparko.com</a>
+</div>
+<div class="option-card fade-in-up">
+<div class="option-icon">
+<i class="fas fa-handshake"></i>
+</div>
+<h3>Partnerships</h3>
+<p>Interested in working with us? Let's explore partnership opportunities together.</p>
+<a class="email-link" href="mailto:partnerships@sparko.com">partnerships@sparko.com</a>
+</div>
+<div class="option-card fade-in-up">
+<div class="option-icon">
+<i class="fas fa-newspaper"></i>
+</div>
+<h3>Press &amp; Media</h3>
+<p>For media inquiries, press releases, and interview requests, reach out to our press team.</p>
+<a class="email-link" href="mailto:press@sparko.com">press@sparko.com</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Form Section -->
+<section class="contact-form-section">
+<div class="container">
+<h2 class="section-title fade-in-up">Send Us a Message</h2>
+<div class="form-container fade-in-up">
+<form class="contact-form" id="contactForm">
+<div class="form-group">
+<label class="form-label" for="name">Name <span class="required">*</span></label>
+<input class="form-input" id="name" name="name" required="" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="email">Email <span class="required">*</span></label>
+<input class="form-input" id="email" name="email" required="" type="email"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="subject">Subject</label>
+<input class="form-input" id="subject" name="subject" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="message">Message <span class="required">*</span></label>
+<textarea class="form-textarea" id="message" name="message" required=""></textarea>
+</div>
+<button class="form-submit" type="submit">Send Message</button>
+</form>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="cta-section">
+<div class="container">
+<div class="cta-content fade-in-up">
+<h2 class="cta-title">Want to Join the Sparko Network?</h2>
+<p class="cta-description">Connect with entrepreneurs and investors who share your vision. Start building meaningful partnerships today.</p>
+<a class="btn-primary" href="#">Sign Up Now</a>
+</div>
+</div>
+</section>
+<!-- Footer -->
+
+<script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in-up elements
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Enhanced Form Validation and Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            // Enhanced validation
+            if (!name || name.trim().length < 2) {
+                showNotification('Please enter a valid name (at least 2 characters).', 'error');
+                return;
+            }
+            
+            if (!email || !isValidEmail(email)) {
+                showNotification('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            if (!message || message.trim().length < 10) {
+                showNotification('Please enter a message (at least 10 characters).', 'error');
+                return;
+            }
+            
+            // Simulate form submission with loading animation
+            const submitBtn = document.querySelector('.form-submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // Add loading class to form
+            this.classList.add('loading');
+            
+            setTimeout(() => {
+                showNotification('Thank you for your message! We\'ll get back to you soon.', 'success');
+                this.reset();
+                this.classList.remove('loading');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Add success animation to form
+                this.classList.add('success');
+                setTimeout(() => {
+                    this.classList.remove('success');
+                }, 2000);
+            }, 2000);
+        });
+
+        // Email validation function
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => notification.remove());
+            
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+                <button class="notification-close"><i class="fas fa-times"></i></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 5000);
+            
+            // Close button functionality
+            notification.querySelector('.notification-close').addEventListener('click', () => {
+                notification.remove();
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 249, 244, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(255, 249, 244, 0.95)';
+            }
+        });
+
+        // Form input animations
+        document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentNode.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.parentNode.classList.remove('focused');
+                }
+            });
+            
+            // Real-time validation feedback
+            input.addEventListener('input', function() {
+                if (this.type === 'email') {
+                    if (isValidEmail(this.value)) {
+                        this.classList.add('valid');
+                        this.classList.remove('invalid');
+                    } else if (this.value.length > 0) {
+                        this.classList.add('invalid');
+                        this.classList.remove('valid');
+                    }
+                } else if (this.required) {
+                    if (this.value.trim().length > 0) {
+                        this.classList.add('valid');
+                        this.classList.remove('invalid');
+                    } else {
+                        this.classList.add('invalid');
+                        this.classList.remove('valid');
+                    }
+                }
+            });
+        });
+
+        // Parallax effect for floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.floating-element');
+            
+            parallaxElements.forEach((element, index) => {
+                const speed = 0.5 + (index * 0.1);
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translateY(${yPos}px) rotate(${scrolled * 0.1}deg)`;
+            });
+        });
+
+        // Add sparkle effect on hover for option cards
+        document.querySelectorAll('.option-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                createSparkles(this);
+            });
+        });
+
+        function createSparkles(element) {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.style.cssText = `
+                        position: absolute;
+                        width: 4px;
+                        height: 4px;
+                        background: var(--primary-color);
+                        border-radius: 50%;
+                        pointer-events: none;
+                        animation: sparkle 1s ease-out forwards;
+                        left: ${Math.random() * 100}%;
+                        top: ${Math.random() * 100}%;
+                    `;
+                    
+                    element.style.position = 'relative';
+                    element.appendChild(sparkle);
+                    
+                    setTimeout(() => {
+                        if (sparkle.parentNode) {
+                            sparkle.remove();
+                        }
+                    }, 1000);
+                }, i * 100);
+            }
+        }
+
+        // Typing effect for hero title (optional enhancement)
+        function typeWriter(element, text, speed = 100) {
+            element.innerHTML = '';
+            let i = 0;
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect on page load
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero-title');
+            const originalText = heroTitle.textContent;
+            typeWriter(heroTitle, originalText, 50);
+        });
+    </script>
+
+<footer style="background-color:#2D2D2D;color:#fff;padding:2rem 2rem;font-size:0.9rem;">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+<div>
+<div style="font-weight:bold;font-size:1.2rem;color:#F4A261;">Sparko</div>
+<p>Connecting entrepreneurs and investors worldwide</p>
+</div>
+<div style="display:flex;gap:1rem;">
+<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">T</a>
+<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">L</a>
+<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">I</a>
+</div>
+</div>
+<div style="margin-top:1rem;text-align:center;">
+    © 2025 Sparko. All Rights Reserved. | 
+    <a href="privacy.html" style="color:#fff;text-decoration:none;">Privacy Policy</a> | 
+    <a href="terms.html" style="color:#fff;text-decoration:none;">Terms of Service</a>
+</div>
+</footer>
+</body>
+</html>
