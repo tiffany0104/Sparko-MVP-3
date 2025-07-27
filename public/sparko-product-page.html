@@ -42,11 +42,104 @@
             padding: 0 20px;
         }
 
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 249, 244, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: var(--text-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
+            padding-top: 70px; /* Add padding to account for fixed navbar */
             background: linear-gradient(135deg, var(--background-color) 0%, #FFF5E6 100%);
             position: relative;
             overflow: hidden;
@@ -573,6 +666,26 @@
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Sparko</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="/sparko-product-page.html" class="nav-link">Products</a>
+                <a href="#about" class="nav-link">About</a>
+                <button class="nav-cta">Join Now</button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
@@ -588,103 +701,115 @@
     <section class="features">
         <div class="container">
             <h2 class="section-title">Why Choose Sparko?</h2>
-            <p class="section-subtitle">Find Your Perfect Match in the Startup World</p>
-            <p class="section-description">
-                Sparko combines modern networking with a swipe-to-match experience. Whether you're looking for a co-founder, investor, or advisor, we make connections effortless.
-            </p>
-            
+            <p class="section-description">Sparko offers a unique set of features designed to streamline your search for the perfect co-founder or investor. Our platform is built to foster meaningful connections and accelerate your success.</p>
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-hand-pointer"></i>
-                    </div>
-                    <h3>Swipe to Connect</h3>
-                    <p>Find your perfect co-founder or investor using an intuitive swipe-based matchmaking experience.</p>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon"><i class="fas fa-search"></i></div>
+                    <h3>Advanced Matching Algorithm</h3>
+                    <p>Our intelligent algorithm connects you with ideal partners based on your skills, goals, and industry preferences.</p>
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-fire"></i>
-                    </div>
-                    <h3>Super Spark 🔥</h3>
-                    <p>Get noticed with Super Spark, a highlight feature designed to increase your chances of matching. Available 3 times per week.</p>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Intuitive Swipe Interface</h3>
+                    <p>Easily browse and connect with potential co-founders or investors through a familiar and engaging swipe-based experience.</p>
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-file-contract"></i>
-                    </div>
-                    <h3>Legal & Business Resources</h3>
-                    <p>Download ready-to-use agreements, term sheets, and essential startup templates.</p>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Secure In-App Messaging</h3>
+                    <p>Communicate directly and securely with your matches to discuss ideas, collaborations, and next steps.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Progress Tracking & Analytics</h3>
+                    <p>Monitor your connection progress and gain insights into your networking activities with built-in analytics.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Verified Profiles</h3>
+                    <p>Connect with confidence knowing that all profiles are verified to ensure authenticity and serious intent.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon"><i class="fas fa-globe"></i></div>
+                    <h3>Global Network Access</h3>
+                    <p>Expand your reach and connect with entrepreneurs and investors from around the world.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- What Makes Sparko Different -->
+    <!-- What Makes Different Section -->
     <section class="difference">
         <div class="container">
-            <h2 class="section-title">What Makes Sparko Different</h2>
-            
+            <h2 class="section-title">What Makes Sparko Different?</h2>
+            <p class="section-description">We go beyond simple networking to provide a platform that truly understands and facilitates the unique needs of entrepreneurs and investors.</p>
             <div class="difference-content">
                 <div class="difference-item scroll-reveal">
-                    <h3>Real Market Pain Points</h3>
-                    <p>Finding a co-founder is often more challenging than finding an investor. Entrepreneurs need partners with aligned visions and complementary skills—something traditional platforms like LinkedIn or forums fail to deliver. Sparko's swipe-based, double-opt-in approach filters out irrelevant conversations and ensures that only mutually interested parties connect.</p>
+                    <h3>Focused Connections</h3>
+                    <p>Unlike general networking sites, Sparko is specifically designed for co-founder and investor matching, ensuring higher quality and more relevant connections.</p>
                 </div>
-                
                 <div class="difference-item scroll-reveal">
-                    <h3>Swipe Match Mechanism = Efficient Signal Filtering</h3>
-                    <p>Unlike cold messaging on LinkedIn, Sparko's interface feels natural and approachable. Conversations begin only when both parties express interest, which reduces awkwardness and wasted time. The Super Spark feature allows users to stand out, bringing a familiar but powerful mechanism to the startup ecosystem.</p>
+                    <h3>Efficiency & Speed</h3>
+                    <p>Our swipe-based interface and smart algorithms drastically reduce the time it takes to find and connect with suitable partners.</p>
                 </div>
-                
                 <div class="difference-item scroll-reveal">
-                    <h3>Multi-Layer Monetization</h3>
-                    <p>Sparko's freemium model offers essential features for free, while premium users enjoy unlimited swipes, advanced filters, and extra Super Sparks. Additionally, Sparko's pay-per-download legal document library (including founder agreements, shareholder agreements, and term sheets) addresses a gap that platforms like LinkedIn and AngelList haven't explored. Partnerships with legal and consulting professionals enable Sparko to become a one-stop platform for finding people, funding, and business tools.</p>
+                    <h3>Privacy & Security</h3>
+                    <p>Your data and interactions are protected with advanced security measures, giving you peace of mind as you build your network.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Plans -->
+    <!-- Pricing Section -->
     <section class="pricing">
         <div class="container">
-            <h2 class="section-title">Pricing Plans</h2>
-            
+            <h2 class="section-title">Flexible Plans for Every Stage</h2>
+            <p class="section-description">Choose the Sparko plan that best fits your needs, whether you're just starting out or looking to scale your connections.</p>
             <div class="pricing-cards">
-                <div class="pricing-card">
-                    <h3>Free Plan</h3>
-                    <div class="price">£0<span>/month</span></div>
+                <div class="pricing-card scroll-reveal">
+                    <h3>Basic</h3>
+                    <div class="price">$0<span>/month</span></div>
                     <ul class="pricing-features">
-                        <li>10 swipes per day</li>
-                        <li>1 chat per day</li>
-                        <li>3 Super Sparks per week</li>
-                        <li>Basic profile features</li>
+                        <li>Limited Swipes</li>
+                        <li>Basic Matching</li>
+                        <li>Standard Messaging</li>
+                        <li>Email Support</li>
                     </ul>
-                    <a href="#" class="btn-primary">Get Started</a>
+                    <a href="#" class="btn-primary">Start Free</a>
                 </div>
-                
-                <div class="pricing-card featured">
-                    <h3>Premium Plan</h3>
-                    <div class="price">£9.99<span>/month</span></div>
+                <div class="pricing-card featured scroll-reveal">
+                    <h3>Pro</h3>
+                    <div class="price">$29<span>/month</span></div>
                     <ul class="pricing-features">
-                        <li>Unlimited swipes and matches</li>
-                        <li>Advanced search filters</li>
-                        <li>Investor data and insights</li>
-                        <li>Priority support</li>
-                        <li>Unlimited Super Sparks</li>
+                        <li>Unlimited Swipes</li>
+                        <li>Advanced Matching</li>
+                        <li>Priority Messaging</li>
+                        <li>Dedicated Support</li>
+                        <li>Analytics Dashboard</li>
                     </ul>
-                    <a href="#" class="btn-primary">Choose Premium</a>
+                    <a href="#" class="btn-primary">Get Pro</a>
+                </div>
+                <div class="pricing-card scroll-reveal">
+                    <h3>Enterprise</h3>
+                    <div class="price">$99<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li>All Pro Features</li>
+                        <li>Team Collaboration</li>
+                        <li>Custom Integrations</li>
+                        <li>API Access</li>
+                        <li>Account Manager</li>
+                    </ul>
+                    <a href="#" class="btn-primary">Contact Sales</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Call-to-Action Section -->
+    <!-- Call to Action Section -->
     <section class="cta-section">
         <div class="container">
-            <h2>Your Next Big Partnership Awaits</h2>
-            <p>Join Sparko today and connect with visionaries who share your goals.</p>
-            <a href="#" class="btn-primary">Get Started Now</a>
+            <h2>Ready to Find Your Spark?</h2>
+            <p>Join thousands of entrepreneurs and investors who are building powerful partnerships on Sparko.</p>
+            <a href="#" class="btn-primary">Join Sparko Today</a>
         </div>
     </section>
 
@@ -693,12 +818,17 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <p>© 2025 Sparko. All Rights Reserved.</p>
+                    <h3>Sparko</h3>
+                    <p>&copy; 2023 Sparko. All rights reserved.</p>
                 </div>
                 <div class="footer-social">
-                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
                 </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Privacy Policy | Terms of Service</p>
             </div>
         </div>
     </footer>
@@ -708,48 +838,50 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
+        });
+
+        // Hamburger menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
         });
 
         // Scroll reveal animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        const scrollElements = document.querySelectorAll('.scroll-reveal');
+
+        const elementInView = (el, dividend = 1) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <=
+                (window.innerHeight || document.documentElement.clientHeight) / dividend
+            );
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
+        const displayScrollElement = (element) => {
+            element.classList.add('revealed');
+        };
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 1.25)) {
+                    displayScrollElement(el);
                 }
             });
-        }, observerOptions);
+        };
 
-        // Observe all scroll reveal elements
-        document.querySelectorAll('.scroll-reveal').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Feature cards animation observer
-        const cardObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.feature-card').forEach(card => {
-            cardObserver.observe(card);
-        });
+        window.addEventListener('scroll', handleScrollAnimation);
+        // Initial check on load
+        handleScrollAnimation();
     </script>
 </body>
 </html>
+
 
