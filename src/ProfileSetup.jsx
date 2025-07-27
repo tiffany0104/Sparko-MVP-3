@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { MapPin, Briefcase, Target, Plus, X } from 'lucide-react'
 import apiService from '../services/api'
 
@@ -228,14 +227,14 @@ const ProfileSetup = ({ user, onProfileComplete }) => {
                   placeholder="Add a skill"
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addSkill())}
                 />
-                <Button
+                <button
                   type="button"
                   onClick={addSkill}
                   variant="outline"
                   size="icon"
                 >
                   <Plus className="w-4 h-4" />
-                </Button>
+                </button>
               </div>
             </div>
 
@@ -283,13 +282,13 @@ const ProfileSetup = ({ user, onProfileComplete }) => {
               />
             </div>
 
-            <Button
+            <button
               type="submit"
               className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-medium"
               disabled={loading}
             >
               {loading ? 'Saving Profile...' : 'Complete Profile'}
-            </Button>
+            </button>
           </form>
         </div>
       </div>

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { X, Mail, Lock, User, Briefcase } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import apiService from '../services/api'
 
 const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
@@ -61,14 +60,14 @@ const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
           <h2 className="text-2xl font-bold text-gray-900">
             {isLogin ? 'Welcome Back' : 'Join Sparko'}
           </h2>
-          <Button
+          <button
             variant="ghost"
             size="icon"
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700"
           >
             <X className="w-5 h-5" />
-          </Button>
+          </button>
         </div>
 
         {error && (
@@ -155,13 +154,13 @@ const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
             </div>
           </div>
 
-          <Button
+          <button
             type="submit"
             className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-medium"
             disabled={loading}
           >
             {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
-          </Button>
+          </button>
         </form>
 
         <div className="mt-6 text-center">

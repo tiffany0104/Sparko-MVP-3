@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { User, MessageCircle, Settings, Zap, LogOut } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import sparkoLogo from '../assets/sparko-logo.png'
 
 const Header = ({ superSparkCount, user, onLogout }) => {
@@ -16,15 +15,15 @@ const Header = ({ superSparkCount, user, onLogout }) => {
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
+          <button variant="ghost" className="text-gray-600 hover:text-gray-900">
             Discover
-          </Button>
-          <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
+          </button>
+          <button variant="ghost" className="text-gray-600 hover:text-gray-900">
             Matches
-          </Button>
-          <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
+          </button>
+          <button variant="ghost" className="text-gray-600 hover:text-gray-900">
             Messages
-          </Button>
+          </button>
         </nav>
 
         {/* Right side actions */}
@@ -36,32 +35,32 @@ const Header = ({ superSparkCount, user, onLogout }) => {
           </div>
 
           {/* Action buttons */}
-          <Button
+          <button
             variant="ghost"
             size="icon"
             className="text-gray-600 hover:text-gray-900"
           >
             <MessageCircle className="w-5 h-5" />
-          </Button>
+          </button>
 
-          <Button
+          <button
             variant="ghost"
             size="icon"
             className="text-gray-600 hover:text-gray-900"
           >
             <Settings className="w-5 h-5" />
-          </Button>
+          </button>
 
           {/* User Menu */}
           <div className="relative">
-            <Button
+            <button
               variant="ghost"
               size="icon"
               className="text-gray-600 hover:text-gray-900"
               onClick={() => setShowUserMenu(!showUserMenu)}
             >
               <User className="w-5 h-5" />
-            </Button>
+            </button>
 
             {showUserMenu && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border">

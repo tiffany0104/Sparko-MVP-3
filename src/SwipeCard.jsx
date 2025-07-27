@@ -1,8 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion, useMotionValue, useTransform, useAnimation } from 'framer-motion'
 import { Heart, X, Zap, MapPin, Briefcase, Target } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-
 const SwipeCard = ({ profile, onSwipe, isTopCard = false }) => {
   const [exitX, setExitX] = useState(0)
   const x = useMotionValue(0)
@@ -156,32 +154,32 @@ const SwipeCard = ({ profile, onSwipe, isTopCard = false }) => {
       {/* Action Buttons - Only show on top card */}
       {isTopCard && (
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4">
-          <Button
+          <button
             variant="outline"
             size="icon"
             className="w-12 h-12 rounded-full border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
             onClick={() => handleButtonAction('skip')}
           >
             <X className="w-6 h-6" />
-          </Button>
+          </button>
           
-          <Button
+          <button
             variant="outline"
             size="icon"
             className="w-14 h-14 rounded-full border-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-white relative"
             onClick={() => handleButtonAction('super_spark')}
           >
             <Zap className="w-7 h-7" fill="currentColor" />
-          </Button>
+          </button>
           
-          <Button
+          <button
             variant="outline"
             size="icon"
             className="w-12 h-12 rounded-full border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-white"
             onClick={() => handleButtonAction('like')}
           >
             <Heart className="w-6 h-6" />
-          </Button>
+          </button>
         </div>
       )}
     </motion.div>
