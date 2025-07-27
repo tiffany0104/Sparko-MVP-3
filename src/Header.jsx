@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { User, MessageCircle, Settings, Zap, LogOut } from 'lucide-react'
 import sparkoLogo from '../assets/sparko-logo.png'
 
 const Header = ({ superSparkCount, user, onLogout }) => {

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { MapPin, Briefcase, Target, Plus, X } from 'lucide-react'
 import apiService from '../services/api'
 
 const ProfileSetup = ({ user, onProfileComplete }) => {

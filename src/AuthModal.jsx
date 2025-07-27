@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { X, Mail, Lock, User, Briefcase } from 'lucide-react'
 import apiService from '../services/api'
 
 const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {

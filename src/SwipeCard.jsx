@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react'
 import { motion, useMotionValue, useTransform, useAnimation } from 'framer-motion'
-import { Heart, X, Zap, MapPin, Briefcase, Target } from 'lucide-react'
 const SwipeCard = ({ profile, onSwipe, isTopCard = false }) => {
   const [exitX, setExitX] = useState(0)
   const x = useMotionValue(0)
