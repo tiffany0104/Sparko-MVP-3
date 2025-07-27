@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/sparko-product-page",
+      "destination": "/sparko-product-page.html"
+    }
+  ]
+}
