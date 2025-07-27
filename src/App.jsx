@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
-import SwipeStack from "./SwipeStack";
+import React, { useState } from "react";
+
+const mockProfiles = [
+  { id: 1, name: "Alice", bio: "AI Enthusiast" },
+  { id: 2, name: "Bob", bio: "Blockchain Investor" },
+];
 
 function App() {
-  const [profiles, setProfiles] = useState([]);
-
-  useEffect(() => {
-    fetch("/api/profiles")
-      .then((res) => res.json())
-      .then((data) => setProfiles(data))
-      .catch((err) => console.error("Failed to load profiles:", err));
-  }, []);
+  const [profiles, setProfiles] = useState(mockProfiles);
 
   return (
-    <div className="app">
-      <SwipeStack profiles={profiles} />
+    <div style={{ textAlign: "center", padding: "50px" }}>
+      <h2>Tinder Swipe Mock</h2>
+      {profiles.map((p) => (
+        <div key={p.id} style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}>
+          <h3>{p.name}</h3>
+          <p>{p.bio}</p>
+        </div>
+      ))}
     </div>
   );
 }

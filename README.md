@@ -1,16 +1,9 @@
-# Sparko Frontend (Buildable)
+# Sparko Mixed Project
 
-This React project is fixed to build successfully.
+This project combines:
+- A static landing page (public/index.html) from Manus AI
+- A React app with Tinder swipe mock at /app
 
-## Quick Start
-
-```bash
+## How to Run
 npm install
 npm start
-```
-
-## Build
-
-```bash
-npm run build
-```
