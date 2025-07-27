@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account - Sparko</title>
+  <link rel="stylesheet" href="auth-style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+  <script>
+    window.onload = function() {
+      const user = JSON.parse(localStorage.getItem('sparkoUser'));
+      const phone = localStorage.getItem('sparkoUserPhone');
+      const avatar = localStorage.getItem('sparkoUserAvatar');
+      
+      if (user) {
+        document.getElementById('userName').innerText = user.fullName;
+        document.getElementById('userEmail').innerText = user.email;
+        document.getElementById('userRole').innerText = user.role;
+        document.getElementById('userPhone').innerText = phone || 'Not verified';
+        
+        // Set avatar or initials
+        const avatarElement = document.querySelector('.profile-avatar');
+        if (avatar) {
+          avatarElement.innerHTML = `<img src="${avatar}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="Profile Picture">`;
+        } else {
+          const initials = user.fullName.split(' ').map(name => name[0]).join('').toUpperCase();
+          avatarElement.innerHTML = `<span id="userInitials">${initials}</span>`;
+        }
+        
+        // Set role-specific styling
+        const roleElement = document.getElementById('userRole');
+        const roleBadge = document.querySelector('.role-badge');
+        roleBadge.innerHTML = `<i class="fas ${getRoleIcon(user.role)}" style="margin-right: 0.5rem;"></i>${user.role}`;
+        
+        // Add welcome animation
+        setTimeout(() => {
+          document.querySelector('.profile-card').style.transform = 'scale(1.02)';
+          setTimeout(() => {
+            document.querySelector('.profile-card').style.transform = 'scale(1)';
+          }, 200);
+        }, 500);
+        
+      } else {
+        window.location.href = 'login.html';
+      }
+    };
+
+    function getRoleIcon(role) {
+      switch(role) {
+        case 'Entrepreneur': return 'fa-lightbulb';
+        case 'Investor': return 'fa-chart-line';
+        case 'Partner': return 'fa-handshake';
+        default: return 'fa-user';
+      }
+    }
+
+    function startMatching() {
+      const btn = document.querySelector('.start-matching-btn');
+      btn.innerHTML = '<span class="loading"></span> Preparing your matches...';
+      btn.disabled = true;
+      
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-rocket"></i> Launching Sparko...';
+        btn.style.background = 'var(--accent-color)';
+        btn.style.color = 'var(--text-color)';
+        
+        setTimeout(() => {
+          // Simulate navigation to main app
+          alert('🚀 Welcome to Sparko! Your matching experience is starting...');
+          btn.innerHTML = '<i class="fas fa-bolt" style="margin-right: 0.5rem;"></i>Start Matching';
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.disabled = false;
+        }, 2000);
+      }, 2000);
+    }
+
+    function logout() {
+      const btn = document.querySelector('.logout-btn');
+      btn.innerHTML = '<span class="loading"></span> Signing out...';
+      btn.disabled = true;
+      
+      setTimeout(() => {
+        localStorage.removeItem('sparkoUser');
+        localStorage.removeItem('sparkoUserPhone');
+        window.location.href = 'login.html';
+      }, 1000);
+    }
+
+    function editProfile() {
+      window.location.href = 'edit-profile.html';
+    }
+
+    function uploadAvatar() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const avatar = document.querySelector('.profile-avatar');
+            avatar.innerHTML = `<img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="Profile Picture">`;
+            
+            // Save to localStorage
+            localStorage.setItem('sparkoUserAvatar', e.target.result);
+            
+            // Show success message
+            const message = document.createElement('div');
+            message.style.cssText = `
+              position: fixed;
+              top: 20px;
+              right: 20px;
+              background: #42c767;
+              color: white;
+              padding: 1rem 1.5rem;
+              border-radius: 12px;
+              font-weight: 600;
+              z-index: 1000;
+              animation: slideInRight 0.5s ease-out;
+              box-shadow: 0 4px 20px rgba(66, 199, 103, 0.3);
+            `;
+            message.innerHTML = '<i class="fas fa-check" style="margin-right: 0.5rem;"></i>Avatar updated!';
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+              message.style.animation = 'slideOutRight 0.5s ease-in';
+              setTimeout(() => message.remove(), 500);
+            }, 3000);
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+      input.click();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add floating elements
+      createFloatingElements();
+      
+      // Add hover effects to info rows
+      const infoRows = document.querySelectorAll('.info-row');
+      infoRows.forEach(row => {
+        row.addEventListener('mouseenter', function() {
+          this.style.background = 'rgba(244, 162, 97, 0.05)';
+          this.style.transform = 'translateX(5px)';
+        });
+        
+        row.addEventListener('mouseleave', function() {
+          this.style.background = '';
+          this.style.transform = 'translateX(0)';
+        });
+      });
+    });
+
+    function createFloatingElements() {
+      for (let i = 0; i < 4; i++) {
+        const circle = document.createElement('div');
+        circle.className = 'floating-element floating-circle';
+        document.body.appendChild(circle);
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: var(--gradient-bg);
+      padding: 2rem 0;
+    }
+    
+    .auth-container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .profile-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .welcome-message {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+    
+    .profile-subtitle {
+      color: var(--text-color);
+      opacity: 0.7;
+      margin-bottom: 2rem;
+    }
+    
+    .info-row {
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin: 0 -1rem;
+      padding: 1rem;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .stat-card {
+      background: var(--white);
+      padding: 1.5rem 1rem;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-color);
+      opacity: 0.7;
+      font-weight: 600;
+    }
+    
+    .start-matching-btn {
+      background: var(--gradient-primary) !important;
+      font-size: 1.1rem;
+      padding: 1.25rem 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .start-matching-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .start-matching-btn:hover::before {
+      left: 100%;
+    }
+    
+    .quick-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .quick-action-btn {
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border-color);
+      background: var(--white);
+      color: var(--text-color);
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .quick-action-btn:hover {
+      border-color: var(--primary-color);
+      background: rgba(244, 162, 97, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .verification-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .verified-badge {
+      background: #42c767;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    
+    .pending-badge {
+      background: #ffa726;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- Brand Header -->
+  <div class="brand-header">
+    <a href="index.html" class="brand-logo">Sparko</a>
+    <p class="brand-tagline">Connect. Collaborate. Create.</p>
+  </div>
+
+  <!-- Main Container -->
+  <div class="auth-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <h1 class="welcome-message">Welcome, <span class="highlight" id="userName"></span>!</h1>
+      <p class="profile-subtitle">Your Sparko profile is ready to spark connections</p>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="profile-card">
+      <div class="profile-avatar" onclick="uploadAvatar()" style="cursor: pointer; position: relative;">
+        <span id="userInitials">JS</span>
+        <div style="position: absolute; bottom: -5px; right: -5px; background: var(--primary-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; border: 3px solid white; box-shadow: var(--shadow);">
+          <i class="fas fa-camera"></i>
+        </div>
+      </div>
+      
+      <div class="profile-info">
+        <div class="info-row">
+          <div class="info-label">
+            <i class="fas fa-user" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+            Full Name
+          </div>
+          <div class="info-value" id="userName">John Smith</div>
+        </div>
+        
+        <div class="info-row">
+          <div class="info-label">
+            <i class="fas fa-envelope" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+            Email
+          </div>
+          <div class="info-value" id="userEmail">john@example.com</div>
+        </div>
+        
+        <div class="info-row">
+          <div class="info-label">
+            <i class="fas fa-briefcase" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+            Role
+          </div>
+          <div class="info-value">
+            <span class="role-badge" id="userRole">Entrepreneur</span>
+          </div>
+        </div>
+        
+        <div class="info-row">
+          <div class="info-label">
+            <i class="fas fa-phone" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+            Phone
+          </div>
+          <div class="info-value verification-status">
+            <span id="userPhone">+1 (555) 123-4567</span>
+            <span class="verified-badge">
+              <i class="fas fa-check"></i> Verified
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Connections</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Matches</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Profile</div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="btn btn-primary start-matching-btn" onclick="startMatching()">
+        <i class="fas fa-bolt" style="margin-right: 0.5rem;"></i>
+        Start Matching
+      </button>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button class="quick-action-btn" onclick="editProfile()">
+        <i class="fas fa-edit"></i>
+        Edit Profile
+      </button>
+      <button class="quick-action-btn logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        Logout
+      </button>
+    </div>
+
+    <!-- Additional Info -->
+    <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+      <p style="color: var(--text-color); opacity: 0.7; margin-bottom: 1rem;">
+        <i class="fas fa-info-circle" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+        Your profile is 100% complete and ready for matching!
+      </p>
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;">
+          <i class="fas fa-shield-alt" style="margin-right: 0.5rem;"></i>
+          Privacy Settings
+        </a>
+        <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;">
+          <i class="fas fa-bell" style="margin-right: 0.5rem;"></i>
+          Notifications
+        </a>
+        <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;">
+          <i class="fas fa-question-circle" style="margin-right: 0.5rem;"></i>
+          Help & Support
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="auth-footer">
+    © 2025 Sparko. All Rights Reserved.
+  </div>
+</body>
+</html>
+

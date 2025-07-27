@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Sparko</title>
+  <link rel="stylesheet" href="auth-style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+  <script>
+    function login(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const user = JSON.parse(localStorage.getItem('sparkoUser'));
+
+      // Add loading state
+      const submitBtn = document.querySelector('.btn-primary');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span class="loading"></span> Signing In...';
+      submitBtn.disabled = true;
+
+      // Simulate API call delay
+      setTimeout(() => {
+        if (user && user.email === email && user.password === password) {
+          // Success animation with checkmark
+          submitBtn.innerHTML = '<i class="fas fa-check"></i> Success!';
+          submitBtn.style.background = '#42c767';
+          
+          // Success pulse animation
+          submitBtn.style.animation = 'successPulse 0.6s ease';
+          
+          setTimeout(() => {
+            window.location.href = 'profile.html';
+          }, 1000);
+        } else {
+          // Error state with X mark
+          submitBtn.innerHTML = '<i class="fas fa-times"></i> Invalid Credentials';
+          submitBtn.style.background = '#ff4458';
+          
+          // Shake animation
+          document.querySelector('.auth-container').style.animation = 'shake 0.5s ease-in-out';
+          
+          setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.style.background = '';
+            submitBtn.style.animation = '';
+            submitBtn.disabled = false;
+            document.querySelector('.auth-container').style.animation = '';
+          }, 2000);
+        }
+      }, 1500);
+    }
+
+    // Add input focus animations
+    document.addEventListener('DOMContentLoaded', function() {
+      const inputs = document.querySelectorAll('.form-input');
+      
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.style.transform = 'scale(1.02)';
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.style.transform = 'scale(1)';
+        });
+      });
+
+      // Add floating elements
+      createFloatingElements();
+    });
+
+    function createFloatingElements() {
+      for (let i = 0; i < 4; i++) {
+        const circle = document.createElement('div');
+        circle.className = 'floating-element floating-circle';
+        document.body.appendChild(circle);
+      }
+    }
+  </script>
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+    
+    .form-group {
+      transition: transform 0.3s ease;
+    }
+    
+    .welcome-icon {
+      font-size: 3rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Brand Header -->
+  <div class="brand-header">
+    <a href="index.html" class="brand-logo">Sparko</a>
+    <p class="brand-tagline">Connect. Collaborate. Create.</p>
+  </div>
+
+  <!-- Home Button -->
+  <a href="index.html" class="home-btn">
+    <i class="fas fa-home"></i>
+    Home
+  </a>
+
+  <!-- Main Container -->
+  <div class="auth-container">
+    <div class="welcome-icon">
+      <i class="fas fa-bolt"></i>
+    </div>
+    <h1>Welcome Back to <span class="highlight">Sparko</span></h1>
+    <p class="subtitle">Sign in to continue your entrepreneurial journey</p>
+    
+    <form class="auth-form" onsubmit="login(event)">
+      <div class="form-group">
+        <label for="email" class="form-label">
+          <i class="fas fa-envelope" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+          Email Address
+        </label>
+        <input 
+          type="email" 
+          id="email" 
+          class="form-input"
+          placeholder="Enter your email address" 
+          required 
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="password" class="form-label">
+          <i class="fas fa-lock" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+          Password
+        </label>
+        <input 
+          type="password" 
+          id="password" 
+          class="form-input"
+          placeholder="Enter your password" 
+          required 
+        />
+      </div>
+      
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-sign-in-alt" style="margin-right: 0.5rem;"></i>
+        Sign In
+      </button>
+      
+      <p class="switch-link">
+        Don't have an account? 
+        <a href="register.html">Create one now</a>
+      </p>
+      
+      <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+        <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;">
+          <i class="fas fa-key" style="margin-right: 0.5rem;"></i>
+          Forgot your password?
+        </a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <div class="auth-footer">
+    © 2025 Sparko. All Rights Reserved.
+  </div>
+</body>
+</html>
+

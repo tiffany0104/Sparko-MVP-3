@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phone Verification - Sparko</title>
+  <link rel="stylesheet" href="auth-style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+  <script>
+    let currentStep = 1;
+    let countdown = 60;
+    let countdownInterval;
+
+    function sendOTP(event) {
+      event.preventDefault();
+      const phone = document.getElementById('phone').value;
+      
+      if (!phone) {
+        alert('Please enter your phone number.');
+        return;
+      }
+      
+      // Save phone number
+      localStorage.setItem('sparkoUserPhone', phone);
+      
+      // Show loading
+      const submitBtn = document.querySelector('.btn-primary');
+      submitBtn.innerHTML = '<span class="loading"></span> Sending Code...';
+      submitBtn.disabled = true;
+      
+      // Simulate API call
+      setTimeout(() => {
+        // Switch to OTP step
+        document.querySelector('.step-1').style.display = 'none';
+        document.querySelector('.step-2').style.display = 'block';
+        document.querySelector('.step-2').classList.add('active');
+        
+        // Start countdown
+        startCountdown();
+        
+        // Focus first OTP input with delay
+        setTimeout(() => {
+          document.querySelector('.otp-input').focus();
+        }, 300);
+      }, 2000);
+    }
+
+    function verifyOTP(event) {
+      event.preventDefault();
+      
+      const otpInputs = document.querySelectorAll('.otp-input');
+      let otp = '';
+      
+      otpInputs.forEach(input => {
+        otp += input.value;
+      });
+      
+      if (otp.length !== 4) {
+        // Shake animation for incomplete OTP
+        document.querySelector('.otp-container').style.animation = 'shake 0.5s ease-in-out';
+        setTimeout(() => {
+          document.querySelector('.otp-container').style.animation = '';
+        }, 500);
+        return;
+      }
+      
+      // Show loading
+      const submitBtn = document.querySelector('.verify-btn');
+      submitBtn.innerHTML = '<span class="loading"></span> Verifying...';
+      submitBtn.disabled = true;
+      
+      // Simulate verification
+      setTimeout(() => {
+        // Success animation for OTP inputs
+        otpInputs.forEach((input, index) => {
+          setTimeout(() => {
+            input.classList.add('success');
+            input.value = '';
+          }, index * 100);
+        });
+        
+        // Success button state
+        setTimeout(() => {
+          submitBtn.innerHTML = '<i class="fas fa-check"></i> Verified!';
+          submitBtn.style.background = '#42c767';
+          
+          // Background flash effect
+          document.body.style.background = 'linear-gradient(135deg, rgba(66, 199, 103, 0.1) 0%, #FFF5E6 100%)';
+          
+          setTimeout(() => {
+            window.location.href = 'profile.html';
+          }, 1500);
+        }, 800);
+      }, 2000);
+    }
+
+    function startCountdown() {
+      countdown = 60;
+      const resendBtn = document.querySelector('.resend-btn');
+      
+      countdownInterval = setInterval(() => {
+        countdown--;
+        resendBtn.innerHTML = `Resend Code (${countdown}s)`;
+        
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          resendBtn.innerHTML = 'Resend Code';
+          resendBtn.disabled = false;
+          resendBtn.style.opacity = '1';
+          resendBtn.style.cursor = 'pointer';
+        }
+      }, 1000);
+      
+      resendBtn.disabled = true;
+      resendBtn.style.opacity = '0.5';
+      resendBtn.style.cursor = 'not-allowed';
+    }
+
+    function resendOTP() {
+      if (countdown > 0) return;
+      
+      const resendBtn = document.querySelector('.resend-btn');
+      resendBtn.innerHTML = '<span class="loading"></span> Sending...';
+      
+      // Reset OTP inputs
+      const otpInputs = document.querySelectorAll('.otp-input');
+      otpInputs.forEach(input => {
+        input.value = '';
+        input.classList.remove('filled', 'success');
+      });
+      
+      setTimeout(() => {
+        startCountdown();
+        
+        // Show success message
+        const message = document.createElement('div');
+        message.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: #42c767;
+          color: white;
+          padding: 1rem 1.5rem;
+          border-radius: 12px;
+          font-weight: 600;
+          z-index: 1000;
+          animation: slideInRight 0.5s ease-out;
+          box-shadow: 0 4px 20px rgba(66, 199, 103, 0.3);
+        `;
+        message.innerHTML = '<i class="fas fa-check" style="margin-right: 0.5rem;"></i>Code sent successfully!';
+        document.body.appendChild(message);
+        
+        setTimeout(() => {
+          message.style.animation = 'slideOutRight 0.5s ease-in';
+          setTimeout(() => message.remove(), 500);
+        }, 3000);
+      }, 1000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // OTP input handling
+      const otpInputs = document.querySelectorAll('.otp-input');
+      
+      otpInputs.forEach((input, index) => {
+        input.addEventListener('input', function(e) {
+          const value = e.target.value;
+          
+          // Only allow numbers
+          if (!/^\d$/.test(value)) {
+            e.target.value = '';
+            return;
+          }
+          
+          // Add filled class with animation
+          if (value) {
+            e.target.classList.add('filled');
+            
+            // Auto-jump to next input with smooth animation
+            if (index < otpInputs.length - 1) {
+              setTimeout(() => {
+                otpInputs[index + 1].focus();
+              }, 150);
+            }
+          } else {
+            e.target.classList.remove('filled');
+          }
+          
+          // Check if all inputs are filled
+          const allFilled = Array.from(otpInputs).every(input => input.value);
+          const verifyBtn = document.querySelector('.verify-btn');
+          if (allFilled) {
+            verifyBtn.style.background = 'var(--primary-color)';
+            verifyBtn.style.transform = 'scale(1.05)';
+            verifyBtn.style.boxShadow = 'var(--shadow-hover)';
+          } else {
+            verifyBtn.style.background = '';
+            verifyBtn.style.transform = '';
+            verifyBtn.style.boxShadow = '';
+          }
+        });
+        
+        input.addEventListener('keydown', function(e) {
+          // Handle backspace
+          if (e.key === 'Backspace' && !e.target.value && index > 0) {
+            otpInputs[index - 1].focus();
+            otpInputs[index - 1].value = '';
+            otpInputs[index - 1].classList.remove('filled');
+          }
+          
+          // Handle arrow keys
+          if (e.key === 'ArrowLeft' && index > 0) {
+            otpInputs[index - 1].focus();
+          }
+          if (e.key === 'ArrowRight' && index < otpInputs.length - 1) {
+            otpInputs[index + 1].focus();
+          }
+        });
+        
+        input.addEventListener('paste', function(e) {
+          e.preventDefault();
+          const paste = (e.clipboardData || window.clipboardData).getData('text');
+          const digits = paste.replace(/\D/g, '').slice(0, 4);
+          
+          digits.split('').forEach((digit, i) => {
+            if (otpInputs[i]) {
+              setTimeout(() => {
+                otpInputs[i].value = digit;
+                otpInputs[i].classList.add('filled');
+                otpInputs[i].dispatchEvent(new Event('input'));
+              }, i * 100);
+            }
+          });
+          
+          if (digits.length === 4) {
+            setTimeout(() => {
+              otpInputs[3].focus();
+            }, 400);
+          }
+        });
+      });
+
+      // Add floating elements
+      createFloatingElements();
+    });
+
+    function createFloatingElements() {
+      for (let i = 0; i < 4; i++) {
+        const circle = document.createElement('div');
+        circle.className = 'floating-element floating-circle';
+        document.body.appendChild(circle);
+      }
+    }
+  </script>
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes slideOutRight {
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+    }
+    
+    .step-1, .step-2 {
+      display: none;
+    }
+    
+    .step-1.active, .step-2.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    .verification-icon {
+      font-size: 4rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .phone-display {
+      background: var(--light-gray);
+      padding: 1rem;
+      border-radius: 12px;
+      margin: 1rem 0;
+      text-align: center;
+      font-weight: 600;
+      color: var(--text-color);
+      border: 2px solid var(--border-color);
+    }
+    
+    .resend-section {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .resend-btn {
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+    
+    .resend-btn:hover:not(:disabled) {
+      color: var(--secondary-color);
+      background: rgba(244, 162, 97, 0.1);
+      text-decoration: none;
+    }
+    
+    .back-btn {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover {
+      background: var(--light-gray);
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Brand Header -->
+  <div class="brand-header">
+    <a href="index.html" class="brand-logo">Sparko</a>
+    <p class="brand-tagline">Connect. Collaborate. Create.</p>
+  </div>
+
+  <!-- Home Button -->
+  <a href="index.html" class="home-btn">
+    <i class="fas fa-home"></i>
+    Home
+  </a>
+
+  <!-- Main Container -->
+  <div class="auth-container">
+    <!-- Step 1: Phone Number Input -->
+    <div class="step-1 active">
+      <div class="verification-icon">
+        <i class="fas fa-mobile-alt"></i>
+      </div>
+      <h1>Verify Your <span class="highlight">Phone</span></h1>
+      <p class="subtitle">We'll send you a verification code to confirm your phone number</p>
+      
+      <form class="auth-form" onsubmit="sendOTP(event)">
+        <div class="form-group">
+          <label for="phone" class="form-label">
+            <i class="fas fa-phone" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+            Phone Number
+          </label>
+          <input 
+            type="tel" 
+            id="phone" 
+            class="form-input"
+            placeholder="+1 (555) 123-4567" 
+            required 
+          />
+        </div>
+        
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-paper-plane" style="margin-right: 0.5rem;"></i>
+          Send Verification Code
+        </button>
+      </form>
+    </div>
+
+    <!-- Step 2: OTP Verification -->
+    <div class="step-2">
+      <button class="back-btn" onclick="location.reload()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      
+      <div class="verification-icon">
+        <i class="fas fa-shield-check"></i>
+      </div>
+      <h1>Enter <span class="highlight">Verification Code</span></h1>
+      <p class="subtitle">We've sent a 4-digit code to your phone</p>
+      
+      <div class="phone-display">
+        <i class="fas fa-mobile-alt" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+        <span id="phone-display"></span>
+      </div>
+      
+      <form class="auth-form" onsubmit="verifyOTP(event)">
+        <div class="otp-container">
+          <input type="text" class="otp-input" maxlength="1" />
+          <input type="text" class="otp-input" maxlength="1" />
+          <input type="text" class="otp-input" maxlength="1" />
+          <input type="text" class="otp-input" maxlength="1" />
+        </div>
+        
+        <button type="submit" class="btn btn-primary verify-btn">
+          <i class="fas fa-check" style="margin-right: 0.5rem;"></i>
+          Verify Code
+        </button>
+        
+        <div class="resend-section">
+          <p style="margin-bottom: 0.5rem; color: var(--text-color); opacity: 0.7;">
+            Didn't receive the code?
+          </p>
+          <button type="button" class="resend-btn" onclick="resendOTP()">
+            Resend Code
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="auth-footer">
+    © 2025 Sparko. All Rights Reserved.
+  </div>
+
+  <script>
+    // Update phone display when moving to step 2
+    document.addEventListener('DOMContentLoaded', function() {
+      const originalSendOTP = window.sendOTP;
+      window.sendOTP = function(event) {
+        const phone = document.getElementById('phone').value;
+        document.getElementById('phone-display').textContent = phone;
+        originalSendOTP(event);
+      };
+    });
+  </script>
+</body>
+</html>
+
