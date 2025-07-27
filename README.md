@@ -1,10 +1,4 @@
-# Sparko Integrated Project
+# Sparko Final Homepage
 
-This project includes:
-- A beautiful static landing page (public/index.html).
-- A React application at /app with Tinder swipe mock (placeholder).
-
-## How to Deploy
-- Push to GitHub and deploy with Vercel.
-- / will show static landing page.
-- /app will show React app.
+- `public/index.html` is the landing page (from Manus AI design).
+- React app available at /app route after build.

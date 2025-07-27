@@ -4,7 +4,7 @@ function App() {
   return (
     <div style={{ textAlign: "center", padding: "50px" }}>
       <h1>Welcome to Sparko App</h1>
-      <p>This is where Tinder-style swipe functionality will go.</p>
+      <p>This is where the Tinder-style swipe functionality will appear.</p>
     </div>
   );
 }

@@ -1,32 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sparko - Connect Entrepreneurs & Investors</title>
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #fff; color: #333; }
-    header { background: #FF4458; color: #fff; padding: 20px; text-align: center; }
-    nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
-    main { padding: 50px; text-align: center; }
-    .btn { background: #FF4458; color: #fff; border: none; padding: 15px 30px; cursor: pointer; font-size: 18px; }
-    .btn:hover { background: #e63946; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparko - Find Your Perfect Co-Founder or Investor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <header>
-    <h1>Sparko</h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/product.html">Product</a>
-      <a href="/app">Start App</a>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Sparko</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#about" class="nav-link">About</a>
+                <button class="nav-cta">Join Now</button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
     </nav>
-  </header>
-  <main>
-    <h2>Find Your Perfect Co-Founder or Investor</h2>
-    <p>Swipe, Match, and Connect with like-minded entrepreneurs and investors.</p>
-    <a href="/app"><button class="btn">Go to App</button></a>
-  </main>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Find Your Perfect Co-Founder or Investor</h1>
+                <p class="hero-subtitle">Sparko connects entrepreneurs and investors through a fun, swipe-based interface designed for building powerful partnerships.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary">Join Now</button>
+                    <button class="btn-secondary">Learn More</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="swipe-card">
+                            <div class="card-header">
+                                <h3>TechStart Inc.</h3>
+                                <span class="card-type">Investor</span>
+                            </div>
+                            <div class="card-content">
+                                <p>Looking for innovative AI startups</p>
+                                <div class="card-tags">
+                                    <span class="tag">AI</span>
+                                    <span class="tag">Series A</span>
+                                    <span class="tag">$2M+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swipe-actions">
+                            <button class="action-btn pass"><i class="fas fa-times"></i></button>
+                            <button class="action-btn super-spark"><i class="fas fa-bolt"></i></button>
+                            <button class="action-btn like"><i class="fas fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Sparko?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-pointer"></i>
+                    </div>
+                    <h3>Swipe to Connect</h3>
+                    <p>Quickly discover potential co-founders or investors with our Tinder-style matching.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Super Spark 🔥</h3>
+                    <p>Highlight your interest with Super Spark, available 3 times per week.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3>Legal & Business Resources</h3>
+                    <p>Access templates for startup agreements, term sheets, and more.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">A Platform Built for Entrepreneurs</h2>
+                    <p>Sparko was created to bridge the gap between innovative founders and visionary investors. Whether you're seeking funding, partners, or growth opportunities, Sparko is your go-to platform.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <h3>10K+</h3>
+                            <p>Active Users</p>
+                        </div>
+                        <div class="stat">
+                            <h3>500+</h3>
+                            <p>Successful Matches</p>
+                        </div>
+                        <div class="stat">
+                            <h3>$50M+</h3>
+                            <p>Funding Raised</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="connection-graphic">
+                        <div class="node entrepreneur">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Entrepreneur</span>
+                        </div>
+                        <div class="connection-line"></div>
+                        <div class="sparko-logo">
+                            <span>Sparko</span>
+                        </div>
+                        <div class="connection-line"></div>
+                        <div class="node investor">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Investor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Sparko</h3>
+                    <p>Connecting entrepreneurs and investors</p>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sparko. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
+
