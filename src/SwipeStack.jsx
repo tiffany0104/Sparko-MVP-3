@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SwipeCard from './SwipeCard';
 import RoleSwitcher from './RoleSwitcher';
 import ProfileIncompleteMessage from './ProfileIncompleteMessage';
-import apiService from '../services/api';
+
 
 const SwipeStack = ({ onSwipe, onMatch }) => {
   const [profiles, setProfiles] = useState([]);

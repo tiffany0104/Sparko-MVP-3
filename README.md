@@ -1,6 +1,6 @@
-# Sparko Frontend (Final)
+# Sparko Frontend (Buildable)
 
-This is a standard React structure for the Sparko MVP.
+This React project is fixed to build successfully.
 
 ## Quick Start
 
@@ -9,10 +9,8 @@ npm install
 npm start
 ```
 
-## Production Build
+## Build
 
 ```bash
 npm run build
 ```
-
-Deploy the `build` folder to Vercel (or any static hosting service).
