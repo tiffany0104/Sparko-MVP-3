@@ -1,4 +1,4 @@
-# Sparko Final Homepage
+# Sparko Final Homepage (Inline CSS/JS)
 
-- `public/index.html` is the landing page (from Manus AI design).
-- React app available at /app route after build.
+- `public/index.html` now has inline CSS and JS, ensuring proper rendering on Vercel.
+- React app is available at /app after build.
