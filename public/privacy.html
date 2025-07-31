@@ -769,22 +769,6 @@ body {
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
-<nav class="navbar" style="display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background-color:#fff;">
-<div class="nav-left" style="font-weight:bold;font-size:1.5rem;color:#F4A261;">
-<a href="index.html" style="text-decoration:none;color:#F4A261;">Sparko</a>
-</div>
-<div class="nav-right" style="display:flex;align-items:center;gap:1rem;">
-<a class="nav-link" href="index.html">Home</a>
-<a class="nav-link" href="products.html">Products</a>
-<a class="nav-link" href="safety.html">Safety</a>
-<a class="nav-link" href="legal-templates.html">Legal</a>
-<a class="nav-link" href="about.html">About</a>
-<a class="nav-link" href="FAQ.html">FAQ</a>
-<a class="nav-link" href="contact.html">Contact</a>
-<a class="join-btn" href="#" style="background-color:#F4A261;color:#fff;padding:0.5rem 1rem;border-radius:20px;text-decoration:none;">Join Now</a>
-</div>
-</nav>
-
 <!-- Floating Background Shapes -->
 <div class="floating-shapes">
 <div class="shape shape-1"></div>
@@ -794,7 +778,28 @@ body {
 <div class="shape shape-5"></div>
 </div>
 <!-- Navigation -->
-
+<nav class="navbar">
+<div class="nav-container">
+<div class="nav-logo">
+<h2>Sparko</h2>
+</div>
+<div class="nav-menu">
+<a class="nav-link" href="index.html">Home</a>
+<a class="nav-link" href="#">Products</a>
+<a class="nav-link" href="#">Safety</a>
+<a class="nav-link" href="#">Legal</a>
+<a class="nav-link" href="#">About</a>
+<a class="nav-link active" href="FAQ.html">FAQ</a>
+<a class="nav-link" href="#">Contact</a>
+<button class="nav-cta">Join Now</button>
+</div>
+<div class="hamburger">
+<span class="bar"></span>
+<span class="bar"></span>
+<span class="bar"></span>
+</div>
+</div>
+</nav>
 <!-- Privacy Header Section -->
 <section class="privacy-header">
 <div class="privacy-header-container">
@@ -925,7 +930,24 @@ body {
 </div>
 </section>
 <!-- Footer -->
-
+<footer style="background-color:#2D2D2D;color:#fff;padding:2rem 2rem;font-size:0.9rem;">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+<div>
+<div style="font-weight:bold;font-size:1.2rem;color:#F4A261;">Sparko</div>
+<p>Connecting entrepreneurs and investors worldwide</p>
+</div>
+<div style="display:flex;gap:1rem;">
+<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">T</a>
+<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">L</a>
+<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">I</a>
+</div>
+</div>
+<div style="margin-top:1rem;text-align:center;">
+    © 2025 Sparko. All Rights Reserved. | 
+    <a href="#" style="color:#fff;text-decoration:none;">Privacy Policy</a> | 
+    <a href="#" style="color:#fff;text-decoration:none;">Terms of Service</a>
+</div>
+</footer>
 <script>
         // Mobile menu toggle
         const hamburger = document.querySelector('.hamburger');
@@ -1036,24 +1058,5 @@ body {
             overflow: hidden;
         }
     </style>
-
-<footer style="background-color:#2D2D2D;color:#fff;padding:2rem 2rem;font-size:0.9rem;">
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
-<div>
-<div style="font-weight:bold;font-size:1.2rem;color:#F4A261;">Sparko</div>
-<p>Connecting entrepreneurs and investors worldwide</p>
-</div>
-<div style="display:flex;gap:1rem;">
-<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">T</a>
-<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">L</a>
-<a href="#" style="display:inline-block;width:30px;height:30px;background-color:#F4A261;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;">I</a>
-</div>
-</div>
-<div style="margin-top:1rem;text-align:center;">
-    © 2025 Sparko. All Rights Reserved. | 
-    <a href="privacy.html" style="color:#fff;text-decoration:none;">Privacy Policy</a> | 
-    <a href="terms.html" style="color:#fff;text-decoration:none;">Terms of Service</a>
-</div>
-</footer>
 </body>
 </html>
