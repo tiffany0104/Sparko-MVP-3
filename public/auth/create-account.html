@@ -821,6 +821,31 @@
       observer.observe(section);
     });
   </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Stop default behavior
+
+      const roleInput = document.querySelector('input[name="role"]:checked');
+      if (!roleInput) {
+        alert("Please select a role.");
+        return;
+      }
+
+      const role = roleInput.value;
+      localStorage.setItem("sparkoRole", role);
+
+      // Redirect to profile form
+      window.location.href = "create-profile.html";
+    });
+  });
+</script>
+
 </body>
 </html>
 
