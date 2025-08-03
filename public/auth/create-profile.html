@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Profile - Sparko</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const role = localStorage.getItem("sparkoRole");
+      if (!role) {
+        document.body.innerHTML = '<div style="padding:2rem;text-align:center;font-family:Inter,sans-serif;">No role found. Redirecting...</div>';
+        setTimeout(() => {
+          window.location.href = "create-account.html";
+        }, 3000);
+        return;
+      }
+      const formId = {
+        entrepreneur: "founder-form",
+        investor: "investor-form",
+        partner: "partner-form"
+      }[role];
+      if (formId) {
+        const formEl = document.getElementById(formId);
+        if (formEl) formEl.style.display = "block";
+      }
+    });
+  </script>
+  <style>
+  /* CSS Variables for Color Scheme */
+:root {
+    --primary-color: #F4A261;
+    --secondary-color: #E76F51;
+    --background-color: #FFF9F4;
+    --text-color: #2D2D2D;
+    --accent-color: #E9C46A;
+    --white: #FFFFFF;
+    --light-gray: #F8F9FA;
+    --border-color: #E5E5E5;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --gradient-bg: linear-gradient(135deg, var(--background-color) 0%, #FFF5E6 100%);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: var(--gradient-bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Background Pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23F4A261" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23E76F51" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23E9C46A" opacity="0.15"/><circle cx="10" cy="60" r="0.5" fill="%23F4A261" opacity="0.12"/><circle cx="90" cy="40" r="0.8" fill="%23E76F51" opacity="0.08"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.4;
+    z-index: -1;
+}
+
+/* Floating Elements */
+.floating-element {
+    position: fixed;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.floating-circle {
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-circle:nth-child(1) {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-circle:nth-child(2) {
+    top: 20%;
+    right: 15%;
+    animation-delay: 2s;
+    width: 40px;
+    height: 40px;
+}
+
+.floating-circle:nth-child(3) {
+    bottom: 15%;
+    left: 20%;
+    animation-delay: 4s;
+    width: 80px;
+    height: 80px;
+}
+
+.floating-circle:nth-child(4) {
+    bottom: 25%;
+    right: 10%;
+    animation-delay: 1s;
+    width: 50px;
+    height: 50px;
+}
+
+/* Logo/Brand Header */
+.brand-header {
+    position: fixed;
+    top: 1.5rem;
+    left: 2rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.brand-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.25rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.brand-logo:hover {
+    transform: scale(1.05);
+}
+
+.brand-tagline {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    font-weight: 500;
+}
+
+.home-btn {
+    position: fixed;
+    top: 1.5rem;
+    right: 2rem;
+    background: var(--white);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.home-btn:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+/* Main Container */
+.auth-container {
+    background: var(--white);
+    padding: 3rem 2.5rem;
+    border-radius: 24px;
+    box-shadow: var(--shadow-hover);
+    text-align: center;
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: slideInUp 0.8s ease-out;
+    margin: 2rem;
+}
+
+.auth-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--gradient-primary);
+    border-radius: 26px;
+    z-index: -1;
+    opacity: 0.1;
+}
+
+/* Headers */
+h1 {
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    line-height: 1.2;
+}
+
+.subtitle {
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.highlight {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+
+/* Form Styles */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.form-group {
+    position: relative;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--white);
+    color: var(--text-color);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1);
+    transform: translateY(-2px);
+}
+
+.form-input::placeholder {
+    color: #999;
+    opacity: 0.7;
+}
+
+/* Select Dropdown */
+.form-select {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    background: var(--white);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2"><polyline points="6,9 12,15 18,9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1);
+}
+
+/* Buttons */
+.btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: var(--white);
+    box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.btn-accent {
+    background: var(--accent-color);
+    color: var(--text-color);
+}
+
+.btn-accent:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* Links */
+.switch-link {
+    font-size: 0.95rem;
+    margin-top: 1.5rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.switch-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.switch-link a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* Password Strength Indicator */
+.password-strength {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.strength-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.strength-fill {
+    height: 100%;
+    width: 0%;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.strength-fill.weak {
+    width: 33%;
+    background: #ff4458;
+}
+
+.strength-fill.medium {
+    width: 66%;
+    background: #ffa726;
+}
+
+.strength-fill.strong {
+    width: 100%;
+    background: #42c767;
+}
+
+.strength-text {
+    font-size: 0.8rem;
+    font-weight: 600;
+    min-width: 60px;
+}
+
+.strength-text.weak {
+    color: #ff4458;
+}
+
+.strength-text.medium {
+    color: #ffa726;
+}
+
+.strength-text.strong {
+    color: #42c767;
+}
+
+/* Step Progress Enhancement */
+.step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.step-counter {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-weight: 600;
+}
+.step-indicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.step {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.step.active {
+    background: var(--primary-color);
+    transform: scale(1.2);
+}
+
+.step.completed {
+    background: var(--accent-color);
+}
+
+.form-step {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.form-step.active {
+    display: block;
+}
+
+/* OTP Input */
+.otp-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.otp-input {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--white);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.otp-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1);
+    transform: scale(1.05);
+}
+
+.otp-input.filled {
+    background: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+    animation: otpFilled 0.3s ease;
+}
+
+.otp-input.success {
+    background: #42c767;
+    border-color: #42c767;
+    animation: successPulse 0.6s ease;
+}
+
+.otp-input.success::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.2rem;
+    animation: checkmarkAppear 0.3s ease 0.3s both;
+}
+
+@keyframes otpFilled {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1.05); }
+}
+
+@keyframes successPulse {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(66, 199, 103, 0.7);
+    }
+    50% { 
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(66, 199, 103, 0);
+    }
+    100% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(66, 199, 103, 0);
+    }
+}
+
+@keyframes checkmarkBounce {
+    0% { 
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.btn.success {
+    animation: successPulse 0.6s ease;
+}
+
+.btn.success i {
+    animation: checkmarkBounce 0.4s ease 0.2s both;
+}
+
+@keyframes checkmarkAppear {
+    0% { 
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+    100% { 
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Profile Card */
+.profile-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2.5rem;
+    color: var(--white);
+    font-weight: 700;
+}
+
+.profile-info {
+    text-align: left;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.info-value {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.role-badge {
+    background: var(--gradient-primary);
+    color: var(--white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.action-buttons .btn {
+    flex: 1;
+}
+
+/* Footer */
+.auth-footer {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: var(--text-color);
+    opacity: 0.6;
+    font-size: 0.85rem;
+}
+
+/* Animations */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--white);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .brand-header {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-bottom: 2rem;
+        align-items: center;
+        text-align: center;
+    }
+
+    .home-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .auth-container {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+        max-width: 100%;
+        margin-top: 4rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .otp-container {
+        gap: 0.5rem;
+    }
+
+    .otp-input {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .floating-circle {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-container {
+        margin: 0.5rem;
+        padding: 1.5rem 1rem;
+    }
+
+    .form-input,
+    .form-select {
+        padding: 0.875rem 1rem;
+    }
+
+    .btn {
+        padding: 0.875rem 1.5rem;
+    }
+
+    .otp-input {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #1a1a1a;
+        --text-color: #ffffff;
+        --white: #2d2d2d;
+        --border-color: #404040;
+    }
+}
+
+/* Print styles */
+@media print {
+    .floating-element,
+    .brand-header,
+    .auth-footer {
+        display: none;
+    }
+    
+    .auth-container {
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+    }
+}
+
+
+  </style>
+</head>
+<body style="background-color:#fff9f4;font-family:'Inter', sans-serif;padding:2rem;">
+  <div class="brand-header" style="text-align:center;margin-bottom:2rem;">
+    <h1 style="color:#F4A261;font-size:2rem;font-weight:700;">Create Your Profile</h1>
+    <p style="opacity:0.7;">Please complete your profile to start matching on Sparko</p>
+  </div>
+
+  <!-- 創辦人資料表 -->
+<form id="founder-form" class="role-form" style="display:none">
+  <div class="max-w-2xl mx-auto p-6 bg-white">
+    <h2 class="text-2xl font-bold text-gray-900 mb-8">創辦人資料表</h2>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你的創業領域是什麼？ <span class="text-red-500">*</span></label>
+      <select name="question_1" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+        <option value="">請選擇...</option>
+        <option value="科技">科技</option>
+        <option value="健康">健康</option>
+        <option value="金融科技">金融科技</option>
+        <option value="教育">教育</option>
+        <option value="餐飲">餐飲</option>
+        <option value="其他">其他</option>
+      </select>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">目前項目階段？ <span class="text-red-500">*</span></label>
+      <select name="question_2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+        <option value="">請選擇...</option>
+        <option value="Idea">Idea</option>
+        <option value="MVP">MVP</option>
+        <option value="已有客戶">已有客戶</option>
+        <option value="營收中">營收中</option>
+      </select>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">簡短介紹你的項目 <span class="text-red-500">*</span></label>
+      <textarea name="question_3" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required placeholder="限制最少 50 字，最多 200 字"></textarea>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">目前團隊規模 <span class="text-red-500">*</span></label>
+      <select name="question_4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+        <option value="">請選擇...</option>
+        <option value="Only me">Only me</option>
+        <option value="2-5">2-5</option>
+        <option value="6-10">6-10</option>
+        <option value="10+">10+</option>
+      </select>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你的市場定位是什麼？ <span class="text-red-500">*</span></label>
+      <select name="question_5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+        <option value="">請選擇...</option>
+        <option value="大眾消費">大眾消費</option>
+        <option value="高端市場">高端市場</option>
+        <option value="線上平台">線上平台</option>
+        <option value="專業服務">專業服務</option>
+        <option value="小眾特色">小眾特色</option>
+        <option value="其他">其他</option>
+      </select>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你最需要的資源是什麼？ <span class="text-red-500">*</span></label>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">近期目標（3–6 個月內） <span class="text-red-500">*</span></label>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">融資需求金額</label>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">是否已成立公司？</label>
+      <div class="flex space-x-4">
+        <div class="flex items-center">
+          <input type="radio" id="question_9_yes" name="question_9" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+          <label for="question_9_yes" class="ml-2 text-sm text-gray-700">是</label>
+        </div>
+        <div class="flex items-center">
+          <input type="radio" id="question_9_no" name="question_9" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+          <label for="question_9_no" class="ml-2 text-sm text-gray-700">否</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">股權願意開放比例</label>
+      <select name="question_10" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <option value="">請選擇...</option>
+        <option value="0–5%">0–5%</option>
+        <option value="5–10%">5–10%</option>
+        <option value="10%以上">10%以上</option>
+        <option value="不適用">不適用</option>
+      </select>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">有無 Pitch Deck？</label>
+      <div class="flex space-x-4">
+        <div class="flex items-center">
+          <input type="radio" id="question_11_yes" name="question_11" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+          <label for="question_11_yes" class="ml-2 text-sm text-gray-700">是</label>
+        </div>
+        <div class="flex items-center">
+          <input type="radio" id="question_11_no" name="question_11" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+          <label for="question_11_no" class="ml-2 text-sm text-gray-700">否</label>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-end">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition duration-200">提交</button>
+    </div>
+  </div>
+</form>
+
+<!-- 投資人資料表 -->
+<form id="investor-form" class="role-form" style="display:none">
+  <div class="max-w-2xl mx-auto p-6 bg-white">
+    <h2 class="text-2xl font-bold text-gray-900 mb-8">投資人資料表</h2>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你感興趣的投資產業是哪些？ <span class="text-red-500">*</span></label>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_1_0" name="question_1[]" value="科技" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_1_0" class="ml-2 text-sm text-gray-700">科技</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_1_1" name="question_1[]" value="健康醫療" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_1_1" class="ml-2 text-sm text-gray-700">健康醫療</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_1_2" name="question_1[]" value="金融科技" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_1_2" class="ml-2 text-sm text-gray-700">金融科技</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_1_3" name="question_1[]" value="教育" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_1_3" class="ml-2 text-sm text-gray-700">教育</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_1_4" name="question_1[]" value="餐飲" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_1_4" class="ml-2 text-sm text-gray-700">餐飲</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_1_5" name="question_1[]" value="其他（最多選3）" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_1_5" class="ml-2 text-sm text-gray-700">其他（最多選3）</label>
+      </div>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你偏好的投資階段？ <span class="text-red-500">*</span></label>
+      <select name="question_2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+        <option value="">請選擇...</option>
+        <option value="Pre-seed">Pre-seed</option>
+        <option value="Seed">Seed</option>
+        <option value="Pre-A">Pre-A</option>
+        <option value="A輪以上">A輪以上</option>
+      </select>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你除了資金外，是否願意提供以下資源？ <span class="text-red-500">*</span></label>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_0" name="question_3[]" value="行業經驗" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_0" class="ml-2 text-sm text-gray-700">行業經驗</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_1" name="question_3[]" value="專業諮詢" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_1" class="ml-2 text-sm text-gray-700">專業諮詢</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_2" name="question_3[]" value="人脈" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_2" class="ml-2 text-sm text-gray-700">人脈</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_3" name="question_3[]" value="商業策略建議" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_3" class="ml-2 text-sm text-gray-700">商業策略建議</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_4" name="question_3[]" value="不提供其他支援" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_4" class="ml-2 text-sm text-gray-700">不提供其他支援</label>
+      </div>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你希望透過 Sparko 找到哪種類型的機會？ <span class="text-red-500">*</span></label>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_4_0" name="question_4[]" value="聯合創投" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_4_0" class="ml-2 text-sm text-gray-700">聯合創投</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_4_1" name="question_4[]" value="小額投資" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_4_1" class="ml-2 text-sm text-gray-700">小額投資</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_4_2" name="question_4[]" value="尋找創新項目" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_4_2" class="ml-2 text-sm text-gray-700">尋找創新項目</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_4_3" name="question_4[]" value="併購標的" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_4_3" class="ml-2 text-sm text-gray-700">併購標的</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_4_4" name="question_4[]" value="ESG導向項目" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_4_4" class="ml-2 text-sm text-gray-700">ESG導向項目</label>
+      </div>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你投資決策時最重視什麼？ <span class="text-red-500">*</span></label>
+      <select name="question_5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+        <option value="">請選擇...</option>
+        <option value="團隊">團隊</option>
+        <option value="商業模式">商業模式</option>
+        <option value="回報潛力">回報潛力</option>
+        <option value="產品創新性">產品創新性</option>
+        <option value="個人契合度">個人契合度</option>
+      </select>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你的可投資金額範圍？</label>
+      <select name="question_6" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <option value="">請選擇...</option>
+        <option value="<£25k"><£25k</option>
+        <option value="£25k–£100k">£25k–£100k</option>
+        <option value="£100k–£500k">£100k–£500k</option>
+        <option value="£500k+">£500k+</option>
+        <option value="視案而定">視案而定</option>
+      </select>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">過往投資過的項目或產業</label>
+      <textarea name="question_7" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="可簡短描述 1–2 項即可"></textarea>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你最感興趣的項目特質？</label>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_8_0" name="question_8[]" value="已營收" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_8_0" class="ml-2 text-sm text-gray-700">已營收</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_8_1" name="question_8[]" value="團隊背景強" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_8_1" class="ml-2 text-sm text-gray-700">團隊背景強</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_8_2" name="question_8[]" value="技術領先" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_8_2" class="ml-2 text-sm text-gray-700">技術領先</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_8_3" name="question_8[]" value="成長快速" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_8_3" class="ml-2 text-sm text-gray-700">成長快速</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_8_4" name="question_8[]" value="社會影響力大" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_8_4" class="ml-2 text-sm text-gray-700">社會影響力大</label>
+      </div>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">是否願意與創業者進行初步對談？</label>
+      <div class="flex space-x-4">
+        <div class="flex items-center">
+          <input type="radio" id="question_9_yes" name="question_9" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+          <label for="question_9_yes" class="ml-2 text-sm text-gray-700">是</label>
+        </div>
+        <div class="flex items-center">
+          <input type="radio" id="question_9_no" name="question_9" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+          <label for="question_9_no" class="ml-2 text-sm text-gray-700">否</label>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-end">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition duration-200">提交</button>
+    </div>
+  </div>
+</form>
+
+<!-- 合夥人資料表 -->
+<form id="partner-form" class="role-form" style="display:none">
+  <div class="max-w-2xl mx-auto p-6 bg-white">
+    <h2 class="text-2xl font-bold text-gray-900 mb-8">合夥人資料表</h2>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你的專業領域是什麼？ <span class="text-red-500">*</span></label>
+      <select name="question_1" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+        <option value="">請選擇...</option>
+        <option value="技術">技術</option>
+        <option value="行銷">行銷</option>
+        <option value="營運">營運</option>
+        <option value="財務">財務</option>
+        <option value="法務">法務</option>
+        <option value="設計">設計</option>
+        <option value="商業開發">商業開發</option>
+        <option value="其他">其他</option>
+      </select>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你希望參與哪種類型的創業項目？ <span class="text-red-500">*</span></label>
+      <textarea name="question_2" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required placeholder="可簡短描述你感興趣的產業、產品型態或商業模式"></textarea>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你能提供哪些核心價值？ <span class="text-red-500">*</span></label>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_0" name="question_3[]" value="技術開發" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_0" class="ml-2 text-sm text-gray-700">技術開發</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_1" name="question_3[]" value="市場拓展" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_1" class="ml-2 text-sm text-gray-700">市場拓展</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_2" name="question_3[]" value="營運管理" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_2" class="ml-2 text-sm text-gray-700">營運管理</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_3" name="question_3[]" value="商業策略" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_3" class="ml-2 text-sm text-gray-700">商業策略</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_4" name="question_3[]" value="法律財務支援" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_4" class="ml-2 text-sm text-gray-700">法律財務支援</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_5" name="question_3[]" value="品牌設計" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_5" class="ml-2 text-sm text-gray-700">品牌設計</label>
+      </div>
+      <div class="flex items-center mb-2">
+        <input type="checkbox" id="question_3_6" name="question_3[]" value="人脈資源" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+        <label for="question_3_6" class="ml-2 text-sm text-gray-700">人脈資源</label>
+      </div>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你理想的合作模式是什麼？ <span class="text-red-500">*</span></label>
+      <select name="question_4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+        <option value="">請選擇...</option>
+        <option value="共同創業（股權分配）/ 顧問型協作">共同創業（股權分配）/ 顧問型協作</option>
+        <option value="技術換股權">技術換股權</option>
+        <option value="仍在觀望">仍在觀望</option>
+        <option value="其他">其他</option>
+      </select>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你目前已有創業想法嗎？ <span class="text-red-500">*</span></label>
+      <div class="flex space-x-4">
+        <div class="flex items-center">
+          <input type="radio" id="question_5_yes" name="question_5" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" required>
+          <label for="question_5_yes" class="ml-2 text-sm text-gray-700">是</label>
+        </div>
+        <div class="flex items-center">
+          <input type="radio" id="question_5_no" name="question_5" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" required>
+          <label for="question_5_no" class="ml-2 text-sm text-gray-700">否</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你每週可投入的時間？</label>
+      <select name="question_6" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <option value="">請選擇...</option>
+        <option value="<5 小時"><5 小時</option>
+        <option value="5–10 小時">5–10 小時</option>
+        <option value="10–20 小時">10–20 小時</option>
+        <option value="全職投入">全職投入</option>
+      </select>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">你是否願意投入資金？</label>
+      <div class="flex space-x-4">
+        <div class="flex items-center">
+          <input type="radio" id="question_7_yes" name="question_7" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+          <label for="question_7_yes" class="ml-2 text-sm text-gray-700">是</label>
+        </div>
+        <div class="flex items-center">
+          <input type="radio" id="question_7_no" name="question_7" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+          <label for="question_7_no" class="ml-2 text-sm text-gray-700">否</label>
+        </div>
+      </div>
+    </div>
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">請簡述你的創業或合作經驗</label>
+      <textarea name="question_8" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="可簡短提及過往合作或參與的項目經歷"></textarea>
+    </div>
+    <div class="flex justify-end">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition duration-200">提交</button>
+    </div>
+  </div>
+</form>
+
+
+
+  <script>
+    // Optional: Highlight selected role visually, add custom behaviors here
+  </script>
+</body>
+</html>
