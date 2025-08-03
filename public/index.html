@@ -1090,55 +1090,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('loaded');
     });
 
-    // Form handling for CTA buttons (placeholder functionality)
-    const ctaButtons = document.querySelectorAll('.btn-primary');
-    ctaButtons.forEach(button => {
-        if (button.textContent.includes('Join Now')) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Show a simple modal or alert (in a real app, this would open a signup form)
-                const modal = document.createElement('div');
-                modal.innerHTML = `
-                    <div style="
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background: rgba(0,0,0,0.8);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        z-index: 10000;
-                    ">
-                        <div style="
-                            background: white;
-                            padding: 2rem;
-                            border-radius: 20px;
-                            text-align: center;
-                            max-width: 400px;
-                            margin: 20px;
-                        ">
-                            <h3 style="color: #F4A261; margin-bottom: 1rem;">Welcome to Sparko!</h3>
-                            <p style="margin-bottom: 1.5rem; color: #2D2D2D;">Sign up functionality would be implemented here.</p>
-                            <button onclick="this.closest('div').remove()" style="
-                                background: #F4A261;
-                                color: white;
-                                border: none;
-                                padding: 12px 24px;
-                                border-radius: 25px;
-                                cursor: pointer;
-                                font-weight: 600;
-                            ">Close</button>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(modal);
-            });
-        }
-    });
-
+   
     // Add hover effects to feature cards
     const featureCards = document.querySelectorAll('.feature-card');
     featureCards.forEach(card => {
