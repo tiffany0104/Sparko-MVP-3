@@ -7,150 +7,791 @@
   <link rel="stylesheet" href="auth-style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    .form-section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .form-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .form-section:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+      border-color: var(--primary-color);
+    }
+    
+    .form-section:hover::before {
+      opacity: 1;
+    }
+    
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-color);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      position: relative;
+    }
+    
+    .section-title i {
+      color: var(--primary-color);
+      font-size: 1.3rem;
+      padding: 0.5rem;
+      background: rgba(244, 162, 97, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    
+    .section-title:hover i {
+      background: var(--primary-color);
+      color: var(--white);
+      transform: scale(1.1);
+    }
+    
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .checkbox-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(244, 162, 97, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .checkbox-item:hover::before {
+      left: 100%;
+    }
+    
+    .checkbox-item:hover {
+      border-color: var(--primary-color);
+      background: rgba(244, 162, 97, 0.05);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    
+    .checkbox-item.selected {
+      border-color: var(--primary-color);
+      background: rgba(244, 162, 97, 0.1);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    
+    .checkbox-item.selected .checkbox-icon {
+      color: var(--primary-color);
+      transform: scale(1.2);
+    }
+    
+    .checkbox-item input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      accent-color: var(--primary-color);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    .checkbox-item input[type="checkbox"]:checked {
+      transform: scale(1.1);
+    }
+    
+    .checkbox-label {
+      font-weight: 600;
+      color: var(--text-color);
+      cursor: pointer;
+      flex: 1;
+      transition: color 0.3s ease;
+    }
+    
+    .checkbox-item:hover .checkbox-label {
+      color: var(--primary-color);
+    }
+    
+    .checkbox-icon {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      padding: 0.5rem;
+      background: rgba(244, 162, 97, 0.1);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .form-error {
+      color: var(--secondary-color);
+      font-size: 0.875rem;
+      margin-top: 0.75rem;
+      display: none;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+      background: rgba(231, 111, 81, 0.1);
+      border-radius: 8px;
+      border-left: 3px solid var(--secondary-color);
+    }
+    
+    .form-group.error .form-input,
+    .form-group.error .form-select {
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 3px rgba(231, 111, 81, 0.1);
+      animation: shake 0.5s ease-in-out;
+    }
+    
+    .form-group.error .form-error {
+      display: block;
+      animation: slideDown 0.3s ease-out;
+    }
+    
+    .form-input,
+    .form-select {
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .form-input:focus,
+    .form-select:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(244, 162, 97, 0.15);
+    }
+    
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      font-size: 1.1rem;
+      padding: 1.25rem 2.5rem;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(244, 162, 97, 0.4);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(-1px);
+    }
+    
+    /* Progress indicator */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--gradient-primary);
+      transition: width 0.3s ease;
+      z-index: 1000;
+      width: 0%;
+    }
+    
+    /* Animations */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+    
+    .form-section.animate {
+      animation: pulse 0.6s ease-in-out;
+    }
+    
+    /* Enhanced mobile responsiveness */
+    @media (max-width: 768px) {
+      .form-section {
+        margin-bottom: 1.5rem;
+        padding: 1.25rem;
+      }
+      
+      .checkbox-group {
+        gap: 0.75rem;
+      }
+      
+      .checkbox-item {
+        padding: 0.875rem 1rem;
+      }
+      
+      .checkbox-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
+      }
+      
+      .section-title {
+        font-size: 1.1rem;
+      }
+      
+      .section-title i {
+        font-size: 1.2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .form-section {
+        padding: 1rem;
+      }
+      
+      .checkbox-item {
+        padding: 0.75rem;
+        gap: 0.75rem;
+      }
+      
+      .checkbox-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Brand Header -->
+  <div class="brand-header">
+    <a href="index.html" class="brand-logo">Sparko</a>
+    <p class="brand-tagline">Connect. Collaborate. Create.</p>
+  </div>
+
+  <!-- Home Button -->
+  <a href="index.html" class="home-btn">
+    <i class="fas fa-home"></i>
+    Home
+  </a>
+
+  <!-- Main Container -->
+  <div class="auth-container">
+    <!-- Header -->
+    <div class="profile-header">
+      <h1>Complete Your <span class="highlight">Account</span></h1>
+      <p class="subtitle">Tell us about yourself to get matched with the right people</p>
+    </div>
+
+    <!-- Form -->
+    <form class="auth-form" id="createAccountForm">
+      <!-- Location Section -->
+      <div class="form-section">
+        <div class="section-title">
+          <i class="fas fa-map-marker-alt"></i>
+          Location
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="country">Country *</label>
+          <select class="form-select" id="country" name="country" required>
+            <option value="">Select your country</option>
+            <option value="Afghanistan">Afghanistan</option>
+            <option value="Albania">Albania</option>
+            <option value="Algeria">Algeria</option>
+            <option value="Andorra">Andorra</option>
+            <option value="Angola">Angola</option>
+            <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Armenia">Armenia</option>
+            <option value="Australia">Australia</option>
+            <option value="Austria">Austria</option>
+            <option value="Azerbaijan">Azerbaijan</option>
+            <option value="Bahamas">Bahamas</option>
+            <option value="Bahrain">Bahrain</option>
+            <option value="Bangladesh">Bangladesh</option>
+            <option value="Barbados">Barbados</option>
+            <option value="Belarus">Belarus</option>
+            <option value="Belgium">Belgium</option>
+            <option value="Belize">Belize</option>
+            <option value="Benin">Benin</option>
+            <option value="Bhutan">Bhutan</option>
+            <option value="Bolivia">Bolivia</option>
+            <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+            <option value="Botswana">Botswana</option>
+            <option value="Brazil">Brazil</option>
+            <option value="Brunei">Brunei</option>
+            <option value="Bulgaria">Bulgaria</option>
+            <option value="Burkina Faso">Burkina Faso</option>
+            <option value="Burundi">Burundi</option>
+            <option value="Cabo Verde">Cabo Verde</option>
+            <option value="Cambodia">Cambodia</option>
+            <option value="Cameroon">Cameroon</option>
+            <option value="Canada">Canada</option>
+            <option value="Central African Republic">Central African Republic</option>
+            <option value="Chad">Chad</option>
+            <option value="Chile">Chile</option>
+            <option value="China">China</option>
+            <option value="Colombia">Colombia</option>
+            <option value="Comoros">Comoros</option>
+            <option value="Congo">Congo</option>
+            <option value="Costa Rica">Costa Rica</option>
+            <option value="Croatia">Croatia</option>
+            <option value="Cuba">Cuba</option>
+            <option value="Cyprus">Cyprus</option>
+            <option value="Czech Republic">Czech Republic</option>
+            <option value="Democratic Republic of the Congo">Democratic Republic of the Congo</option>
+            <option value="Denmark">Denmark</option>
+            <option value="Djibouti">Djibouti</option>
+            <option value="Dominica">Dominica</option>
+            <option value="Dominican Republic">Dominican Republic</option>
+            <option value="Ecuador">Ecuador</option>
+            <option value="Egypt">Egypt</option>
+            <option value="El Salvador">El Salvador</option>
+            <option value="Equatorial Guinea">Equatorial Guinea</option>
+            <option value="Eritrea">Eritrea</option>
+            <option value="Estonia">Estonia</option>
+            <option value="Eswatini">Eswatini</option>
+            <option value="Ethiopia">Ethiopia</option>
+            <option value="Fiji">Fiji</option>
+            <option value="Finland">Finland</option>
+            <option value="France">France</option>
+            <option value="Gabon">Gabon</option>
+            <option value="Gambia">Gambia</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Germany">Germany</option>
+            <option value="Ghana">Ghana</option>
+            <option value="Greece">Greece</option>
+            <option value="Grenada">Grenada</option>
+            <option value="Guatemala">Guatemala</option>
+            <option value="Guinea">Guinea</option>
+            <option value="Guinea-Bissau">Guinea-Bissau</option>
+            <option value="Guyana">Guyana</option>
+            <option value="Haiti">Haiti</option>
+            <option value="Honduras">Honduras</option>
+            <option value="Hungary">Hungary</option>
+            <option value="Iceland">Iceland</option>
+            <option value="India">India</option>
+            <option value="Indonesia">Indonesia</option>
+            <option value="Iran">Iran</option>
+            <option value="Iraq">Iraq</option>
+            <option value="Ireland">Ireland</option>
+            <option value="Israel">Israel</option>
+            <option value="Italy">Italy</option>
+            <option value="Ivory Coast">Ivory Coast</option>
+            <option value="Jamaica">Jamaica</option>
+            <option value="Japan">Japan</option>
+            <option value="Jordan">Jordan</option>
+            <option value="Kazakhstan">Kazakhstan</option>
+            <option value="Kenya">Kenya</option>
+            <option value="Kiribati">Kiribati</option>
+            <option value="Kuwait">Kuwait</option>
+            <option value="Kyrgyzstan">Kyrgyzstan</option>
+            <option value="Laos">Laos</option>
+            <option value="Latvia">Latvia</option>
+            <option value="Lebanon">Lebanon</option>
+            <option value="Lesotho">Lesotho</option>
+            <option value="Liberia">Liberia</option>
+            <option value="Libya">Libya</option>
+            <option value="Liechtenstein">Liechtenstein</option>
+            <option value="Lithuania">Lithuania</option>
+            <option value="Luxembourg">Luxembourg</option>
+            <option value="Madagascar">Madagascar</option>
+            <option value="Malawi">Malawi</option>
+            <option value="Malaysia">Malaysia</option>
+            <option value="Maldives">Maldives</option>
+            <option value="Mali">Mali</option>
+            <option value="Malta">Malta</option>
+            <option value="Marshall Islands">Marshall Islands</option>
+            <option value="Mauritania">Mauritania</option>
+            <option value="Mauritius">Mauritius</option>
+            <option value="Mexico">Mexico</option>
+            <option value="Micronesia">Micronesia</option>
+            <option value="Moldova">Moldova</option>
+            <option value="Monaco">Monaco</option>
+            <option value="Mongolia">Mongolia</option>
+            <option value="Montenegro">Montenegro</option>
+            <option value="Morocco">Morocco</option>
+            <option value="Mozambique">Mozambique</option>
+            <option value="Myanmar">Myanmar</option>
+            <option value="Namibia">Namibia</option>
+            <option value="Nauru">Nauru</option>
+            <option value="Nepal">Nepal</option>
+            <option value="Netherlands">Netherlands</option>
+            <option value="New Zealand">New Zealand</option>
+            <option value="Nicaragua">Nicaragua</option>
+            <option value="Niger">Niger</option>
+            <option value="Nigeria">Nigeria</option>
+            <option value="North Korea">North Korea</option>
+            <option value="North Macedonia">North Macedonia</option>
+            <option value="Norway">Norway</option>
+            <option value="Oman">Oman</option>
+            <option value="Pakistan">Pakistan</option>
+            <option value="Palau">Palau</option>
+            <option value="Palestine">Palestine</option>
+            <option value="Panama">Panama</option>
+            <option value="Papua New Guinea">Papua New Guinea</option>
+            <option value="Paraguay">Paraguay</option>
+            <option value="Peru">Peru</option>
+            <option value="Philippines">Philippines</option>
+            <option value="Poland">Poland</option>
+            <option value="Portugal">Portugal</option>
+            <option value="Qatar">Qatar</option>
+            <option value="Romania">Romania</option>
+            <option value="Russia">Russia</option>
+            <option value="Rwanda">Rwanda</option>
+            <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+            <option value="Saint Lucia">Saint Lucia</option>
+            <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+            <option value="Samoa">Samoa</option>
+            <option value="San Marino">San Marino</option>
+            <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+            <option value="Saudi Arabia">Saudi Arabia</option>
+            <option value="Senegal">Senegal</option>
+            <option value="Serbia">Serbia</option>
+            <option value="Seychelles">Seychelles</option>
+            <option value="Sierra Leone">Sierra Leone</option>
+            <option value="Singapore">Singapore</option>
+            <option value="Slovakia">Slovakia</option>
+            <option value="Slovenia">Slovenia</option>
+            <option value="Solomon Islands">Solomon Islands</option>
+            <option value="Somalia">Somalia</option>
+            <option value="South Africa">South Africa</option>
+            <option value="South Korea">South Korea</option>
+            <option value="South Sudan">South Sudan</option>
+            <option value="Spain">Spain</option>
+            <option value="Sri Lanka">Sri Lanka</option>
+            <option value="Sudan">Sudan</option>
+            <option value="Suriname">Suriname</option>
+            <option value="Sweden">Sweden</option>
+            <option value="Switzerland">Switzerland</option>
+            <option value="Syria">Syria</option>
+            <option value="Taiwan">Taiwan</option>
+            <option value="Tajikistan">Tajikistan</option>
+            <option value="Tanzania">Tanzania</option>
+            <option value="Thailand">Thailand</option>
+            <option value="Timor-Leste">Timor-Leste</option>
+            <option value="Togo">Togo</option>
+            <option value="Tonga">Tonga</option>
+            <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+            <option value="Tunisia">Tunisia</option>
+            <option value="Turkey">Turkey</option>
+            <option value="Turkmenistan">Turkmenistan</option>
+            <option value="Tuvalu">Tuvalu</option>
+            <option value="Uganda">Uganda</option>
+            <option value="Ukraine">Ukraine</option>
+            <option value="United Arab Emirates">United Arab Emirates</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="United States">United States</option>
+            <option value="Uruguay">Uruguay</option>
+            <option value="Uzbekistan">Uzbekistan</option>
+            <option value="Vanuatu">Vanuatu</option>
+            <option value="Vatican City">Vatican City</option>
+            <option value="Venezuela">Venezuela</option>
+            <option value="Vietnam">Vietnam</option>
+            <option value="Yemen">Yemen</option>
+            <option value="Zambia">Zambia</option>
+            <option value="Zimbabwe">Zimbabwe</option>
+          </select>
+          <div class="form-error">Please select your country</div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="city">City *</label>
+          <input type="text" class="form-input" id="city" name="city" placeholder="Enter your city" required>
+          <div class="form-error">Please enter your city</div>
+        </div>
+      </div>
+
+      <!-- About Section -->
+      <div class="form-section">
+        <div class="section-title">
+          <i class="fas fa-user"></i>
+          About You
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="intro">One-Line Bio *</label>
+          <input type="text" class="form-input" id="intro" name="intro" placeholder="Serial founder in tech & impact" required>
+          <div class="form-error">Please enter your bio</div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="role">Your Current Role *</label>
+          <select class="form-select" id="role" name="role" required>
+            <option value="">Select your role</option>
+            <option value="Entrepreneur">Entrepreneur</option>
+            <option value="Investor">Investor</option>
+            <option value="Co-Founder / Collaborator">Co-Founder / Collaborator</option>
+          </select>
+          <div class="form-error">Please select your role</div>
+        </div>
+      </div>
+
+      <!-- Looking For Section -->
+      <div class="form-section">
+        <div class="section-title">
+          <i class="fas fa-search"></i>
+          What are you looking for?
+        </div>
+        
+        <div class="form-group">
+          <div class="checkbox-group">
+            <div class="checkbox-item" onclick="toggleCheckbox('investment')">
+              <input type="checkbox" id="investment" name="lookingFor" value="Investment Opportunities">
+              <i class="fas fa-chart-line checkbox-icon"></i>
+              <label class="checkbox-label" for="investment">Investment Opportunities</label>
+            </div>
+            
+            <div class="checkbox-item" onclick="toggleCheckbox('cofounders')">
+              <input type="checkbox" id="cofounders" name="lookingFor" value="Co-Founders">
+              <i class="fas fa-users checkbox-icon"></i>
+              <label class="checkbox-label" for="cofounders">Co-Founders</label>
+            </div>
+            
+            <div class="checkbox-item" onclick="toggleCheckbox('funding')">
+              <input type="checkbox" id="funding" name="lookingFor" value="Funding">
+              <i class="fas fa-dollar-sign checkbox-icon"></i>
+              <label class="checkbox-label" for="funding">Funding</label>
+            </div>
+            
+            <div class="checkbox-item" onclick="toggleCheckbox('resources')">
+              <input type="checkbox" id="resources" name="lookingFor" value="Professional Resources">
+              <i class="fas fa-briefcase checkbox-icon"></i>
+              <label class="checkbox-label" for="resources">Professional Resources</label>
+            </div>
+          </div>
+          <div class="form-error">Please select at least one option</div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-arrow-right" style="margin-right: 0.5rem;"></i>
+        Continue
+      </button>
+    </form>
+
+    <!-- Additional Info -->
+    <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+      <p style="color: var(--text-color); opacity: 0.7; font-size: 0.9rem;">
+        <i class="fas fa-shield-alt" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+        Your information is secure and will only be used for matching purposes
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="auth-footer">
+    © 2025 Sparko. All Rights Reserved.
+  </div>
+
   <script>
-    window.onload = function() {
-      const user = JSON.parse(localStorage.getItem('sparkoUser'));
-      const phone = localStorage.getItem('sparkoUserPhone');
-      const avatar = localStorage.getItem('sparkoUserAvatar');
+    // Toggle checkbox and visual state
+    function toggleCheckbox(checkboxId) {
+      const checkbox = document.getElementById(checkboxId);
+      const checkboxItem = checkbox.closest('.checkbox-item');
       
-      if (user) {
-        document.getElementById('userName').innerText = user.fullName;
-        document.getElementById('userEmail').innerText = user.email;
-        document.getElementById('userRole').innerText = user.role;
-        document.getElementById('userPhone').innerText = phone || 'Not verified';
-        
-        // Set avatar or initials
-        const avatarElement = document.querySelector('.profile-avatar');
-        if (avatar) {
-          avatarElement.innerHTML = `<img src="${avatar}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="Profile Picture">`;
-        } else {
-          const initials = user.fullName.split(' ').map(name => name[0]).join('').toUpperCase();
-          avatarElement.innerHTML = `<span id="userInitials">${initials}</span>`;
-        }
-        
-        // Set role-specific styling
-        const roleElement = document.getElementById('userRole');
-        const roleBadge = document.querySelector('.role-badge');
-        roleBadge.innerHTML = `<i class="fas ${getRoleIcon(user.role)}" style="margin-right: 0.5rem;"></i>${user.role}`;
-        
-        // Add welcome animation
-        setTimeout(() => {
-          document.querySelector('.profile-card').style.transform = 'scale(1.02)';
-          setTimeout(() => {
-            document.querySelector('.profile-card').style.transform = 'scale(1)';
-          }, 200);
-        }, 500);
-        
+      checkbox.checked = !checkbox.checked;
+      
+      if (checkbox.checked) {
+        checkboxItem.classList.add('selected');
       } else {
-        window.location.href = 'login.html';
+        checkboxItem.classList.remove('selected');
       }
-    };
-
-    function getRoleIcon(role) {
-      switch(role) {
-        case 'Entrepreneur': return 'fa-lightbulb';
-        case 'Investor': return 'fa-chart-line';
-        case 'Partner': return 'fa-handshake';
-        default: return 'fa-user';
-      }
-    }
-
-    function startMatching() {
-      const btn = document.querySelector('.start-matching-btn');
-      btn.innerHTML = '<span class="loading"></span> Preparing your matches...';
-      btn.disabled = true;
       
-      setTimeout(() => {
-        btn.innerHTML = '<i class="fas fa-rocket"></i> Launching Sparko...';
-        btn.style.background = 'var(--accent-color)';
-        btn.style.color = 'var(--text-color)';
-        
-        setTimeout(() => {
-          // Simulate navigation to main app
-          alert('🚀 Welcome to Sparko! Your matching experience is starting...');
-          btn.innerHTML = '<i class="fas fa-bolt" style="margin-right: 0.5rem;"></i>Start Matching';
-          btn.style.background = '';
-          btn.style.color = '';
-          btn.disabled = false;
-        }, 2000);
-      }, 2000);
-    }
-
-    function logout() {
-      const btn = document.querySelector('.logout-btn');
-      btn.innerHTML = '<span class="loading"></span> Signing out...';
-      btn.disabled = true;
-      
-      setTimeout(() => {
-        localStorage.removeItem('sparkoUser');
-        localStorage.removeItem('sparkoUserPhone');
-        window.location.href = 'login.html';
-      }, 1000);
-    }
-
-    function editProfile() {
-      window.location.href = 'edit-profile.html';
-    }
-
-    function uploadAvatar() {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-      input.onchange = function(e) {
-        const file = e.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function(e) {
-            const avatar = document.querySelector('.profile-avatar');
-            avatar.innerHTML = `<img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="Profile Picture">`;
-            
-            // Save to localStorage
-            localStorage.setItem('sparkoUserAvatar', e.target.result);
-            
-            // Show success message
-            const message = document.createElement('div');
-            message.style.cssText = `
-              position: fixed;
-              top: 20px;
-              right: 20px;
-              background: #42c767;
-              color: white;
-              padding: 1rem 1.5rem;
-              border-radius: 12px;
-              font-weight: 600;
-              z-index: 1000;
-              animation: slideInRight 0.5s ease-out;
-              box-shadow: 0 4px 20px rgba(66, 199, 103, 0.3);
-            `;
-            message.innerHTML = '<i class="fas fa-check" style="margin-right: 0.5rem;"></i>Avatar updated!';
-            document.body.appendChild(message);
-            
-            setTimeout(() => {
-              message.style.animation = 'slideOutRight 0.5s ease-in';
-              setTimeout(() => message.remove(), 500);
-            }, 3000);
-          };
-          reader.readAsDataURL(file);
+      // Clear any existing error state for the looking for section
+      const lookingForGroup = document.querySelector('.checkbox-group').closest('.form-group');
+      if (lookingForGroup.classList.contains('error')) {
+        const checkedBoxes = document.querySelectorAll('input[name="lookingFor"]:checked');
+        if (checkedBoxes.length > 0) {
+          lookingForGroup.classList.remove('error');
         }
-      };
-      input.click();
+      }
     }
 
+    // Form validation
+    function validateForm() {
+      let isValid = true;
+      
+      // Clear all previous errors
+      document.querySelectorAll('.form-group').forEach(group => {
+        group.classList.remove('error');
+      });
+      
+      // Validate country
+      const country = document.getElementById('country');
+      if (!country.value.trim()) {
+        country.closest('.form-group').classList.add('error');
+        isValid = false;
+      }
+      
+      // Validate city
+      const city = document.getElementById('city');
+      if (!city.value.trim()) {
+        city.closest('.form-group').classList.add('error');
+        isValid = false;
+      }
+      
+      // Validate bio
+      const intro = document.getElementById('intro');
+      if (!intro.value.trim()) {
+        intro.closest('.form-group').classList.add('error');
+        isValid = false;
+      }
+      
+      // Validate role
+      const role = document.getElementById('role');
+      if (!role.value.trim()) {
+        role.closest('.form-group').classList.add('error');
+        isValid = false;
+      }
+      
+      // Validate looking for (at least one checkbox must be selected)
+      const checkedBoxes = document.querySelectorAll('input[name="lookingFor"]:checked');
+      if (checkedBoxes.length === 0) {
+        document.querySelector('.checkbox-group').closest('.form-group').classList.add('error');
+        isValid = false;
+      }
+      
+      return isValid;
+    }
+
+    // Save data to localStorage
+    function saveToLocalStorage() {
+      const country = document.getElementById('country').value;
+      const city = document.getElementById('city').value;
+      const intro = document.getElementById('intro').value;
+      const role = document.getElementById('role').value;
+      
+      // Get selected looking for options
+      const checkedBoxes = document.querySelectorAll('input[name="lookingFor"]:checked');
+      const lookingFor = Array.from(checkedBoxes).map(checkbox => checkbox.value);
+      
+      // Save to localStorage
+      localStorage.setItem('country', country);
+      localStorage.setItem('city', city);
+      localStorage.setItem('intro', intro);
+      localStorage.setItem('role', role);
+      localStorage.setItem('lookingFor', JSON.stringify(lookingFor));
+    }
+
+    // Get redirect URL based on role
+    function getRedirectUrl(role) {
+      switch(role) {
+        case 'Entrepreneur':
+          return 'create-profile-founder.html';
+        case 'Investor':
+          return 'create-profile-investor.html';
+        case 'Co-Founder / Collaborator':
+          return 'create-profile-partner.html';
+        default:
+          return 'create-profile-founder.html'; // fallback
+      }
+    }
+
+    // Handle form submission
+    document.getElementById('createAccountForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (validateForm()) {
+        // Show loading state
+        const submitBtn = document.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span class="loading"></span> Saving your profile...';
+        submitBtn.disabled = true;
+        
+        // Simulate processing time
+        setTimeout(() => {
+          // Save data to localStorage
+          saveToLocalStorage();
+          
+          // Get role and redirect
+          const role = document.getElementById('role').value;
+          const redirectUrl = getRedirectUrl(role);
+          
+          // Show success state briefly
+          submitBtn.innerHTML = '<i class="fas fa-check" style="margin-right: 0.5rem;"></i>Profile saved!';
+          submitBtn.style.background = '#42c767';
+          
+          setTimeout(() => {
+            // Redirect to appropriate page
+            window.location.href = redirectUrl;
+          }, 1000);
+        }, 1500);
+      } else {
+        // Scroll to first error
+        const firstError = document.querySelector('.form-group.error');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    });
+
+    // Add floating elements animation
     document.addEventListener('DOMContentLoaded', function() {
-      // Add floating elements
       createFloatingElements();
       
-      // Add hover effects to info rows
-      const infoRows = document.querySelectorAll('.info-row');
-      infoRows.forEach(row => {
-        row.addEventListener('mouseenter', function() {
-          this.style.background = 'rgba(244, 162, 97, 0.05)';
-          this.style.transform = 'translateX(5px)';
+      // Add input focus effects
+      const inputs = document.querySelectorAll('.form-input, .form-select');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.closest('.form-group').classList.remove('error');
         });
-        
-        row.addEventListener('mouseleave', function() {
-          this.style.background = '';
-          this.style.transform = 'translateX(0)';
+      });
+      
+      // Initialize checkbox states
+      document.querySelectorAll('input[name="lookingFor"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          const checkboxItem = this.closest('.checkbox-item');
+          if (this.checked) {
+            checkboxItem.classList.add('selected');
+          } else {
+            checkboxItem.classList.remove('selected');
+          }
         });
       });
     });
@@ -162,286 +803,24 @@
         document.body.appendChild(circle);
       }
     }
+
+    // Add smooth animations for form sections
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    });
+
+    document.querySelectorAll('.form-section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'all 0.6s ease';
+      observer.observe(section);
+    });
   </script>
-  <style>
-    body {
-      background: var(--gradient-bg);
-      padding: 2rem 0;
-    }
-    
-    .auth-container {
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    
-    .profile-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    
-    .welcome-message {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--text-color);
-    }
-    
-    .profile-subtitle {
-      color: var(--text-color);
-      opacity: 0.7;
-      margin-bottom: 2rem;
-    }
-    
-    .info-row {
-      transition: all 0.3s ease;
-      border-radius: 8px;
-      margin: 0 -1rem;
-      padding: 1rem;
-    }
-    
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-    
-    .stat-card {
-      background: var(--white);
-      padding: 1.5rem 1rem;
-      border-radius: 16px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
-      transition: all 0.3s ease;
-    }
-    
-    .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-hover);
-    }
-    
-    .stat-number {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-    
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--text-color);
-      opacity: 0.7;
-      font-weight: 600;
-    }
-    
-    .start-matching-btn {
-      background: var(--gradient-primary) !important;
-      font-size: 1.1rem;
-      padding: 1.25rem 2rem;
-      margin-bottom: 1rem;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .start-matching-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s;
-    }
-    
-    .start-matching-btn:hover::before {
-      left: 100%;
-    }
-    
-    .quick-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    
-    .quick-action-btn {
-      padding: 0.75rem 1rem;
-      border: 2px solid var(--border-color);
-      background: var(--white);
-      color: var(--text-color);
-      border-radius: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-    
-    .quick-action-btn:hover {
-      border-color: var(--primary-color);
-      background: rgba(244, 162, 97, 0.1);
-      transform: translateY(-2px);
-    }
-    
-    .verification-status {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .verified-badge {
-      background: #42c767;
-      color: white;
-      padding: 0.25rem 0.5rem;
-      border-radius: 12px;
-      font-size: 0.7rem;
-      font-weight: 600;
-    }
-    
-    .pending-badge {
-      background: #ffa726;
-      color: white;
-      padding: 0.25rem 0.5rem;
-      border-radius: 12px;
-      font-size: 0.7rem;
-      font-weight: 600;
-    }
-  </style>
-</head>
-<body>
-  <!-- Brand Header -->
-  <div class="brand-header">
-    <a href="index.html" class="brand-logo">Sparko</a>
-    <p class="brand-tagline">Connect. Collaborate. Create.</p>
-  </div>
-
-  <!-- Main Container -->
-  <div class="auth-container">
-    <!-- Profile Header -->
-    <div class="profile-header">
-      <h1 class="welcome-message">Welcome, <span class="highlight" id="userName"></span>!</h1>
-      <p class="profile-subtitle">Your Sparko profile is ready to spark connections</p>
-    </div>
-
-    <!-- Profile Card -->
-    <div class="profile-card">
-      <div class="profile-avatar" onclick="uploadAvatar()" style="cursor: pointer; position: relative;">
-        <span id="userInitials">JS</span>
-        <div style="position: absolute; bottom: -5px; right: -5px; background: var(--primary-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; border: 3px solid white; box-shadow: var(--shadow);">
-          <i class="fas fa-camera"></i>
-        </div>
-      </div>
-      
-      <div class="profile-info">
-        <div class="info-row">
-          <div class="info-label">
-            <i class="fas fa-user" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
-            Full Name
-          </div>
-          <div class="info-value" id="userName">John Smith</div>
-        </div>
-        
-        <div class="info-row">
-          <div class="info-label">
-            <i class="fas fa-envelope" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
-            Email
-          </div>
-          <div class="info-value" id="userEmail">john@example.com</div>
-        </div>
-        
-        <div class="info-row">
-          <div class="info-label">
-            <i class="fas fa-briefcase" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
-            Role
-          </div>
-          <div class="info-value">
-            <span class="role-badge" id="userRole">Entrepreneur</span>
-          </div>
-        </div>
-        
-        <div class="info-row">
-          <div class="info-label">
-            <i class="fas fa-phone" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
-            Phone
-          </div>
-          <div class="info-value verification-status">
-            <span id="userPhone">+1 (555) 123-4567</span>
-            <span class="verified-badge">
-              <i class="fas fa-check"></i> Verified
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stats Grid -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-number">0</div>
-        <div class="stat-label">Connections</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">0</div>
-        <div class="stat-label">Matches</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">Profile</div>
-      </div>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="action-buttons">
-      <button class="btn btn-primary start-matching-btn" onclick="startMatching()">
-        <i class="fas fa-bolt" style="margin-right: 0.5rem;"></i>
-        Start Matching
-      </button>
-    </div>
-
-    <!-- Quick Actions -->
-    <div class="quick-actions">
-      <button class="quick-action-btn" onclick="editProfile()">
-        <i class="fas fa-edit"></i>
-        Edit Profile
-      </button>
-      <button class="quick-action-btn logout-btn" onclick="logout()">
-        <i class="fas fa-sign-out-alt"></i>
-        Logout
-      </button>
-    </div>
-
-    <!-- Additional Info -->
-    <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
-      <p style="color: var(--text-color); opacity: 0.7; margin-bottom: 1rem;">
-        <i class="fas fa-info-circle" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
-        Your profile is 100% complete and ready for matching!
-      </p>
-      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-        <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;">
-          <i class="fas fa-shield-alt" style="margin-right: 0.5rem;"></i>
-          Privacy Settings
-        </a>
-        <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;">
-          <i class="fas fa-bell" style="margin-right: 0.5rem;"></i>
-          Notifications
-        </a>
-        <a href="#" style="color: var(--primary-color); text-decoration: none; font-size: 0.9rem;">
-          <i class="fas fa-question-circle" style="margin-right: 0.5rem;"></i>
-          Help & Support
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="auth-footer">
-    © 2025 Sparko. All Rights Reserved.
-  </div>
 </body>
 </html>
 
