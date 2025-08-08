@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparko Matching</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for Color Scheme (as provided ) */
+        :root {
+            --primary-color: #F4A261;
+            --secondary-color: #E76F51;
+            --background-color: #FFF9F4;
+            --text-color: #2D2D2D;
+            --accent-color: #E9C46A;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --border-color: #E5E5E5;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --gradient-bg: linear-gradient(135deg, var(--background-color) 0%, #FFF5E6 100%);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--gradient-bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 1rem;
+        }
+
+        /* Brand Header */
+        .brand-header {
+            position: fixed;
+            top: 2rem;
+            left: 2.5rem;
+            z-index: 1000;
+        }
+
+        .brand-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-tagline {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.6;
+            font-weight: 500;
+        }
+
+        /* Main Matching Container */
+        .matching-container {
+            width: 100%;
+            max-width: 380px;
+            height: 680px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Card Stack */
+        .card-stack {
+            width: 100%;
+            height: 500px;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: grab;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            border: 1px solid var(--border-color);
+        }
+        
+        .card.dragging {
+            cursor: grabbing;
+            transition: none;
+        }
+
+        .card-content {
+            text-align: left;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .card-city {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .card-bio {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .card-details {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .detail-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            width: 100px;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .card-role {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .card-counter {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-color);
+            opacity: 0.6;
+        }
+        
+        /* End of Cards Screen */
+        .no-more-cards {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-color);
+            opacity: 0.7;
+            width: 100%;
+            height: 100%;
+            background: var(--light-gray);
+            border-radius: 24px;
+        }
+        .no-more-cards h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .action-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: var(--white);
+            color: var(--text-color);
+            font-size: 1.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-pass { color: #E76F51; }
+        .btn-like { color: #84DCC6; }
+        .btn-super {
+            width: 72px;
+            height: 72px;
+            font-size: 2rem;
+            color: var(--white);
+            background: var(--gradient-primary);
+            border: none;
+        }
+        .btn-super.disabled {
+            background: var(--light-gray);
+            color: var(--border-color);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Match Animation Modal */
+        .match-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .match-modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .match-content {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 24px;
+            text-align: center;
+            transform: scale(0.7);
+            transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+        .match-modal.show .match-content {
+            transform: scale(1);
+        }
+        .match-content h2 {
+            font-size: 2.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        .match-content p {
+            font-size: 1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            body {
+                align-items: flex-start;
+                padding-top: 8rem;
+            }
+            .brand-header {
+                top: 1.5rem;
+                left: 1.5rem;
+                right: 1.5rem;
+                text-align: center;
+            }
+            .matching-container {
+                height: auto;
+                max-width: 100%;
+            }
+            .card-stack {
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="brand-header">
+        <div class="brand-logo">Sparko</div>
+        <div class="brand-tagline">Ignite Your Next Venture</div>
+    </header>
+
+    <main class="matching-container">
+        <div class="card-stack" id="card-stack">
+            <!-- Cards will be injected here by JavaScript -->
+            <div class="no-more-cards" style="display: none;">
+                <h2>No More Profiles</h2>
+                <p>You've seen everyone for now. Check back later!</p>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn btn-pass" id="pass-btn" aria-label="Pass">❌</button>
+            <button class="action-btn btn-super" id="super-btn" aria-label="Super Spark">🔥</button>
+            <button class="action-btn btn-like" id="like-btn" aria-label="Like">✅</button>
+        </div>
+    </main>
+    
+    <div class="match-modal" id="match-modal">
+        <div class="match-content">
+            <h2>It's a Spark!</h2>
+            <p>You and the other person liked each other.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURATION & DATA ---
+
+            const MOCK_DATA = {
+                'founder-investor-matching': [
+                    { id: 101, name: 'Alex Chen', city: 'Taipei', bio: 'Building the future of FinTech.', role: 'Founder', details: { 'Industry': 'FinTech', 'Stage': 'Seed', 'Seeking': '$500K' } },
+                    { id: 102, name: 'Brenda Lo', city: 'Hsinchu', bio: 'AI-driven solutions for sustainable agriculture.', role: 'Founder', details: { 'Industry': 'AgriTech', 'Stage': 'Pre-Seed', 'Seeking': '$250K' } },
+                    { id: 103, name: 'Charles Wu', city: 'Kaohsiung', bio: 'Revolutionizing logistics with IoT.', role: 'Founder', details: { 'Industry': 'Logistics', 'Stage': 'Series A', 'Seeking': '$2M' } },
+                    { id: 104, name: 'Diana Lee', city: 'Taichung', bio: 'EdTech platform for personalized learning.', role: 'Founder', details: { 'Industry': 'EdTech', 'Stage': 'Seed', 'Seeking': '$750K' } },
+                    { id: 105, name: 'Ethan Tsai', city: 'Tainan', bio: 'Creating sustainable packaging from seaweed.', role: 'Founder', details: { 'Industry': 'Sustainability', 'Stage': 'Idea', 'Seeking': '$100K' } },
+                ],
+                'investor-founder-matching': [
+                    { id: 201, name: 'Grace Lin', city: 'Taipei', bio: 'Investing in disruptive technologies.', role: 'Investor', details: { 'Focus': 'SaaS, AI', 'Check Size': '$100K - $500K', 'Portfolio': '15+ companies' } },
+                    { id: 202, name: 'Henry Kao', city: 'Singapore', bio: 'Early-stage VC with a focus on deep tech.', role: 'Investor', details: { 'Focus': 'Deep Tech', 'Check Size': '$500K - $1M', 'Portfolio': '8 companies' } },
+                    { id: 203, name: 'Ivy Ho', city: 'Hong Kong', bio: 'Angel investor passionate about consumer brands.', role: 'Investor', details: { 'Focus': 'D2C, E-commerce', 'Check Size': '$50K - $250K', 'Portfolio': '20+ startups' } },
+                    { id: 204, name: 'Jack Ma', city: 'Tokyo', bio: 'Corporate venture arm looking for strategic fits.', role: 'Investor', details: { 'Focus': 'Synergy', 'Check Size': '$1M+', 'Portfolio': '5 strategic investments' } },
+                    { id: 205, name: 'Karen Pai', city: 'Taipei', bio: 'Impact investor for a better tomorrow.', role: 'Investor', details: { 'Focus': 'ESG, Social', 'Check Size': '$200K - $800K', 'Portfolio': '12 impact startups' } },
+                ],
+                'partner-partner-matching': [
+                    { id: 301, name: 'Leo Fang', city: 'Taipei', bio: 'Marketing guru looking for a tech co-founder.', role: 'Partner', details: { 'Expertise': 'Growth Hacking', 'Industry': 'Any', 'Commitment': 'Full-time' } },
+                    { id: 302, name: 'Mia Sung', city: 'Hsinchu', bio: 'Full-stack developer seeking a business partner.', role: 'Partner', details: { 'Expertise': 'React, Node.js', 'Industry': 'SaaS', 'Commitment': 'Full-time' } },
+                    { id: 303, name: 'Nate Hsu', city: 'Taichung', bio: 'Operations expert ready to scale a startup.', role: 'Partner', details: { 'Expertise': 'Supply Chain', 'Industry': 'E-commerce', 'Commitment': 'Part-time' } },
+                    { id: 304, name: 'Olivia Pan', city: 'Online', bio: 'UI/UX designer with a passion for user-centric products.', role: 'Partner', details: { 'Expertise': 'Figma, Design', 'Industry': 'Mobile Apps', 'Commitment': 'Project-based' } },
+                    { id: 305, name: 'Peter Chu', city: 'Kaohsiung', bio: 'Sales lead who can sell ice to an Eskimo.', role: 'Partner', details: { 'Expertise': 'B2B Sales', 'Industry': 'Enterprise', 'Commitment': 'Full-time' } },
+                ]
+            };
+
+            const SUPER_SPARK_COOLDOWN = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+
+            // --- DOM ELEMENTS ---
+            const cardStack = document.getElementById('card-stack');
+            const passBtn = document.getElementById('pass-btn');
+            const superBtn = document.getElementById('super-btn');
+            const likeBtn = document.getElementById('like-btn');
+            const matchModal = document.getElementById('match-modal');
+
+            // --- STATE MANAGEMENT ---
+            let currentCards = [];
+            let currentIndex = 0;
+            let pageType = '';
+
+            // --- LOCALSTORAGE HELPERS ---
+            const getFromStorage = (key, defaultValue) => {
+                const value = localStorage.getItem(key);
+                return value ? JSON.parse(value) : defaultValue;
+            };
+
+            const saveToStorage = (key, value) => {
+                localStorage.setItem(key, JSON.stringify(value));
+            };
+
+            // --- CORE FUNCTIONS ---
+
+            /**
+             * Determines the page type from the filename.
+             */
+            function getPageType() {
+                const path = window.location.pathname;
+                const filename = path.substring(path.lastIndexOf('/') + 1);
+                if (filename.startsWith('founder')) return 'founder-investor-matching';
+                if (filename.startsWith('investor')) return 'investor-founder-matching';
+                if (filename.startsWith('partner')) return 'partner-partner-matching';
+                return 'founder-investor-matching'; // Default
+            }
+
+            /**
+             * Creates a single card element from profile data.
+             */
+            function createCard(profile, index, total) {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.dataset.id = profile.id;
+
+                let detailsHtml = '';
+                for (const [key, value] of Object.entries(profile.details)) {
+                    detailsHtml += `
+                        <div class="detail-item">
+                            <span class="detail-label">${key}</span>
+                            <span class="detail-value">${value}</span>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div>
+                                <h2 class="card-name">${profile.name}</h2>
+                                <p class="card-city">${profile.city}</p>
+                            </div>
+                        </div>
+                        <p class="card-bio">“${profile.bio}”</p>
+                        <div class="card-details">${detailsHtml}</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-role">${profile.role}</span>
+                        <span class="card-counter">${index + 1} of ${total}</span>
+                    </div>
+                `;
+                
+                // Add drag functionality
+                let startX = 0;
+                let currentX = 0;
+                let isDragging = false;
+
+                function onPointerDown(e) {
+                    isDragging = true;
+                    startX = e.clientX;
+                    card.classList.add('dragging');
+                    card.setPointerCapture(e.pointerId);
+                }
+
+                function onPointerMove(e) {
+                    if (!isDragging) return;
+                    currentX = e.clientX - startX;
+                    const rotation = currentX / 20; // Rotate card as it moves
+                    card.style.transform = `translateX(${currentX}px) rotate(${rotation}deg)`;
+                }
+
+                function onPointerUp(e) {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    card.classList.remove('dragging');
+                    card.releasePointerCapture(e.pointerId);
+
+                    if (Math.abs(currentX) > card.offsetWidth / 4) {
+                        // Swipe threshold met
+                        const direction = currentX > 0 ? 'like' : 'pass';
+                        handleSwipe(direction);
+                    } else {
+                        // Return to original position
+                        card.style.transform = 'translateX(0) rotate(0)';
+                    }
+                }
+                
+                card.addEventListener('pointerdown', onPointerDown);
+                card.addEventListener('pointermove', onPointerMove);
+                card.addEventListener('pointerup', onPointerUp);
+
+                return card;
+            }
+
+            /**
+             * Renders the stack of cards.
+             */
+            function renderCards() {
+                cardStack.innerHTML = '';
+                const swipedProfiles = getFromStorage(`swiped_${pageType}`, []);
+                
+                currentCards = MOCK_DATA[pageType].filter(p => !swipedProfiles.includes(p.id));
+
+                if (currentCards.length === 0) {
+                    showNoMoreCards();
+                    return;
+                }
+                
+                currentCards.slice(0, 3).reverse().forEach((profile, i) => {
+                    const card = createCard(profile, currentIndex + i, MOCK_DATA[pageType].length);
+                    card.style.zIndex = currentCards.length - i;
+                    card.style.transform = `translateY(${i * -10}px) scale(${1 - i * 0.05})`;
+                    card.style.opacity = 1 - i * 0.1;
+                    cardStack.appendChild(card);
+                });
+                
+                updateSuperSparkButton();
+            }
+
+            /**
+             * Handles the swipe action (like, pass, super).
+             */
+            function handleSwipe(action) {
+                if (currentIndex >= currentCards.length) return;
+
+                const swipedCardElement = cardStack.querySelector('.card:last-child');
+                if (!swipedCardElement) return;
+
+                const profileId = parseInt(swipedCardElement.dataset.id);
+                
+                // Animate swipe out
+                const direction = (action === 'pass') ? -1 : 1;
+                const rotation = (action === 'super') ? 0 : Math.random() * 20 - 10;
+                swipedCardElement.style.transform = `translateX(${direction * 500}px) rotate(${rotation}deg)`;
+                swipedCardElement.style.opacity = '0';
+
+                // Record swipe
+                const swipedProfiles = getFromStorage(`swiped_${pageType}`, []);
+                saveToStorage(`swiped_${pageType}`, [...swipedProfiles, profileId]);
+
+                // Simulate match logic
+                if (action === 'like' || action === 'super') {
+                    const userLikes = getFromStorage(`user_likes_${pageType}`, []);
+                    saveToStorage(`user_likes_${pageType}`, [...userLikes, profileId]);
+                    
+                    // Simulate that the other person has a 30% chance of having liked us
+                    if (Math.random() < 0.3) {
+                        setTimeout(() => showMatchAnimation(), 400);
+                    }
+                }
+                
+                if (action === 'super') {
+                    const now = new Date().getTime();
+                    saveToStorage('super_spark_ts', now);
+                    updateSuperSparkButton();
+                }
+
+                currentIndex++;
+                
+                setTimeout(() => {
+                    swipedCardElement.remove();
+                    if (currentIndex >= currentCards.length) {
+                        showNoMoreCards();
+                    } else {
+                        // Add a new card to the bottom of the stack to maintain depth
+                        if (currentIndex + 2 < currentCards.length) {
+                            const nextProfile = currentCards[currentIndex + 2];
+                            const newCard = createCard(nextProfile, currentIndex + 2, MOCK_DATA[pageType].length);
+                            newCard.style.zIndex = 1;
+                            newCard.style.transform = `translateY(-20px) scale(0.9)`;
+                            newCard.style.opacity = 0.9;
+                            cardStack.insertBefore(newCard, cardStack.firstChild);
+                        }
+                    }
+                }, 400);
+            }
+
+            /**
+             * Shows the "no more cards" message.
+             */
+            function showNoMoreCards() {
+                const noCardsEl = cardStack.querySelector('.no-more-cards') || document.createElement('div');
+                if (!cardStack.contains(noCardsEl)) {
+                    noCardsEl.className = 'no-more-cards';
+                    noCardsEl.innerHTML = `
+                        <h2>No More Profiles</h2>
+                        <p>You've seen everyone for now. Check back later!</p>
+                    `;
+                    cardStack.appendChild(noCardsEl);
+                }
+                noCardsEl.style.display = 'flex';
+                passBtn.disabled = true;
+                likeBtn.disabled = true;
+                superBtn.disabled = true;
+            }
+
+            /**
+             * Updates the state and appearance of the Super Spark button.
+             */
+            function updateSuperSparkButton() {
+                const lastUsed = getFromStorage('super_spark_ts', 0);
+                const now = new Date().getTime();
+                if (now - lastUsed < SUPER_SPARK_COOLDOWN) {
+                    superBtn.classList.add('disabled');
+                    superBtn.disabled = true;
+                } else {
+                    superBtn.classList.remove('disabled');
+                    superBtn.disabled = false;
+                }
+            }
+            
+            /**
+             * Shows the match success animation.
+             */
+            function showMatchAnimation() {
+                matchModal.classList.add('show');
+                // Hide after 2.5 seconds
+                setTimeout(() => {
+                    matchModal.classList.remove('show');
+                }, 2500);
+            }
+
+            // --- EVENT LISTENERS ---
+            passBtn.addEventListener('click', () => handleSwipe('pass'));
+            likeBtn.addEventListener('click', () => handleSwipe('like'));
+            superBtn.addEventListener('click', () => {
+                if (!superBtn.disabled) {
+                    handleSwipe('super');
+                }
+            });
+            
+            // --- INITIALIZATION ---
+            function init() {
+                pageType = getPageType();
+                document.title = `Sparko - ${pageType.split('-')[0].charAt(0).toUpperCase() + pageType.split('-')[0].slice(1)} Matching`;
+                renderCards();
+            }
+
+            init();
+        });
+    </script>
+</body>
+</html>
