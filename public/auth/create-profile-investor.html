@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Investor Profile - Sparko</title>
+    <link rel="stylesheet" href="auth-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating Elements -->
+    <div class="floating-element floating-circle"></div>
+    <div class="floating-element floating-circle"></div>
+    <div class="floating-element floating-circle"></div>
+    <div class="floating-element floating-circle"></div>
+
+    <!-- Brand Header -->
+    <div class="brand-header">
+        <a href="#" class="brand-logo">Sparko</a>
+        <div class="brand-tagline">Connect • Invest • Grow</div>
+    </div>
+
+    <!-- Home Button -->
+    <a href="index.html" class="home-btn">
+        <span>← Home</span>
+    </a>
+
+    <!-- Main Container -->
+    <div class="auth-container">
+        <h1>Create Your <span class="highlight">Investor Profile</span></h1>
+        <p class="subtitle">Share your investment preferences and connect with promising startups</p>
+
+        <form class="auth-form" id="investorProfileForm">
+            <!-- Field 1: Investment Industries -->
+            <div class="form-group">
+                <label class="form-label">
+                    Which industries are you interested in investing in? <span style="color: #E76F51;">*</span>
+                    <small style="display: block; color: #999; font-weight: 400; margin-top: 0.25rem;">(Select up to 3)</small>
+                </label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="ai-machine-learning">
+                        <span class="checkmark"></span>
+                        AI/Machine Learning
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="biotechnology">
+                        <span class="checkmark"></span>
+                        Biotechnology
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="clean-technology">
+                        <span class="checkmark"></span>
+                        Clean Technology
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="e-commerce">
+                        <span class="checkmark"></span>
+                        E-commerce
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="education-technology">
+                        <span class="checkmark"></span>
+                        Education Technology (EdTech)
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="financial-technology">
+                        <span class="checkmark"></span>
+                        Financial Technology (FinTech)
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="food-agriculture-technology">
+                        <span class="checkmark"></span>
+                        Food & Agriculture Technology (AgriTech)
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="health-wellness">
+                        <span class="checkmark"></span>
+                        Health & Wellness (HealthTech)
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="logistics-supply-chain">
+                        <span class="checkmark"></span>
+                        Logistics & Supply Chain
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="media-entertainment">
+                        <span class="checkmark"></span>
+                        Media & Entertainment
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="real-estate-technology">
+                        <span class="checkmark"></span>
+                        Real Estate Technology (PropTech)
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="robotics">
+                        <span class="checkmark"></span>
+                        Robotics
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="saas">
+                        <span class="checkmark"></span>
+                        Software as a Service (SaaS)
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="travel-hospitality">
+                        <span class="checkmark"></span>
+                        Travel & Hospitality
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="investmentIndustries" value="other">
+                        <span class="checkmark"></span>
+                        Other
+                    </label>
+                </div>
+            </div>
+
+            <!-- Field 2: Investment Stage -->
+            <div class="form-group">
+                <label class="form-label" for="investmentStage">
+                    What is your preferred investment stage? <span style="color: #E76F51;">*</span>
+                </label>
+                <select class="form-select" id="investmentStage" name="investmentStage" required>
+                    <option value="">Select investment stage</option>
+                    <option value="pre-seed">Pre-seed</option>
+                    <option value="seed">Seed</option>
+                    <option value="pre-a">Pre-A</option>
+                    <option value="series-a-plus">Series A and above</option>
+                </select>
+            </div>
+
+            <!-- Field 3: Additional Resources -->
+            <div class="form-group">
+                <label class="form-label">
+                    Besides funding, are you willing to provide the following resources? <span style="color: #E76F51;">*</span>
+                </label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="additionalResources" value="industry-experience">
+                        <span class="checkmark"></span>
+                        Industry Experience
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="additionalResources" value="professional-consulting">
+                        <span class="checkmark"></span>
+                        Professional Consulting
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="additionalResources" value="network">
+                        <span class="checkmark"></span>
+                        Network & Connections
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="additionalResources" value="business-strategy">
+                        <span class="checkmark"></span>
+                        Business Strategy Advice
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="additionalResources" value="no-additional-support">
+                        <span class="checkmark"></span>
+                        No Additional Support
+                    </label>
+                </div>
+            </div>
+
+            <!-- Field 4: Opportunity Types -->
+            <div class="form-group">
+                <label class="form-label">
+                    What type of opportunities do you hope to find through Sparko? <span style="color: #E76F51;">*</span>
+                </label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="opportunityTypes" value="joint-venture">
+                        <span class="checkmark"></span>
+                        Joint Venture
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="opportunityTypes" value="small-investment">
+                        <span class="checkmark"></span>
+                        Small Investment
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="opportunityTypes" value="innovative-projects">
+                        <span class="checkmark"></span>
+                        Innovative Projects
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="opportunityTypes" value="acquisition-targets">
+                        <span class="checkmark"></span>
+                        Acquisition Targets
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="opportunityTypes" value="esg-projects">
+                        <span class="checkmark"></span>
+                        ESG-oriented Projects
+                    </label>
+                </div>
+            </div>
+
+            <!-- Field 5: Investment Decision Factors -->
+            <div class="form-group">
+                <label class="form-label" for="decisionFactors">
+                    What do you value most when making investment decisions? <span style="color: #E76F51;">*</span>
+                </label>
+                <select class="form-select" id="decisionFactors" name="decisionFactors" required>
+                    <option value="">Select primary factor</option>
+                    <option value="team">Team</option>
+                    <option value="business-model">Business Model</option>
+                    <option value="return-potential">Return Potential</option>
+                    <option value="product-innovation">Product Innovation</option>
+                    <option value="personal-fit">Personal Fit</option>
+                </select>
+            </div>
+
+            <!-- Field 6: Investment Amount Range (Member Only) -->
+            <div class="form-group member-only-field">
+                <label class="form-label" for="investmentAmount">
+                    What is your investable amount range? <span class="member-info">(Member Only)</span>
+                </label>
+                <select class="form-select" id="investmentAmount" name="investmentAmount">
+                    <option value="">Select investment range</option>
+                    <option value="under-25k">< £25,000</option>
+                    <option value="25k-100k">£25,000 - £100,000</option>
+                    <option value="100k-500k">£100,000 - £500,000</option>
+                    <option value="500k-plus">£500,000+</option>
+                    <option value="case-by-case">Case by case</option>
+                </select>
+            </div>
+
+            <!-- Field 7: Past Investment Experience (Member Only) -->
+            <div class="form-group member-only-field">
+                <label class="form-label" for="pastInvestments">
+                    Past investment projects or industries <span class="member-info">(Member Only)</span>
+                    <small style="display: block; color: #999; font-weight: 400; margin-top: 0.25rem;">Briefly describe 1-2 projects</small>
+                </label>
+                <textarea class="form-input" id="pastInvestments" name="pastInvestments" 
+                    placeholder="Briefly describe your past investment experience..." 
+                    rows="3"></textarea>
+            </div>
+
+            <!-- Field 8: Project Characteristics (Member Only) -->
+            <div class="form-group member-only-field">
+                <label class="form-label">
+                    What project characteristics interest you most? <span class="member-info">(Member Only)</span>
+                </label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="projectCharacteristics" value="revenue-generating">
+                        <span class="checkmark"></span>
+                        Revenue Generating
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="projectCharacteristics" value="strong-team">
+                        <span class="checkmark"></span>
+                        Strong Team Background
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="projectCharacteristics" value="tech-leading">
+                        <span class="checkmark"></span>
+                        Technology Leading
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="projectCharacteristics" value="fast-growth">
+                        <span class="checkmark"></span>
+                        Fast Growth
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="projectCharacteristics" value="social-impact">
+                        <span class="checkmark"></span>
+                        High Social Impact
+                    </label>
+                </div>
+            </div>
+
+            <!-- Field 9: Initial Conversation Willingness (Member Only) -->
+            <div class="form-group member-only-field">
+                <label class="form-label">
+                    Are you willing to have initial conversations with entrepreneurs? <span class="member-info">(Member Only)</span>
+                </label>
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="initialConversation" value="yes">
+                        <span class="radio-mark"></span>
+                        Yes
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="initialConversation" value="no">
+                        <span class="radio-mark"></span>
+                        No
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">
+                Complete Profile & Find Startups
+            </button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="auth-footer">
+        © 2025 Sparko. Connecting founders with investors.
+    </div>
+
+    <script>
+        // Form submission handler
+        document.getElementById("investorProfileForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // Validate required checkboxes
+            const industriesChecked = document.querySelectorAll("input[name=\"investmentIndustries\"]:checked");
+            if (industriesChecked.length === 0) {
+                alert("Please select at least one industry you\'re interested in.");
+                return;
+            }
+            if (industriesChecked.length > 3) {
+                alert("You can select a maximum of 3 industries.");
+                return;
+            }
+
+            const resourcesChecked = document.querySelectorAll("input[name=\"additionalResources\"]:checked");
+            if (resourcesChecked.length === 0) {
+                alert("Please select at least one option for additional resources.");
+                return;
+            }
+
+            const opportunitiesChecked = document.querySelectorAll("input[name=\"opportunityTypes\"]:checked");
+            if (opportunitiesChecked.length === 0) {
+                alert("Please select at least one type of opportunity you\'re looking for.");
+                return;
+            }
+
+            // Collect form data
+            const formData = new FormData(this);
+            const profileData = {};
+
+            // Handle regular form fields
+            for (let [key, value] of formData.entries()) {
+                if (key === "investmentIndustries" || key === "additionalResources" || 
+                    key === "opportunityTypes" || key === "projectCharacteristics") {
+                    if (!profileData[key]) {
+                        profileData[key] = [];
+                    }
+                    profileData[key].push(value);
+                } else {
+                    profileData[key] = value;
+                }
+            }
+
+            // Save to localStorage
+            localStorage.setItem("investorProfile", JSON.stringify(profileData));
+            localStorage.setItem("profile_investor_complete", "true");
+
+            // Show success message
+            const submitBtn = this.querySelector("button[type=\"submit\"]");
+            submitBtn.innerHTML = '<div class="loading"></div> Saving Profile...';
+            submitBtn.disabled = true;
+
+            // Simulate saving delay and redirect
+            setTimeout(() => {
+                window.location.href = "investor-founder-matching.html";
+            }, 1500);
+        });
+
+        // Limit industry selection to 3
+        const industryCheckboxes = document.querySelectorAll("input[name=\"investmentIndustries\"]");
+        industryCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener("change", function() {
+                const checkedBoxes = document.querySelectorAll("input[name=\"investmentIndustries\"]:checked");
+                if (checkedBoxes.length > 3) {
+                    this.checked = false;
+                    alert("You can select a maximum of 3 industries.");
+                }
+            });
+        });
+
+        // Member-only field styling (no alert on focus, just visual cue)
+        const memberOnlyFields = document.querySelectorAll(".member-only-field");
+        memberOnlyFields.forEach(field => {
+            field.style.opacity = "1"; // Keep full opacity
+            field.style.border = "1px dashed var(--primary-color)"; // Add a dashed border
+            field.style.padding = "1rem";
+            field.style.borderRadius = "12px";
+            field.style.marginBottom = "1.5rem";
+        });
+    </script>
+
+    <style>
+        /* Additional styles for this form */
+        .checkbox-group, .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover, .radio-item:hover {
+            border-color: var(--primary-color);
+            background: rgba(244, 162, 97, 0.05);
+        }
+
+        .checkbox-item input, .radio-item input {
+            margin-right: 0.75rem;
+            transform: scale(1.2);
+        }
+
+        .member-info {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .member-only-field {
+            position: relative;
+            border: 1px dashed var(--primary-color);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .checkbox-group, .radio-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>
+

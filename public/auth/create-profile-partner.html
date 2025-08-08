@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Partner Profile - Sparko</title>
+    <link rel="stylesheet" href="auth-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating Elements -->
+    <div class="floating-element floating-circle"></div>
+    <div class="floating-element floating-circle"></div>
+    <div class="floating-element floating-circle"></div>
+    <div class="floating-element floating-circle"></div>
+
+    <!-- Brand Header -->
+    <div class="brand-header">
+        <a href="#" class="brand-logo">Sparko</a>
+        <div class="brand-tagline">Connect • Invest • Grow</div>
+    </div>
+
+    <!-- Home Button -->
+    <a href="index.html" class="home-btn">
+        <span>← Home</span>
+    </a>
+
+    <!-- Main Container -->
+    <div class="auth-container">
+        <h1>Create Your <span class="highlight">Partner Profile</span></h1>
+        <p class="subtitle">Share your expertise and find the perfect co-founder or collaborator</p>
+
+        <form class="auth-form" id="partnerProfileForm">
+            <!-- Field 1: Expertise Area -->
+            <div class="form-group">
+                <label class="form-label" for="expertiseArea">
+                    What is your area of expertise? <span style="color: #E76F51;">*</span>
+                </label>
+                <select class="form-select" id="expertiseArea" name="expertiseArea" required>
+                    <option value="">Select your expertise</option>
+                    <option value="technology">Technology</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="operations">Operations</option>
+                    <option value="finance">Finance</option>
+                    <option value="legal">Legal</option>
+                    <option value="design">Design</option>
+                    <option value="business-development">Business Development</option>
+                    <option value="product-management">Product Management</option>
+                    <option value="data-science">Data Science & Analytics</option>
+                    <option value="sales">Sales</option>
+                    <option value="human-resources">Human Resources</option>
+                    <option value="strategy-consulting">Strategy & Consulting</option>
+                    <option value="research-development">Research & Development</option>
+                    <option value="supply-chain">Supply Chain Management</option>
+                    <option value="customer-success">Customer Success</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Field 2: Project Interest -->
+            <div class="form-group">
+                <label class="form-label" for="projectInterest">
+                    What type of startup projects are you interested in participating in? <span style="color: #E76F51;">*</span>
+                    <small style="display: block; color: #999; font-weight: 400; margin-top: 0.25rem;">Briefly describe the industries, product types, or business models you're interested in</small>
+                </label>
+                <textarea class="form-input" id="projectInterest" name="projectInterest" 
+                    placeholder="Describe the type of projects that excite you..." 
+                    rows="4" required></textarea>
+                <div class="char-counter" id="projectInterestCounter">0/500 characters</div>
+            </div>
+
+            <!-- Field 3: Core Value Proposition -->
+            <div class="form-group">
+                <label class="form-label">
+                    What core value can you provide? <span style="color: #E76F51;">*</span>
+                </label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="technical-development">
+                        <span class="checkmark"></span>
+                        Technical Development
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="market-expansion">
+                        <span class="checkmark"></span>
+                        Market Expansion
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="operations-management">
+                        <span class="checkmark"></span>
+                        Operations Management
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="business-strategy">
+                        <span class="checkmark"></span>
+                        Business Strategy
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="legal-financial-support">
+                        <span class="checkmark"></span>
+                        Legal & Financial Support
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="brand-design">
+                        <span class="checkmark"></span>
+                        Brand & Design
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="network-resources">
+                        <span class="checkmark"></span>
+                        Network & Resources
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="product-development">
+                        <span class="checkmark"></span>
+                        Product Development
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="sales-growth">
+                        <span class="checkmark"></span>
+                        Sales & Growth
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="data-analytics">
+                        <span class="checkmark"></span>
+                        Data & Analytics
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="customer-relations">
+                        <span class="checkmark"></span>
+                        Customer Relations
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="coreValue" value="fundraising">
+                        <span class="checkmark"></span>
+                        Fundraising & Investment
+                    </label>
+                </div>
+            </div>
+
+            <!-- Field 4: Collaboration Model -->
+            <div class="form-group">
+                <label class="form-label" for="collaborationModel">
+                    What is your ideal collaboration model? <span style="color: #E76F51;">*</span>
+                </label>
+                <select class="form-select" id="collaborationModel" name="collaborationModel" required>
+                    <option value="">Select collaboration model</option>
+                    <option value="co-founder-equity">Co-founder (Equity sharing)</option>
+                    <option value="advisor-consultant">Advisor/Consultant role</option>
+                    <option value="tech-for-equity">Technology for equity</option>
+                    <option value="still-exploring">Still exploring options</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Field 5: Existing Startup Ideas -->
+            <div class="form-group">
+                <label class="form-label">
+                    Do you currently have startup ideas? <span style="color: #E76F51;">*</span>
+                </label>
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="hasStartupIdeas" value="yes" required>
+                        <span class="radio-mark"></span>
+                        Yes
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="hasStartupIdeas" value="no" required>
+                        <span class="radio-mark"></span>
+                        No
+                    </label>
+                </div>
+            </div>
+
+            <!-- Field 6: Time Commitment (Member Only) -->
+            <div class="form-group member-only-field">
+                <label class="form-label" for="timeCommitment">
+                    How many hours per week can you commit? <span class="member-info">(Member Only)</span>
+                </label>
+                <select class="form-select" id="timeCommitment" name="timeCommitment">
+                    <option value="">Select time commitment</option>
+                    <option value="under-5-hours">< 5 hours</option>
+                    <option value="5-10-hours">5-10 hours</option>
+                    <option value="10-20-hours">10-20 hours</option>
+                    <option value="full-time">Full-time commitment</option>
+                </select>
+            </div>
+
+            <!-- Field 7: Financial Investment Willingness (Member Only) -->
+            <div class="form-group member-only-field">
+                <label class="form-label">
+                    Are you willing to invest financially? <span class="member-info">(Member Only)</span>
+                </label>
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="financialInvestment" value="yes">
+                        <span class="radio-mark"></span>
+                        Yes
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="financialInvestment" value="no">
+                        <span class="radio-mark"></span>
+                        No
+                    </label>
+                </div>
+            </div>
+
+            <!-- Field 8: Experience Description (Member Only) -->
+            <div class="form-group member-only-field">
+                <label class="form-label" for="experienceDescription">
+                    Please briefly describe your startup or collaboration experience <span class="member-info">(Member Only)</span>
+                    <small style="display: block; color: #999; font-weight: 400; margin-top: 0.25rem;">Briefly mention past collaboration or project participation experience</small>
+                </label>
+                <textarea class="form-input" id="experienceDescription" name="experienceDescription" 
+                    placeholder="Describe your relevant experience..." 
+                    rows="3"></textarea>
+                <div class="char-counter" id="experienceCounter">0/300 characters</div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">
+                Complete Profile & Find Partners
+            </button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="auth-footer">
+        © 2025 Sparko. Connecting founders with investors.
+    </div>
+
+    <script>
+        // Character counters
+        const projectInterestTextarea = document.getElementById("projectInterest");
+        const projectInterestCounter = document.getElementById("projectInterestCounter");
+        const experienceTextarea = document.getElementById("experienceDescription");
+        const experienceCounter = document.getElementById("experienceCounter");
+
+        projectInterestTextarea.addEventListener("input", function() {
+            const length = this.value.length;
+            projectInterestCounter.textContent = `${length}/500 characters`;
+            if (length > 500) {
+                this.value = this.value.substring(0, 500);
+                projectInterestCounter.textContent = "500/500 characters";
+            }
+        });
+
+        experienceTextarea.addEventListener("input", function() {
+            const length = this.value.length;
+            experienceCounter.textContent = `${length}/300 characters`;
+            if (length > 300) {
+                this.value = this.value.substring(0, 300);
+                experienceCounter.textContent = "300/300 characters";
+            }
+        });
+
+        // Form submission handler
+        document.getElementById("partnerProfileForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // Validate required checkboxes
+            const coreValueChecked = document.querySelectorAll("input[name=\"coreValue\"]:checked");
+            if (coreValueChecked.length === 0) {
+                alert("Please select at least one core value you can provide.");
+                return;
+            }
+
+            // Collect form data
+            const formData = new FormData(this);
+            const profileData = {};
+
+            // Handle regular form fields
+            for (let [key, value] of formData.entries()) {
+                if (key === "coreValue") {
+                    if (!profileData[key]) {
+                        profileData[key] = [];
+                    }
+                    profileData[key].push(value);
+                } else {
+                    profileData[key] = value;
+                }
+            }
+
+            // Save to localStorage
+            localStorage.setItem("partnerProfile", JSON.stringify(profileData));
+            localStorage.setItem("profile_partner_complete", "true");
+
+            // Show success message
+            const submitBtn = this.querySelector("button[type=\"submit\"]");
+            submitBtn.innerHTML = '<div class="loading"></div> Saving Profile...';
+            submitBtn.disabled = true;
+
+            // Simulate saving delay and redirect
+            setTimeout(() => {
+                window.location.href = "partner-partner-matching.html";
+            }, 1500);
+        });
+
+        // Member-only field styling
+        const memberOnlyFields = document.querySelectorAll(".member-only-field");
+        memberOnlyFields.forEach(field => {
+            field.style.opacity = "1";
+            field.style.border = "1px dashed var(--primary-color)";
+            field.style.padding = "1rem";
+            field.style.borderRadius = "12px";
+            field.style.marginBottom = "1.5rem";
+        });
+    </script>
+
+    <style>
+        /* Additional styles for this form */
+        .char-counter {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 0.5rem;
+            text-align: right;
+        }
+
+        .checkbox-group, .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover, .radio-item:hover {
+            border-color: var(--primary-color);
+            background: rgba(244, 162, 97, 0.05);
+        }
+
+        .checkbox-item input, .radio-item input {
+            margin-right: 0.75rem;
+            transform: scale(1.2);
+        }
+
+        .member-info {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .member-only-field {
+            position: relative;
+            border: 1px dashed var(--primary-color);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .checkbox-group, .radio-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>
+

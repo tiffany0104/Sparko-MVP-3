@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Founder Profile - Sparko</title>
+    <link rel="stylesheet" href="auth-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating Elements -->
+    <div class="floating-element floating-circle"></div>
+    <div class="floating-element floating-circle"></div>
+    <div class="floating-element floating-circle"></div>
+    <div class="floating-element floating-circle"></div>
+
+    <!-- Brand Header -->
+    <div class="brand-header">
+        <a href="#" class="brand-logo">Sparko</a>
+        <div class="brand-tagline">Connect • Invest • Grow</div>
+    </div>
+
+    <!-- Home Button -->
+    <a href="index.html" class="home-btn">
+        <span>← Home</span>
+    </a>
+
+    <!-- Main Container -->
+    <div class="auth-container">
+        <h1>Create Your <span class="highlight">Founder Profile</span></h1>
+        <p class="subtitle">Tell us about your startup journey and connect with the right investors</p>
+
+        <form class="auth-form" id="founderProfileForm">
+            <!-- Field 1: Startup Domain -->
+            <div class="form-group">
+                <label class="form-label" for="startupDomain">
+                    What is your startup domain? <span style="color: #E76F51;">*</span>
+                </label>
+                <select class="form-select" id="startupDomain" name="startupDomain" required>
+                    <option value="">Select your domain</option>
+                    <option value="ai-ml">AI/Machine Learning</option>
+                    <option value="biotech">Biotechnology</option>
+                    <option value="cleantech">Clean Technology</option>
+                    <option value="e-commerce">E-commerce</option>
+                    <option value="education">Education Technology (EdTech)</option>
+                    <option value="fintech">Financial Technology (FinTech)</option>
+                    <option value="food-agri">Food & Agriculture Technology (AgriTech)</option>
+                    <option value="health-wellness">Health & Wellness (HealthTech)</option>
+                    <option value="logistics">Logistics & Supply Chain</option>
+                    <option value="media-entertainment">Media & Entertainment</option>
+                    <option value="real-estate">Real Estate Technology (PropTech)</option>
+                    <option value="robotics">Robotics</option>
+                    <option value="saas">Software as a Service (SaaS)</option>
+                    <option value="travel-hospitality">Travel & Hospitality</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Field 2: Project Stage -->
+            <div class="form-group">
+                <label class="form-label" for="projectStage">
+                    What is your current project stage? <span style="color: #E76F51;">*</span>
+                </label>
+                <select class="form-select" id="projectStage" name="projectStage" required>
+                    <option value="">Select project stage</option>
+                    <option value="idea">Idea</option>
+                    <option value="mvp">MVP</option>
+                    <option value="customers">Have Customers</option>
+                    <option value="revenue">Generating Revenue</option>
+                </select>
+            </div>
+
+            <!-- Field 3: Project Description -->
+            <div class="form-group">
+                <label class="form-label" for="projectDescription">
+                    Brief introduction to your project <span style="color: #E76F51;">*</span>
+                </label>
+                <textarea class="form-input" id="projectDescription" name="projectDescription" 
+                    placeholder="Describe your project in 50-200 characters..." 
+                    rows="4" minlength="50" maxlength="200" required></textarea>
+                <div class="char-counter">
+                    <span id="charCount">0</span>/200 characters (minimum 50)
+                </div>
+            </div>
+
+            <!-- Field 4: Team Size -->
+            <div class="form-group">
+                <label class="form-label" for="teamSize">
+                    Current team size? <span style="color: #E76F51;">*</span>
+                </label>
+                <select class="form-select" id="teamSize" name="teamSize" required>
+                    <option value="">Select team size</option>
+                    <option value="only-me">Only me</option>
+                    <option value="2-5">2-5 people</option>
+                    <option value="6-10">6-10 people</option>
+                    <option value="10+">10+ people</option>
+                </select>
+            </div>
+
+            <!-- Field 5: Market Position -->
+            <div class="form-group">
+                <label class="form-label" for="marketPosition">
+                    What is your market positioning? <span style="color: #E76F51;">*</span>
+                </label>
+                <select class="form-select" id="marketPosition" name="marketPosition" required>
+                    <option value="">Select market position</option>
+                    <option value="mass-consumer">Mass Consumer</option>
+                    <option value="premium">Premium Market</option>
+                    <option value="online-platform">Online Platform</option>
+                    <option value="professional-service">Professional Service</option>
+                    <option value="niche">Niche Market</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Field 6: Resources Needed -->
+            <div class="form-group">
+                <label class="form-label">
+                    What resources do you need most? <span style="color: #E76F51;">*</span>
+                </label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="resourcesNeeded" value="funding">
+                        <span class="checkmark"></span>
+                        Funding
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="resourcesNeeded" value="technology">
+                        <span class="checkmark"></span>
+                        Technology Development
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="resourcesNeeded" value="marketing">
+                        <span class="checkmark"></span>
+                        Marketing & Sales
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="resourcesNeeded" value="legal">
+                        <span class="checkmark"></span>
+                        Legal & Compliance
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="resourcesNeeded" value="business-development">
+                        <span class="checkmark"></span>
+                        Business Development & Partnerships
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="resourcesNeeded" value="professional-network">
+                        <span class="checkmark"></span>
+                        Professional Network & Mentorship
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="resourcesNeeded" value="talent-acquisition">
+                        <span class="checkmark"></span>
+                        Talent Acquisition
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="resourcesNeeded" value="product-development">
+                        <span class="checkmark"></span>
+                        Product Development
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="resourcesNeeded" value="market-research">
+                        <span class="checkmark"></span>
+                        Market Research
+                    </label>
+                </div>
+            </div>
+
+            <!-- Field 7: Short-term Goals -->
+            <div class="form-group">
+                <label class="form-label" for="shortTermGoals">
+                    Short-term goals (3-6 months) <span style="color: #E76F51;">*</span>
+                </label>
+                <input type="text" class="form-input" id="shortTermGoals" name="shortTermGoals" 
+                    placeholder="Briefly describe your next milestone..." required>
+            </div>
+
+            <!-- Field 8: Funding Amount (Member Only) -->
+            <div class="form-group member-only-field">
+                <label class="form-label" for="fundingAmount">
+                    Funding requirement amount <span class="member-info">(Member Only)</span>
+                </label>
+                <input type="text" class="form-input" id="fundingAmount" name="fundingAmount" 
+                    placeholder="e.g., £50,000 or ‘Not determined yet’">
+            </div>
+
+            <!-- Field 9: Company Established (Member Only) -->
+            <div class="form-group member-only-field">
+                <label class="form-label">
+                    Is your company already established? <span class="member-info">(Member Only)</span>
+                </label>
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="companyEstablished" value="yes">
+                        <span class="radio-mark"></span>
+                        Yes
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="companyEstablished" value="no">
+                        <span class="radio-mark"></span>
+                        No
+                    </label>
+                </div>
+            </div>
+
+            <!-- Field 10: Equity Percentage (Member Only) -->
+            <div class="form-group member-only-field">
+                <label class="form-label" for="equityPercentage">
+                    Equity percentage willing to offer <span class="member-info">(Member Only)</span>
+                </label>
+                <select class="form-select" id="equityPercentage" name="equityPercentage">
+                    <option value="">Select equity range</option>
+                    <option value="0-5">0-5%</option>
+                    <option value="5-10">5-10%</option>
+                    <option value="10+">10%+</option>
+                    <option value="not-applicable">Not Applicable</option>
+                </select>
+            </div>
+
+            <!-- Field 11: Pitch Deck (Member Only) -->
+            <div class="form-group member-only-field">
+                <label class="form-label">
+                    Do you have a Pitch Deck? <span class="member-info">(Member Only)</span>
+                </label>
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="hasPitchDeck" value="yes">
+                        <span class="radio-mark"></span>
+                        Yes
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="hasPitchDeck" value="no">
+                        <span class="radio-mark"></span>
+                        No
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">
+                Complete Profile & Find Investors
+            </button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="auth-footer">
+        © 2025 Sparko. Connecting founders with investors.
+    </div>
+
+    <script>
+        // Character counter for project description
+        const projectDescription = document.getElementById("projectDescription");
+        const charCount = document.getElementById("charCount");
+
+        projectDescription.addEventListener("input", function() {
+            const currentLength = this.value.length;
+            charCount.textContent = currentLength;
+            
+            if (currentLength < 50) {
+                charCount.style.color = "#E76F51";
+            } else {
+                charCount.style.color = "#42c767";
+            }
+        });
+
+        // Form submission handler
+        document.getElementById("founderProfileForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // Validate required checkboxes
+            const resourcesChecked = document.querySelectorAll("input[name=\"resourcesNeeded\"]:checked");
+            if (resourcesChecked.length === 0) {
+                alert("Please select at least one resource you need.");
+                return;
+            }
+
+            // Collect form data
+            const formData = new FormData(this);
+            const profileData = {};
+
+            // Handle regular form fields
+            for (let [key, value] of formData.entries()) {
+                if (key === "resourcesNeeded") {
+                    if (!profileData[key]) {
+                        profileData[key] = [];
+                    }
+                    profileData[key].push(value);
+                } else {
+                    profileData[key] = value;
+                }
+            }
+
+            // Save to localStorage
+            localStorage.setItem("founderProfile", JSON.stringify(profileData));
+            localStorage.setItem("profile_founder_complete", "true");
+
+            // Show success message
+            const submitBtn = this.querySelector("button[type=\"submit\"]");
+            submitBtn.innerHTML = '<div class="loading"></div> Saving Profile...';
+            submitBtn.disabled = true;
+
+            // Simulate saving delay and redirect
+            setTimeout(() => {
+                window.location.href = "founder-investor-matching.html";
+            }, 1500);
+        });
+
+        // Member-only field styling (no alert on focus, just visual cue)
+        const memberOnlyFields = document.querySelectorAll(".member-only-field");
+        memberOnlyFields.forEach(field => {
+            field.style.opacity = "1"; // Keep full opacity
+            field.style.border = "1px dashed var(--primary-color)"; // Add a dashed border
+            field.style.padding = "1rem";
+            field.style.borderRadius = "12px";
+            field.style.marginBottom = "1.5rem";
+        });
+    </script>
+
+    <style>
+        /* Additional styles for this form */
+        .char-counter {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 0.5rem;
+            text-align: right;
+        }
+
+        .checkbox-group, .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover, .radio-item:hover {
+            border-color: var(--primary-color);
+            background: rgba(244, 162, 97, 0.05);
+        }
+
+        .checkbox-item input, .radio-item input {
+            margin-right: 0.75rem;
+            transform: scale(1.2);
+        }
+
+        .member-info {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* Removed .member-only and .member-only::after styles */
+
+        @media (max-width: 768px) {
+            .checkbox-group, .radio-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>
+
