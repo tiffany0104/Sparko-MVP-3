@@ -327,9 +327,9 @@
 <body>
 
     <header class="brand-header">
-        <div class="brand-logo">Sparko</div>
-        <div class="brand-tagline">Ignite Your Next Venture</div>
-    </header>
+  <a href="my-account.html" class="brand-logo">Sparko</a>
+  <div class="brand-tagline">Ignite Your Next Venture</div>
+</header>
 
     <main class="matching-container">
         <div class="card-stack" id="card-stack">
@@ -359,7 +359,7 @@
             // --- CONFIGURATION & DATA ---
 
             const MOCK_DATA = {
-                'founder-investor-matching': [
+                'investor-founder-matching': [
                     { id: 101, name: 'Alex Chen', city: 'Taipei', bio: 'Building the future of FinTech.', role: 'Founder', details: { 'Industry': 'FinTech', 'Stage': 'Seed', 'Seeking': '$500K' } },
                     { id: 102, name: 'Brenda Lo', city: 'Hsinchu', bio: 'AI-driven solutions for sustainable agriculture.', role: 'Founder', details: { 'Industry': 'AgriTech', 'Stage': 'Pre-Seed', 'Seeking': '$250K' } },
                     { id: 103, name: 'Charles Wu', city: 'Kaohsiung', bio: 'Revolutionizing logistics with IoT.', role: 'Founder', details: { 'Industry': 'Logistics', 'Stage': 'Series A', 'Seeking': '$2M' } },
@@ -414,10 +414,10 @@
             function getPageType() {
                 const path = window.location.pathname;
                 const filename = path.substring(path.lastIndexOf('/') + 1);
-                if (filename.startsWith('founder')) return 'founder-investor-matching';
+                if (filename.startsWith('founder')) return 'investor-founder-matching';
                 if (filename.startsWith('investor')) return 'investor-founder-matching';
                 if (filename.startsWith('partner')) return 'partner-partner-matching';
-                return 'founder-investor-matching'; // Default
+                return 'investor-founder-matching'; // Default
             }
 
             /**

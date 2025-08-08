@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Sparko</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #F4A261;
+            --secondary-color: #E76F51;
+            --accent-color: #E9C46A;
+            --background-color: #FFF9F4;
+            --white: #FFFFFF;
+            --text-color: #2D2D2D;
+            --text-light: #6B7280;
+            --border-color: #E5E5E5;
+            --shadow-light: 0 2px 8px rgba(244, 162, 97, 0.1);
+            --shadow-medium: 0 4px 16px rgba(244, 162, 97, 0.15);
+            --shadow-heavy: 0 8px 32px rgba(244, 162, 97, 0.2);
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            --gradient-bg: linear-gradient(135deg, #FFF9F4 0%, #FEF3E2 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-bg);
+            min-height: 100vh;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            box-shadow: var(--shadow-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            margin-bottom: -0.2rem;
+        }
+
+        .tagline {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .profile-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-light);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Welcome Panel */
+        .welcome-panel {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-medium);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .welcome-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        /* Action Cards */
+        .actions-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-heavy);
+            border-color: var(--primary-color);
+        }
+
+        .action-card.primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+        }
+
+        .action-card.primary:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        /* Matching Options Dropdown */
+        .matching-dropdown {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        .matching-dropdown.visible {
+            display: grid;
+        }
+
+        .matching-option {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid var(--border-color);
+            text-align: center;
+        }
+
+        .matching-option:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--primary-color);
+        }
+
+        .option-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .option-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .option-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Secondary Actions */
+        .secondary-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .secondary-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .secondary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--accent-color);
+        }
+
+        .secondary-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .secondary-title {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .fade-in-delay {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .tagline {
+                font-size: 0.75rem;
+            }
+
+            .profile-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .welcome-panel {
+                padding: 2rem 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .welcome-subtitle {
+                font-size: 1rem;
+            }
+
+            .action-card {
+                padding: 1.5rem;
+            }
+
+            .matching-dropdown {
+                grid-template-columns: 1fr;
+            }
+
+            .secondary-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading state */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <a href="my-account.html" class="logo">Sparko</a>
+                <span class="tagline">Ignite Your Next Venture</span>
+            </div>
+            <div class="profile-icon" id="profileIcon">
+                U
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Welcome Panel -->
+        <div class="welcome-panel">
+            <h1 class="welcome-title" id="welcomeTitle">Welcome back, User!</h1>
+            <p class="welcome-subtitle">Ready to make sparks fly?</p>
+        </div>
+
+        <!-- Main Actions -->
+        <div class="actions-grid">
+            <!-- Start Matching Card -->
+            <div class="action-card primary" id="startMatchingCard">
+                <span class="card-icon">🚀</span>
+                <h3 class="card-title">Start Matching</h3>
+                <p class="card-description">Connect with investors, founders, and collaborators who share your vision</p>
+            </div>
+
+            <!-- Matching Options Dropdown -->
+            <div class="matching-dropdown" id="matchingDropdown">
+                <div class="matching-option" onclick="location.href='founder-investor-matching.html'">
+                    <span class="option-icon">💰</span>
+                    <div class="option-title">Find Investor</div>
+                    <div class="option-subtitle">Secure funding for your startup</div>
+                </div>
+                <div class="matching-option" onclick="location.href='investor-founder-matching.html'">
+                    <span class="option-icon">💡</span>
+                    <div class="option-title">Find Founder</div>
+                    <div class="option-subtitle">Discover promising startups</div>
+                </div>
+                <div class="matching-option" onclick="location.href='partner-partner-matching.html'">
+                    <span class="option-icon">🤝</span>
+                    <div class="option-title">Find Collaborator</div>
+                    <div class="option-subtitle">Partner with like-minded entrepreneurs</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary Actions -->
+        <div class="secondary-actions fade-in-delay">
+            <div class="secondary-card" onclick="editProfile()">
+                <span class="secondary-icon">✏️</span>
+                <div class="secondary-title">Edit My Profile</div>
+            </div>
+            <div class="secondary-card" onclick="showComingSoon('Messages')">
+                <span class="secondary-icon">📨</span>
+                <div class="secondary-title">Messages</div>
+            </div>
+            <div class="secondary-card" onclick="logout()">
+                <span class="secondary-icon">🚪</span>
+                <div class="secondary-title">Log Out</div>
+            </div>
+            <div class="secondary-card" onclick="resetLocal()" style="opacity: 0.7;">
+                <span class="secondary-icon">🧼</span>
+                <div class="secondary-title">Reset Data</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            initializeAnimations();
+        });
+
+        // Load user data from localStorage
+        function loadUserData() {
+            const userName = localStorage.getItem('user_name') || 'User';
+            const userRole = localStorage.getItem('user_role') || '';
+            
+            // Update welcome message
+            document.getElementById('welcomeTitle').textContent = `Welcome back, ${userName}!`;
+            
+            // Update profile icon with first letter of name
+            const profileIcon = document.getElementById('profileIcon');
+            profileIcon.textContent = userName.charAt(0).toUpperCase();
+        }
+
+        // Initialize animations and interactions
+        function initializeAnimations() {
+            const startMatchingCard = document.getElementById('startMatchingCard');
+            const matchingDropdown = document.getElementById('matchingDropdown');
+            
+            startMatchingCard.addEventListener('click', function() {
+                matchingDropdown.classList.toggle('visible');
+                
+                // Add slight delay for smooth animation
+                if (matchingDropdown.classList.contains('visible')) {
+                    startMatchingCard.style.marginBottom = '1rem';
+                } else {
+                    setTimeout(() => {
+                        startMatchingCard.style.marginBottom = '0';
+                    }, 300);
+                }
+            });
+
+            // Add staggered animation to secondary cards
+            const secondaryCards = document.querySelectorAll('.secondary-card');
+            secondaryCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('fade-in');
+            });
+        }
+
+        // Edit profile function
+        function editProfile() {
+            const role = localStorage.getItem("user_role");
+            const editUrls = {
+                "founder": "create-profile-founder.html?edit=true",
+                "investor": "create-profile-investor.html?edit=true", 
+                "partner": "create-profile-partner.html?edit=true"
+            };
+            
+            if (editUrls[role]) {
+                window.location.href = editUrls[role];
+            } else {
+                showAlert("Unknown role. Cannot proceed to edit profile.", "error");
+            }
+        }
+
+        // Logout function
+        function logout() {
+            showConfirm("Are you sure you want to log out?", function() {
+                localStorage.clear();
+                showAlert("Logged out successfully!", "success");
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1000);
+            });
+        }
+
+        // Reset local data
+        function resetLocal() {
+            showConfirm("This will clear all your local data. Are you sure?", function() {
+                localStorage.clear();
+                showAlert("Local data cleared successfully!", "success");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            });
+        }
+
+        // Show coming soon message
+        function showComingSoon(feature) {
+            showAlert(`${feature} feature is coming soon! Stay tuned for updates.`, "info");
+        }
+
+        // Custom alert function
+        function showAlert(message, type = "info") {
+            const alertDiv = document.createElement('div');
+            alertDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                color: white;
+                font-weight: 500;
+                z-index: 1000;
+                animation: slideInRight 0.3s ease-out;
+                max-width: 300px;
+                box-shadow: var(--shadow-heavy);
+            `;
+            
+            const colors = {
+                success: 'var(--accent-color)',
+                error: 'var(--secondary-color)',
+                info: 'var(--primary-color)'
+            };
+            
+            alertDiv.style.background = colors[type] || colors.info;
+            alertDiv.textContent = message;
+            
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.style.animation = 'slideOutRight 0.3s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(alertDiv);
+                }, 300);
+            }, 3000);
+        }
+
+        // Custom confirm function
+        function showConfirm(message, callback) {
+            const confirmed = confirm(message);
+            if (confirmed && callback) {
+                callback();
+            }
+        }
+
+        // Add slide animations to CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+
