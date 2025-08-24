@@ -768,7 +768,7 @@
 <div class="pricing-cards">
 <div class="pricing-card scroll-reveal">
 <h3>Basic</h3>
-<div class="price">$0<span>/month</span></div>
+<div class="price">£0<span>/month</span></div>
 <ul class="pricing-features">
 <ul class="pricing-features">
   <li class="has-tooltip">
@@ -791,32 +791,91 @@
 <a class="btn-primary" href="#">Start Free</a>
 </div>
 <div class="pricing-card featured scroll-reveal">
-<h3>Pro</h3>
-<div class="price">$29<span>/month</span></div>
-<ul class="pricing-features">
-<li>Unlimited Swipes</li>
-<li>Advanced Matching</li>
-<li>Priority Messaging</li>
-<li>Dedicated Support</li>
-<li>Analytics Dashboard</li>
-</ul>
-<a class="btn-primary" href="#">Get Pro</a>
+  <h3>Plus</h3>
+  <div class="price">£19.99<span>/month</span></div>
+  <p style="font-size: 0.9em; color: #777; margin-top: -10px;">
+    or £49.99 / 3 months ・ £149 / year
+  </p>
+  <p style="font-size: 0.9em; color: #555; margin-bottom: 1em;">
+    Take your matches to the next level—built for serious builders and partners.
+  </p>
+  <ul class="pricing-features">
+    <li>Includes all Basic features</li>
+    <li class="has-tooltip">
+      Unlimited Swipes
+      <span class="tooltip">No daily swipe limit – explore freely</span>
+    </li>
+    <li class="has-tooltip">
+      Advanced Matching
+      <span class="tooltip">Sort by experience, values, languages & resources</span>
+    </li>
+    <li class="has-tooltip">
+      View Extended Profiles
+      <span class="tooltip">See full member only answers</span>
+    </li>
+    <li class="has-tooltip">
+      3 Super Sparks per week
+      <span class="tooltip">Stand out with high-intent likes, highlighted for visibility</span>
+    </li>
+    <li class="has-tooltip">
+      Priority Messaging
+      <span class="tooltip">Your message appears at the top of the inbox</span>
+    </li>
+    <li class="has-tooltip">
+      Rewind
+      <span class="tooltip">Go back to the last card you skipped</span>
+    </li>
+    <li class="has-tooltip">
+      Profile Insights
+      <span class="tooltip">See who liked you & how many saw your profile</span>
+    </li>
+  </ul>
+  <a class="btn-primary" href="#">Get Plus</a>
 </div>
+<!--
 <div class="pricing-card scroll-reveal">
-<h3>Enterprise</h3>
-<div class="price">$99<span>/month</span></div>
-<ul class="pricing-features">
-<li>All Pro Features</li>
-<li>Team Collaboration</li>
-<li>Custom Integrations</li>
-<li>API Access</li>
-<li>Account Manager</li>
-</ul>
-<a class="btn-primary" href="#">Contact Sales</a>
+  <h3>Enterprise</h3>
+  <div class="price">$99<span>/month</span></div>
+  <ul class="pricing-features">
+    <li>All Plus Features</li>
+    <li>Team Collaboration</li>
+    <li>Custom Integrations</li>
+    <li>API Access</li>
+    <li>Account Manager</li>
+  </ul>
+  <a class="btn-primary" href="#">Contact Sales</a>
+</div>
+-->
 </div>
 </div>
-</div>
+<section class="pricing super-spark-section scroll-reveal">
+  <h3 style="text-align: center; font-size: 2rem; margin-bottom: 0.5rem;">Need more Super Sparks?</h3>
+  <p style="text-align: center; color: var(--text-color); opacity: 0.7;">Send high-impact likes to stand out from the crowd.</p>
+
+  <div class="pricing-cards">
+    <div class="pricing-card">
+      <h3>3 Super Sparks</h3>
+      <div class="price">£4.99<span> one-time</span></div>
+      <ul class="pricing-features">
+        <li>Use anytime</li>
+        <li>Highlighted for visibility</li>
+      </ul>
+      <a class="btn-primary" href="#">Buy Now</a>
+    </div>
+
+    <div class="pricing-card">
+      <h3>10 Super Sparks</h3>
+      <div class="price">£12.99<span> one-time</span></div>
+      <ul class="pricing-features">
+        <li>Use anytime</li>
+        <li>Save 35% vs single</li>
+        <li>Priority support</li>
+      </ul>
+      <a class="btn-primary" href="#">Buy Now</a>
+    </div>
+  </div>
 </section>
+        
 <!-- Call to Action Section -->
 <section class="cta-section">
 <div class="container">
@@ -903,20 +962,19 @@
 .tooltip {
   visibility: hidden;
   opacity: 0;
-  width: max-content;
   background-color: #333;
   color: #fff;
-  text-align: left;
   padding: 6px 10px;
   border-radius: 6px;
   font-size: 12px;
   position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 10;
+  top: 50%;
+  left: 110%; /* 👉 向右移動 tooltip */
+  transform: translateY(-50%);
   white-space: nowrap;
-  margin-top: 6px;
+  z-index: 10;
   transition: opacity 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .has-tooltip:hover .tooltip {
