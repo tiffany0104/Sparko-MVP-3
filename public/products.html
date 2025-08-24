@@ -974,6 +974,10 @@
   cursor: help;
 }
 
+.has-tooltip {
+  position: relative; /* ✅ 父元素要是 relative，tooltip 才能正確定位 */
+}
+
 .tooltip {
   visibility: hidden;
   opacity: 0;
@@ -984,11 +988,11 @@
   font-size: 12px;
   position: absolute;
   top: 50%;
-  left: 20%; /* 👈 建議從 20% 試起，避免太遠 */
-  transform: translateY(-50%);
+  left: 100%; /* ✅ 從右邊顯示 */
+  transform: translate(10px, -50%); /* ✅ 向右偏移 + 垂直置中 */
   white-space: normal;       /* ✅ 允許自動換行 */
-  word-wrap: break-word;     /* ✅ 防止過長的詞撐爆 */
-  max-width: 250px;          /* ✅ 限制寬度，防止撐出格子 */
+  word-wrap: break-word;     /* ✅ 防止單字過長 */
+  max-width: 250px;          /* ✅ 限制最大寬度 */
   z-index: 10;
   transition: opacity 0.2s ease-in-out;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
