@@ -373,7 +373,7 @@
 
         .pricing-cards {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
             margin-top: 4rem;
             max-width: 800px;
@@ -780,7 +780,7 @@
 <div class="container">
 <h2 class="section-title">Flexible Plans for Every Stage</h2>
 <p class="section-description">Choose the Sparko plan that best fits your needs, whether you're just starting out or looking to scale your connections.</p>
-<div class="pricing-card scroll-reveal">
+<div class="pricing-cards scroll-reveal">
   <div class="card-content">
     <h3>Basic</h3>
     <div class="price">£0<span>/month</span></div>
@@ -805,7 +805,7 @@
   </div>
   <a class="btn-primary" href="auth/register.html?plan=basic">Start Free</a>
 </div>
-<div class="pricing-card featured scroll-reveal">
+<div class="pricing-cards featured scroll-reveal">
   <h3>Plus</h3>
   <div class="price">£19.99<span>/month</span></div>
   <p style="font-size: 0.9em; color: #777; margin-top: -10px;">
