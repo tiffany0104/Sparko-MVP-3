@@ -969,35 +969,34 @@
 
 <!-- 👉 CSS 放在 body 結尾、</body> 前面也 OK -->
 <style>
+/* ✅ Tooltip 容器：滑鼠懸停時顯示提示 */
 .has-tooltip {
-  position: relative;
-  cursor: help;
+  position: relative;  /* 讓 tooltip 相對於這個元素定位 */
+  cursor: help;        /* 顯示問號指標 */
 }
 
-.has-tooltip {
-  position: relative; /* ✅ 父元素要是 relative，tooltip 才能正確定位 */
-}
-
+/* ✅ Tooltip 本體 */
 .tooltip {
-  visibility: hidden;
-  opacity: 0;
+  visibility: hidden;     /* 預設隱藏 */
+  opacity: 0;             /* 預設透明 */
   background-color: #333;
   color: #fff;
   padding: 6px 10px;
   border-radius: 6px;
   font-size: 12px;
   position: absolute;
-  top: 50%;
-  left: 100%; /* ✅ 從右邊顯示 */
-  transform: translate(10px, -50%); /* ✅ 向右偏移 + 垂直置中 */
-  white-space: normal;       /* ✅ 允許自動換行 */
-  word-wrap: break-word;     /* ✅ 防止單字過長 */
-  max-width: 250px;          /* ✅ 限制最大寬度 */
+  top: 50%;               /* 垂直置中 */
+  left: 100%;             /* 出現在右側 */
+  transform: translate(10px, -50%); /* 向右偏移並垂直置中 */
+  white-space: normal;    /* ✅ 自動換行 */
+  word-wrap: break-word;  /* ✅ 防止單字太長撐開 */
+  max-width: 250px;       /* ✅ 限制寬度 */
   z-index: 10;
   transition: opacity 0.2s ease-in-out;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* ✅ 滑鼠懸停時顯示 tooltip */
 .has-tooltip:hover .tooltip {
   visibility: visible;
   opacity: 1;
