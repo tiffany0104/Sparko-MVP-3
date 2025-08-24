@@ -464,6 +464,16 @@
             width: 16px;
             text-align: center;
         }
+        /* ✅ 新增：讓卡片按鈕貼底對齊 */
+        .pricing-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-content {
+            flex-grow: 1;
+        }
 
         /* CTA Section */
         .cta-section {
@@ -681,7 +691,7 @@
 <a class="nav-link" href="about.html">About</a>
 <a class="nav-link" href="FAQ.html">FAQ</a>
 <a class="nav-link" href="contact.html">Contact</a>
-<button class="nav-cta">Join Now</button>
+<button class="nav-cta" onclick="location.href='auth/login.html?from=nav'">Join Now</button>
 </div>
 <div class="hamburger">
 <span class="bar"></span>
@@ -788,7 +798,7 @@
     <span class="tooltip">Support via email only</span>
   </li>
 </ul>
-<a class="btn-primary" href="#">Start Free</a>
+<a class="btn-primary" href="auth/login.html">Start Free</a>
 </div>
 <div class="pricing-card featured scroll-reveal">
   <h3>Plus</h3>
@@ -830,7 +840,7 @@
       <span class="tooltip">See who liked you & how many saw your profile</span>
     </li>
   </ul>
-  <a class="btn-primary" href="#">Get Plus</a>
+  <a class="btn-primary" href="auth/login.html">Get Plus</a>
 </div>
 <!--
 <div class="pricing-card scroll-reveal">
@@ -860,7 +870,7 @@
         <li>Use anytime</li>
         <li>Highlighted for visibility</li>
       </ul>
-      <a class="btn-primary" href="#">Buy Now</a>
+      <a class="btn-primary" href="auth/login.html">Buy Now</a>
     </div>
 
     <div class="pricing-card">
@@ -871,7 +881,7 @@
         <li>Save 35% vs single</li>
         <li>Priority support</li>
       </ul>
-      <a class="btn-primary" href="#">Buy Now</a>
+      <a class="btn-primary" href="auth/login.html">Buy Now</a>
     </div>
   </div>
 </section>
@@ -881,7 +891,7 @@
 <div class="container">
 <h2>Ready to Find Your Spark?</h2>
 <p>Join thousands of entrepreneurs and investors who are building powerful partnerships on Sparko.</p>
-<a class="btn-primary" href="#">Join Sparko Today</a>
+<a class="btn-primary" href="auth/login.html">Join Sparko Today</a>
 </div>
 </section>
 <!-- Footer -->
@@ -969,7 +979,7 @@
   font-size: 12px;
   position: absolute;
   top: 50%;
-  left: 110%; /* 👉 向右移動 tooltip */
+  left: 80%; /* 👉 向右移動 tooltip */
   transform: translateY(-50%);
   white-space: nowrap;
   z-index: 10;
