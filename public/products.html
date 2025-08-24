@@ -984,12 +984,14 @@
   font-size: 12px;
   position: absolute;
   top: 50%;
-  left: 40%; /* 👉 向右移動 tooltip */
+  left: 20%; /* 👈 建議從 20% 試起，避免太遠 */
   transform: translateY(-50%);
-  white-space: nowrap;
+  white-space: normal;       /* ✅ 允許自動換行 */
+  word-wrap: break-word;     /* ✅ 防止過長的詞撐爆 */
+  max-width: 250px;          /* ✅ 限制寬度，防止撐出格子 */
   z-index: 10;
   transition: opacity 0.2s ease-in-out;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .has-tooltip:hover .tooltip {
