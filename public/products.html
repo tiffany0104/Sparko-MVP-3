@@ -892,5 +892,37 @@
         // Initial check on load
         handleScrollAnimation();
     </script>
+
+<!-- 👉 CSS 放在 body 結尾、</body> 前面也 OK -->
+<style>
+.has-tooltip {
+  position: relative;
+  cursor: help;
+}
+
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  width: max-content;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  white-space: nowrap;
+  margin-top: 6px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.has-tooltip:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
 </body>
 </html>
