@@ -397,6 +397,7 @@
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
+            will-change: transform;  /* ✅ 提升動畫效能 */
         }
 
         .pricing-card:hover {
@@ -406,10 +407,14 @@
 
         .pricing-card.featured {
             border: 2px solid var(--primary-color);
-            transform: scale(1.05);
             background: linear-gradient(135deg, var(--background-color) 0%, var(--white) 100%);
         }
-
+        
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
         .pricing-card.featured::before {
             content: 'Most Popular';
             position: absolute;
