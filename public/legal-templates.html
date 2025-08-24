@@ -892,7 +892,7 @@ body {
 <a class="nav-link" href="about.html">About</a>
 <a class="nav-link" href="FAQ.html">FAQ</a>
 <a class="nav-link" href="contact.html">Contact</a>
-<button class="nav-cta">Join Now</button>
+<button class="nav-cta" onclick="location.href='auth/register.html?from=nav'">Join Now</button>
 </div>
 <div class="hamburger">
 <span class="bar"></span>
@@ -1021,7 +1021,7 @@ body {
 <li>Easy customization guide</li>
 <li>Instant download</li>
 </ul>
-<button class="pricing-btn" onclick="requireLogin()">Purchase Now</button>
+<button class="pricing-btn" onclick="window.location.href='auth/login.html?redirect=nda'">Purchase Now</button>
 </div>
 <div class="pricing-card">
 <div class="pricing-header">
@@ -1036,7 +1036,7 @@ body {
 <li>Vesting schedule templates</li>
 <li>Exit clause provisions</li>
 </ul>
-<button class="pricing-btn" onclick="requireLogin()">Purchase Now</button>
+<button class="pricing-btn" onclick="window.location.href='auth/login.html?redirect=founder'">Purchase Now</button>
 </div>
 <div class="pricing-card">
 <div class="pricing-header">
@@ -1051,7 +1051,7 @@ body {
 <li>Board composition rules</li>
 <li>Dividend policy framework</li>
 </ul>
-<button class="pricing-btn" onclick="requireLogin()">Purchase Now</button>
+<button class="pricing-btn" onclick="window.location.href='auth/login.html?redirect=shareholder'">Purchase Now</button>
 </div>
 <div class="pricing-card">
 <div class="pricing-header">
@@ -1066,7 +1066,7 @@ body {
 <li>Anti-dilution provisions</li>
 <li>Board seat allocation</li>
 </ul>
-<button class="pricing-btn" onclick="requireLogin()">Purchase Now</button>
+<button class="pricing-btn" onclick="window.location.href='auth/login.html?redirect=termsheet'">Purchase Now</button>
 </div>
 <div class="pricing-card featured">
 <div class="pricing-header">
@@ -1082,7 +1082,7 @@ body {
 <li>Priority email support</li>
 <li>Free updates for 1 year</li>
 </ul>
-<button class="pricing-btn" onclick="requireLogin()">Get Bundle Now</button>
+<button class="pricing-btn" onclick="window.location.href='auth/login.html?redirect=bundle'">Get Bundle Now</button>
 </div>
 </div>
 </div>
@@ -1106,8 +1106,8 @@ body {
 <h2 class="cta-title">Sign Up to Purchase and Protect Your Startup</h2>
 <p class="cta-description">Create an account or log in to access premium legal templates. Purchasing is only available to registered users for better security and record-keeping.</p>
 <div class="cta-buttons">
-<button class="btn-primary" onclick="showSignUpModal()">Sign Up Now</button>
-<button class="btn-secondary" onclick="showLoginModal()">Log In</button>
+<button class="btn-primary" onclick="window.location.href='auth/register.html'">Sign Up Now</button>
+<button class="btn-secondary" onclick="window.location.href='auth/login.html'">Log In</button>
 </div>
 </div>
 </div>
