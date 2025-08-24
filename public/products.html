@@ -373,12 +373,17 @@
 
         .pricing-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: 1fr;
             gap: 2rem;
             margin-top: 4rem;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+        }
+        @media (min-width: 768px) {
+          .pricing-cards {
+            grid-template-columns: repeat(2, 1fr);
+          }
         }
 
         .pricing-card {
