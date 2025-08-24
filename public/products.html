@@ -373,14 +373,14 @@
 
         .pricing-cards {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr;
             gap: 2rem;
             margin-top: 4rem;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
-        @media (min-width: 768px) {
+        @media (min-width: 600px) {
           .pricing-cards {
             grid-template-columns: repeat(2, 1fr);
           }
@@ -987,7 +987,7 @@
   font-size: 12px;
   position: absolute;
   top: 50%;               /* 垂直置中 */
-  left: 10%;             /* 出現在右側 */
+  left: 20%;             /* 出現在右側 */
   transform: translate(10px, -50%); /* 向右偏移並垂直置中 */
   white-space: normal;    /* ✅ 自動換行 */
   word-wrap: break-word;  /* ✅ 防止單字太長撐開 */
