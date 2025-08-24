@@ -706,7 +706,7 @@
 <h1 class="hero-title">Discover Sparko's Powerful Features</h1>
 <p class="hero-subtitle">The fastest way for entrepreneurs and investors to connect, match, and collaborate.</p>
 <div class="hero-buttons">
-<a class="btn-primary" href="#">Join Now</a>
+<a class="btn-primary" href="auth/register.html">Join Now</a>
 </div>
 </div>
 </section>
@@ -775,30 +775,30 @@
 <div class="container">
 <h2 class="section-title">Flexible Plans for Every Stage</h2>
 <p class="section-description">Choose the Sparko plan that best fits your needs, whether you're just starting out or looking to scale your connections.</p>
-<div class="pricing-cards">
 <div class="pricing-card scroll-reveal">
-<h3>Basic</h3>
-<div class="price">£0<span>/month</span></div>
-<ul class="pricing-features">
-<ul class="pricing-features">
-  <li class="has-tooltip">
-    Limited Swipes
-    <span class="tooltip">Up to 15 swipes per day</span>
-  </li>
-  <li class="has-tooltip">
-    Basic Matching
-    <span class="tooltip">Match by role & industry</span>
-  </li>
-  <li class="has-tooltip">
-    Standard Messaging
-    <span class="tooltip">Message only after matching</span>
-  </li>
-  <li class="has-tooltip">
-    Email Support
-    <span class="tooltip">Support via email only</span>
-  </li>
-</ul>
-<a class="btn-primary" href="auth/login.html">Start Free</a>
+  <div class="card-content">
+    <h3>Basic</h3>
+    <div class="price">£0<span>/month</span></div>
+    <ul class="pricing-features">
+      <li class="has-tooltip">
+        Limited Swipes
+        <span class="tooltip">Up to 15 swipes per day</span>
+      </li>
+      <li class="has-tooltip">
+        Basic Matching
+        <span class="tooltip">Match by role & industry</span>
+      </li>
+      <li class="has-tooltip">
+        Standard Messaging
+        <span class="tooltip">Message only after matching</span>
+      </li>
+      <li class="has-tooltip">
+        Email Support
+        <span class="tooltip">Support via email only</span>
+      </li>
+    </ul>
+  </div>
+  <a class="btn-primary" href="auth/register.html?plan=basic">Start Free</a>
 </div>
 <div class="pricing-card featured scroll-reveal">
   <h3>Plus</h3>
@@ -840,7 +840,7 @@
       <span class="tooltip">See who liked you & how many saw your profile</span>
     </li>
   </ul>
-  <a class="btn-primary" href="auth/login.html">Get Plus</a>
+  <a class="btn-primary" href="auth/login.html?plan=plus">Get Plus</a>
 </div>
 <!--
 <div class="pricing-card scroll-reveal">
@@ -870,7 +870,7 @@
         <li>Use anytime</li>
         <li>Highlighted for visibility</li>
       </ul>
-      <a class="btn-primary" href="auth/login.html">Buy Now</a>
+      <a class="btn-primary" href="auth/login.html?buy=superspark-3">Buy Now</a>
     </div>
 
     <div class="pricing-card">
@@ -881,7 +881,7 @@
         <li>Save 35% vs single</li>
         <li>Priority support</li>
       </ul>
-      <a class="btn-primary" href="auth/login.html">Buy Now</a>
+      <a class="btn-primary" href="auth/login.html?buy=superspark-10">Buy Now</a>
     </div>
   </div>
 </section>
@@ -979,7 +979,7 @@
   font-size: 12px;
   position: absolute;
   top: 50%;
-  left: 80%; /* 👉 向右移動 tooltip */
+  left: 40%; /* 👉 向右移動 tooltip */
   transform: translateY(-50%);
   white-space: nowrap;
   z-index: 10;
