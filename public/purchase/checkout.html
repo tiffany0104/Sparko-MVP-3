@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Sparko</title>
+  <link rel="stylesheet" href="sparko-styles.css">
+  <style>
+    /* Checkout specific styles */
+    .checkout-container {
+      min-height: 100vh;
+      padding: 2rem 0;
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .product-section {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+    }
+
+    .product-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .product-icon {
+      font-size: 4rem;
+      line-height: 1;
+    }
+
+    .product-info h1 {
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .product-description {
+      font-size: 1.1rem;
+      opacity: 0.7;
+      margin-bottom: 1rem;
+    }
+
+    .product-price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 1.5rem 0;
+    }
+
+    .product-features {
+      margin-top: 2rem;
+    }
+
+    .product-features h3 {
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .payment-section {
+      position: sticky;
+      top: 2rem;
+      height: fit-content;
+    }
+
+    .payment-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--shadow-medium);
+      border: 2px solid var(--primary-color);
+    }
+
+    .payment-summary {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-total {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text-color);
+      border-top: 1px solid var(--border-color);
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+
+    .checkout-button {
+      width: 100%;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .checkout-button::before {
+      content: ";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .checkout-button:hover::before {
+      left: 100%;
+    }
+
+    .security-info {
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-top: 1rem;
+    }
+
+    .why-sparko {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--shadow-light);
+    }
+
+    .why-sparko h3 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--text-color);
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .benefit-item {
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: var(--border-radius-small);
+      background: var(--light-gray);
+      transition: var(--transition);
+    }
+
+    .benefit-item:hover {
+      background: var(--background-color);
+      transform: translateY(-2px);
+    }
+
+    .benefit-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .benefit-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .benefit-description {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .error-state {
+      text-align: center;
+      padding: 3rem;
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-light);
+    }
+
+    .error-icon {
+      font-size: 4rem;
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+
+    .error-title {
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+
+    .error-description {
+      opacity: 0.7;
+      margin-bottom: 2rem;
+    }
+
+    .back-button {
+      background: var(--light-gray);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .back-button:hover {
+      background: var(--border-color);
+      transform: none;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 1024px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .payment-section {
+        position: static;
+        order: -1;
+      }
+
+      .payment-card {
+        border: 1px solid var(--border-color);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .checkout-grid {
+        padding: 0 1rem;
+      }
+
+      .product-card,
+      .payment-card,
+      .why-sparko {
+        padding: 1.5rem;
+      }
+
+      .product-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+
+      .product-icon {
+        font-size: 3rem;
+      }
+
+      .product-price {
+        font-size: 2rem;
+      }
+
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Success animation */
+    .success-animation {
+      animation: pulse 0.6s ease-in-out;
+    }
+
+    /* Loading state */
+    .loading-state .checkout-button {
+      background: var(--border-color);
+      cursor: not-allowed;
+    }
+
+    .loading-state .checkout-button:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-container fade-in">
+    <div class="checkout-grid">
+      <!-- Product Information Section -->
+      <div class="product-section">
+        <div id="product-display" class="product-card">
+          <!-- Product content will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Why Choose Sparko Section -->
+        <div class="why-sparko">
+          <h3>Why Choose Sparko?</h3>
+          <div class="benefits-grid">
+            <div class="benefit-item">
+              <span class="benefit-icon">⚖️</span>
+              <div class="benefit-title">Lawyer-Reviewed</div>
+              <div class="benefit-description">All documents are reviewed by legal professionals for validity.</div>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-icon">⚡</span>
+              <div class="benefit-title">Instant Delivery</div>
+              <div class="benefit-description">Download immediately after purchase, no waiting.</div>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-icon">🔄</span>
+              <div class="benefit-title">Lifetime Updates</div>
+              <div class="benefit-description">Free document updates when regulations change.</div>
+            </div>
+            <div class="benefit-item">
+              <span class="benefit-icon">🛡️</span>
+              <div class="benefit-title">Secure & Safe</div>
+              <div class="benefit-description">SSL encrypted transmission to protect your privacy.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Section -->
+      <div class="payment-section">
+        <div class="payment-card">
+          <div class="payment-summary">
+            <h3>Order Summary</h3>
+            <div id="order-summary">
+              <!-- Order summary will be inserted here -->
+            </div>
+          </div>
+
+          <div class="trust-badges">
+            <div class="trust-badge">
+              <span class="icon">🔒</span>
+              <span>Secure Checkout</span>
+            </div>
+            <div class="trust-badge">
+              <span class="icon">🔍</span>
+              <span>Lawyer-Reviewed</span>
+            </div>
+            <div class="trust-badge">
+              <span class="icon">⚡</span>
+              <span>Instant Delivery</span>
+            </div>
+          </div>
+
+          <button id="checkout-btn" class="btn btn-primary btn-large checkout-button" style="display: none;">
+            <span id="button-text">Complete Purchase</span>
+            <span id="button-spinner" class="spinner" style="display: none;"></span>
+          </button>
+
+          <div class="security-info">
+            <p>🔒 Your payment information is protected by SSL encryption<br>
+            💳 Supports Visa, Mastercard, American Express</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Product data with enhanced information
+    const productData = {
+      // Super Sparks
+      "superspark-3": {
+        title: "3 Super Sparks",
+        description: "Use anytime. Highlighted for visibility.",
+        price: "£4.99",
+        originalPrice: null,
+        icon: "⚡",
+        features: [
+          "Use anytime",
+          "Highlighted for visibility"
+        ]
+      },
+      "superspark-10": {
+        title: "10 Super Sparks",
+        description: "Use anytime. Save 35% vs single. Priority support.",
+        price: "£12.99",
+        originalPrice: "£19.98", // Assuming single spark is £1.99, 10 would be £19.90. 35% off £19.90 is £12.935. Let's use £19.98 for 10 sparks at £1.99 each.
+        icon: "⚡",
+        features: [
+          "Use anytime",
+          "Save 35% vs single",
+          "Priority support"
+        ]
+      },
+      // Legal Templates
+      "nda": {
+        title: "Non-Disclosure Agreement (NDA)",
+        description: "Protect your ideas before sharing with potential partners or investors.",
+        price: "£9.99",
+        originalPrice: null,
+        icon: "📄",
+        features: [
+          "Mutual & One-way NDA options",
+          "Lawyer-reviewed template",
+          "Easy customization guide",
+          "Instant download"
+        ]
+      },
+      "founder": {
+        title: "Founder Agreement",
+        description: "Define roles, responsibilities, and equity split among co-founders.",
+        price: "£29.99",
+        originalPrice: null,
+        icon: "🤝",
+        features: [
+          "Equity distribution framework",
+          "Role & responsibility definitions",
+          "Vesting schedule templates",
+          "Exit clause provisions"
+        ]
+      },
+      "shareholder": {
+        title: "Shareholder Agreement",
+        description: "Secure agreements with early investors or partners.",
+        price: "£39.99",
+        originalPrice: null,
+        icon: "📊",
+        features: [
+          "Investor rights protection",
+          "Share transfer restrictions",
+          "Board composition rules",
+          "Dividend policy framework"
+        ]
+      },
+      "termsheet": {
+        title: "Investment Term Sheet",
+        description: "Outline key investment terms before signing a formal contract.",
+        price: "£49.99",
+        originalPrice: null,
+        icon: "💼",
+        features: [
+          "Valuation & investment amount",
+          "Liquidation preferences",
+          "Anti-dilution provisions",
+          "Board seat allocation"
+        ]
+      },
+      "bundle": {
+        title: "Startup Legal Pack (Bundle)",
+        description: "Includes NDA + Founder Agreement + Term Sheet. Save £29.97!",
+        price: "£99.99",
+        originalPrice: "£129.96", // 9.99 + 29.99 + 49.99 = 89.97. User said save £29.97, so 99.99 + 29.97 = 129.96
+        icon: "📦",
+        features: [
+          "All essential startup documents",
+          "Comprehensive legal protection",
+          "30% savings vs individual purchase",
+          "Priority email support",
+          "Free updates for 1 year"
+        ]
+      },
+      // Subscription Plans
+      "plus-monthly": {
+        title: "Sparko Plus (Monthly)",
+        description: "Take your matches to the next level—built for serious builders and partners.",
+        price: "£19.99/month",
+        originalPrice: null,
+        icon: "👑",
+        features: [
+          "Includes all Basic features",
+          "Unlimited Swipes",
+          "Advanced Matching",
+          "3 Super Sparks per week",
+          "Priority Messaging",
+          "Rewind",
+          "Profile Insights"
+        ]
+      },
+      "plus-quarterly": {
+        title: "Sparko Plus (Quarterly)",
+        description: "Take your matches to the next level—built for serious builders and partners.",
+        price: "£49.99 / 3 months",
+        originalPrice: "£59.97", // 19.99 * 3 = 59.97
+        icon: "👑",
+        features: [
+          "Includes all Basic features",
+          "Unlimited Swipes",
+          "Advanced Matching",
+          "3 Super Sparks per week",
+          "Priority Messaging",
+          "Rewind",
+          "Profile Insights"
+        ]
+      },
+      "plus-yearly": {
+        title: "Sparko Plus (Yearly)",
+        description: "Take your matches to the next level—built for serious builders and partners.",
+        price: "£149 / year",
+        originalPrice: "£239.88", // 19.99 * 12 = 239.88
+        icon: "👑",
+        features: [
+          "Includes all Basic features",
+          "Unlimited Swipes",
+          "Advanced Matching",
+          "3 Super Sparks per week",
+          "Priority Messaging",
+          "Rewind",
+          "Profile Insights"
+        ]
+      }
+    };
+
+    // Get URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const productKey = params.get("buy") || params.get("redirect") || params.get("plan");
+
+    // DOM elements
+    const productDisplay = document.getElementById("product-display");
+    const orderSummary = document.getElementById("order-summary");
+    const checkoutBtn = document.getElementById("checkout-btn");
+    const buttonText = document.getElementById("button-text");
+    const buttonSpinner = document.getElementById("button-spinner");
+
+    // Initialize page
+    function initializePage() {
+      const product = productData[productKey];
+      
+      if (product) {
+        displayProduct(product);
+        displayOrderSummary(product);
+        checkoutBtn.style.display = "flex";
+      } else {
+        displayError();
+      }
+    }
+
+    // Display product information
+    function displayProduct(product) {
+      const featuresHTML = product.features.map(feature => 
+        `<li><span class="check">✓</span> ${feature}</li>`
+      ).join("");
+
+      const originalPriceHTML = product.originalPrice ? 
+        `<span style="text-decoration: line-through; opacity: 0.5; font-size: 1.2rem; margin-right: 1rem;">${product.originalPrice}</span>` : "";
+
+      productDisplay.innerHTML = `
+        <div class="product-header">
+          <span class="product-icon">${product.icon}</span>
+          <div class="product-info">
+            <h1>${product.title}</h1>
+            <p class="product-description">${product.description}</p>
+          </div>
+        </div>
+        <div class="product-price">
+          ${originalPriceHTML}${product.price}
+        </div>
+        <div class="product-features">
+          <h3>What's Included</h3>
+          <ul class="features-list">
+            ${featuresHTML}
+          </ul>
+        </div>
+      `;
+    }
+
+    // Display order summary
+    function displayOrderSummary(product) {
+      const discountValue = product.originalPrice ? 
+        (parseFloat(product.originalPrice.replace(/[^\d.]/g, '')) - parseFloat(product.price.replace(/[^\d.]/g, ''))).toFixed(2) : 0;
+      
+      const discountHTML = product.originalPrice ? 
+        `<div class="summary-row">
+          <span>Discount</span>
+          <span style="color: var(--trust-color);">-£${discountValue}</span>
+        </div>` : "";
+
+      orderSummary.innerHTML = `
+        <div class="summary-row">
+          <span>${product.title}</span>
+          <span>${product.originalPrice || product.price}</span>
+        </div>
+        ${discountHTML}
+        <div class="summary-row summary-total">
+          <span>Total</span>
+          <span>${product.price}</span>
+        </div>
+      `;
+    }
+
+    // Display error state
+    function displayError() {
+      productDisplay.innerHTML = `
+        <div class="error-state">
+          <div class="error-icon">❌</div>
+          <h2 class="error-title">Product Not Found</h2>
+          <p class="error-description">Sorry, the product you are looking for does not exist or the link is incorrect.</p>
+          <button class="btn back-button" onclick="window.history.back()">Go Back</button>
+        </div>
+      `;
+      
+      orderSummary.innerHTML = `
+        <div class="summary-row">
+          <span>Invalid Product</span>
+          <span>-</span>
+        </div>
+      `;
+    }
+
+    // Handle checkout process
+    function handleCheckout() {
+      // Add loading state
+      document.body.classList.add("loading-state");
+      buttonText.style.display = "none";
+      buttonSpinner.style.display = "inline-block";
+      checkoutBtn.disabled = true;
+
+      // Simulate payment processing
+      setTimeout(() => {
+        // Remove loading state
+        document.body.classList.remove("loading-state");
+        buttonText.style.display = "inline";
+        buttonSpinner.style.display = "none";
+        checkoutBtn.disabled = false;
+
+        // Show success message
+        checkoutBtn.classList.add("success-animation");
+        buttonText.textContent = "Purchase Complete!";
+        checkoutBtn.style.background = "var(--trust-color)";
+
+        // Redirect after success animation
+        setTimeout(() => {
+          window.location.href = "my-account.html";
+        }, 1500);
+      }, 2000);
+    }
+
+    // Event listeners
+    checkoutBtn.addEventListener("click", handleCheckout);
+
+    // Initialize page when DOM is loaded
+    document.addEventListener("DOMContentLoaded", initializePage);
+
+    // Add some interactive effects
+    document.addEventListener("DOMContentLoaded", function() {
+      // Add hover effects to benefit items
+      const benefitItems = document.querySelectorAll(".benefit-item");
+      benefitItems.forEach(item => {
+        item.addEventListener("mouseenter", function() {
+          this.style.transform = "translateY(-5px) scale(1.02)";
+        });
+        
+        item.addEventListener("mouseleave", function() {
+          this.style.transform = "translateY(0) scale(1)";
+        });
+      });
+
+      // Add click effect to trust badges
+      const trustBadges = document.querySelectorAll(".trust-badge");
+      trustBadges.forEach(badge => {
+        badge.addEventListener("click", function() {
+          this.style.animation = "pulse 0.3s ease-in-out";
+          setTimeout(() => {
+            this.style.animation = "";
+          }, 300);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account - Sparko</title>
+  <link rel="stylesheet" href="sparko-styles.css">
+  <style>
+    .success-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .success-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 3rem;
+      box-shadow: var(--shadow-medium);
+      max-width: 500px;
+      width: 100%;
+    }
+    
+    .success-icon {
+      font-size: 4rem;
+      color: var(--trust-color);
+      margin-bottom: 2rem;
+    }
+    
+    .success-title {
+      color: var(--text-color);
+      margin-bottom: 1rem;
+    }
+    
+    .success-message {
+      opacity: 0.7;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-page fade-in">
+    <div class="success-card">
+      <div class="success-icon">✅</div>
+      <h1 class="success-title">Purchase Complete!</h1>
+      <p class="success-message">Thank you for your purchase. Your item is ready.</p>
+      <button class="btn btn-primary" onclick="window.history.back()">Go Back</button>
+    </div>
+  </div>
+</body>
+</html>
+
